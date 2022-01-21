@@ -6,7 +6,7 @@
 #    By: twagner <twagner@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/01 15:32:48 by twagner           #+#    #+#              #
-#    Updated: 2022/01/16 09:45:48 by twagner          ###   ########.fr        #
+#    Updated: 2022/01/21 11:33:01 by twagner          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,10 @@ AR			= ar rcs
 ################################################################################
 #                                 SOURCES                                      #
 ################################################################################
-SRCS		= srcs/main.c
+SRCS		= srcs/main.c \
+			  srcs/parser/parser.c \
+			  srcs/parser/params_controller.c \
+			  srcs/parser/map_controller.c \
 
 OBJS		= $(SRCS:.c=.o)
 
@@ -65,7 +68,6 @@ LMLXDIR		= minilibx-linux/
 ################################################################################
 CFLAGS		:= -Wall -Wextra -Werror
 LFTFLAGS	:= -L. -lft
-ADDFLAGS	:=
 
 ifeq ($(DEBUG), true)
 	CFLAGS	+= -fsanitize=address -g3 -O0
@@ -77,17 +79,16 @@ endif
 
 ifeq ($(OS), Linux)
 	LMLXFLAGS	:= -L. -lmlx_Linux -L/usr/lib -lXext -lX11 -lm
-	ADDFLAGS	:= -DLINUX -DX11
 else
-	LMLXFLAGS	:= -lmlx -framework OpenGL -framework AppKit
-	ADDFLAGS	:= -DMAC
+	LMLXFLAGS	:= -framework OpenGL -framework AppKit
 endif
 
+#LMLXFLAGS	:= -lmlx -framework OpenGL -framework AppKit
 ################################################################################
 #                                    RULES                                     #
 ################################################################################
 .c.o:
-			@$(CC) $(CFLAGS) $(ADDFLAGS) -c $< -o $(<:.c=.o) -I$(HEADERS) \
+			@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I$(HEADERS) \
 			-I$(LFTDIR) -I$(LMLXDIR)
 
 $(NAME):	$(LMLX) $(LFT) $(OBJS)
