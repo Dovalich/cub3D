@@ -6,7 +6,7 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:12 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/21 11:20:30 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/22 10:35:15 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ typedef struct s_param
 ** parser
 */
 int		is_cub_file(char *file);
-int		are_params_ok(char *file);
+int		are_params_ok(char *file, int *fd);
 int		param_controller(int fd);
-int		is_map_ok(char *file);
+int		is_map_ok(int fd);
 int		map_controller(int fd);
 t_param	*init_param(char *file);
 

@@ -6,7 +6,7 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:03:50 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/21 11:17:40 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/22 10:35:06 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,29 +30,21 @@ int	is_cub_file(char *file)
 	}
 }
 
-int	are_params_ok(char *file)
+int	are_params_ok(char *file, int *fd)
 {
-	int	fd;
-
-	fd = open(file, O_RDONLY);
-	if (fd == ERROR)
+	*fd = open(file, O_RDONLY);
+	if (*fd == ERROR)
 		return (ERROR);
-	if (param_controller(fd) == ERROR)
+	if (param_controller(*fd) == ERROR)
 	{
-		close(fd);
+		close(*fd);
 		return (NO);
 	}
-	close(fd);
 	return (YES);
 }
 
-int	is_map_ok(char *file)
+int	is_map_ok(int fd)
 {
-	int	fd;
-
-	fd = open(file, O_RDONLY);
-	if (fd == ERROR)
-		return (ERROR);
 	if (map_controller(fd) == ERROR)
 	{
 		close(fd);

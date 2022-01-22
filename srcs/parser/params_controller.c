@@ -6,46 +6,43 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:48:01 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/21 15:22:08 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/22 10:21:49 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// check line
-// Si XX<space> ou X<space> > regarder ce aqu'il y a apres et essayer de l'open > Si open = -1 > Error, sinon close et ok
-// Si vide ou 11 ou EOF > Stop read params et check si tous les params > Si oui : ok, si non : ko
-// Sinon : erreur
-
-int	is_line_a_param(char *line)
+static int	line_param_code(char *line)
 {
-	if (!ft_strncmp(line, 'NO ', 3))
-		return (YES);
-	if (!ft_strncmp(line, 'SO ', 3))
-		return (YES);
-	if (!ft_strncmp(line, 'WE ', 3))
-		return (YES);
-	if (!ft_strncmp(line, 'EA ', 3))
-		return (YES);
-	if (!ft_strncmp(line, 'F ', 2))
-		return (YES);
-	if (!ft_strncmp(line, 'C ', 2))
-		return (YES);
-	return (NO);
+	if (ft_strlen(line) == 0)
+		return (0);
+	if (!ft_strncmp(line, "NO ", 3))
+		return (32);
+	if (!ft_strncmp(line, "SO ", 3))
+		return (16);
+	if (!ft_strncmp(line, "WE ", 3))
+		return (8);
+	if (!ft_strncmp(line, "EA ", 3))
+		return (4);
+	if (!ft_strncmp(line, "F ", 2))
+		return (2);
+	if (!ft_strncmp(line, "C ", 2))
+		return (1);
+	return (ERROR);
 }
 
-int is_file_valid(char *line)
+static int	is_file_valid(char *line)
 {
-	int 	fd;
+	int		fd;
 	char	*file;
 
-	if (!ft_strncmp(line, 'NO ', 3) || !ft_strncmp(line, 'SO ', 3)
-		|| !ft_strncmp(line, 'WE ', 3) || !ft_strncmp(line, 'EA ', 3))
+	if (!ft_strncmp(line, "NO ", 3) || !ft_strncmp(line, "SO ", 3)
+		|| !ft_strncmp(line, "WE ", 3) || !ft_strncmp(line, "EA ", 3))
 	{
 		file = ft_strdup(line + 3);
 		if (!file)
-			return (ERROR)
-		fd = open(file, O_RDONLY));
+			return (NO);
+		fd = open(file, O_RDONLY);
 		free(file);
 		if (fd == ERROR)
 			return (NO);
@@ -56,25 +53,24 @@ int is_file_valid(char *line)
 		return (YES);
 }
 
-static int	free_color(char **color)
+static void	free_color(char **color)
 {
-	char	**begin;
+	char	**tmp;
 
 	if (color)
 	{
-		begin = *color
-		while (*color)
+		tmp = color;
+		while (*tmp)
 		{
-			free(*color)
-			++color;
+			free(*tmp);
+			++tmp;
 		}
-		free(begin);
+		free(color);
 	}
 }
 
-int is_color_valid(char *line)
+static int	is_color_valid(char *line)
 {
-	int 	fd;
 	int		i;
 	int		value;
 	int		ret;
@@ -83,11 +79,11 @@ int is_color_valid(char *line)
 	ret = YES;
 	color = NULL;
 	i = -1;
-	if (!ft_strncmp(line, 'F ', 2) || !ft_strncmp(line, 'C ', 2))
+	if (!ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "C ", 2))
 	{
 		color = ft_split(line + 2, ',');
-		if (!color)
-			return (ERROR);
+		if (!color || (color && color[0] && color[1] && color[2] && color[3]))
+			return (NO);
 		while (++i < 3 && color[i])
 		{
 			value = ft_atoi(color[i]);
@@ -105,16 +101,23 @@ int	param_controller(int fd)
 {
 	int		ret;
 	char	*line;
+	char	param_checker;
 
+	param_checker = 0;
 	ret = ft_get_next_line(fd, &line, 0);
 	while (ret >= 0)
 	{
-		if (is_line_a_param(line) && is_file_valid(line) 
+		if (line_param_code(line) >= 0 && is_file_valid(line)
 			&& is_color_valid(line))
-			// OK
+		{
+			param_checker = param_checker | line_param_code(line);
+			ret = param_checker ^ 63;
+		}
 		else
-			// KO
-		if (ret == 0)
+			ret = ERROR;
+		free(line);
+		line = NULL;
+		if (ret == 0 || ret == ERROR)
 			break ;
 		ret = ft_get_next_line(fd, &line, 0);
 	}
