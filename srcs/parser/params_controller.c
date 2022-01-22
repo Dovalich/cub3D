@@ -6,7 +6,7 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:48:01 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/22 10:21:49 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/22 11:06:23 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,17 @@ static int	line_param_code(char *line)
 
 static int	is_file_valid(char *line)
 {
+	int		i;
 	int		fd;
 	char	*file;
 
 	if (!ft_strncmp(line, "NO ", 3) || !ft_strncmp(line, "SO ", 3)
 		|| !ft_strncmp(line, "WE ", 3) || !ft_strncmp(line, "EA ", 3))
 	{
-		file = ft_strdup(line + 3);
+		i = 3;
+		while (line[i] == ' ')
+			++i;
+		file = ft_strdup(line + i);
 		if (!file)
 			return (NO);
 		fd = open(file, O_RDONLY);
@@ -87,7 +91,7 @@ static int	is_color_valid(char *line)
 		while (++i < 3 && color[i])
 		{
 			value = ft_atoi(color[i]);
-			if (ft_strlen(color[i]) > 4 || value < 0 || value > 255)
+			if (ft_strchr(color[i], '-') || value < 0 || value > 255)
 				ret = NO;
 		}
 	}
