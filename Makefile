@@ -6,7 +6,7 @@
 #    By: twagner <twagner@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/01 15:32:48 by twagner           #+#    #+#              #
-#    Updated: 2022/01/21 11:33:01 by twagner          ###   ########.fr        #
+#    Updated: 2022/01/22 17:14:31 by twagner          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRCS		= srcs/main.c \
 			  srcs/parser/parser.c \
 			  srcs/parser/params_controller.c \
 			  srcs/parser/map_controller.c \
+			  srcs/parser/island_detector.c
 
 OBJS		= $(SRCS:.c=.o)
 

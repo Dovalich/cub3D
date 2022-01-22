@@ -6,7 +6,7 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:12 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/22 10:35:15 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/22 17:15:02 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 ** PARAMS
 */
 
+# define PLAYER_CHAR "NSWE"
+# define VALID_CHAR "NSWE 01"
+
 typedef enum e_return_codes
 {
 	OK = 0,
@@ -30,6 +33,12 @@ typedef enum e_return_codes
 	YES = 1,
 	KO = 1
 }	t_return_codes;
+
+typedef enum e_island_action
+{
+	ADD,
+	COUNT
+}	t_island_action;
 
 /* for floor and ceiling colors
 blue = (RGB >> 16) & 0xFF;
@@ -62,6 +71,7 @@ int		are_params_ok(char *file, int *fd);
 int		param_controller(int fd);
 int		is_map_ok(int fd);
 int		map_controller(int fd);
+int		count_island(char *line, int action);
 t_param	*init_param(char *file);
 
 #endif

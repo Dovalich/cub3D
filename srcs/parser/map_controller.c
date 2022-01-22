@@ -6,21 +6,11 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 11:01:31 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/22 14:24:39 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/22 17:32:02 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	nb_island(char *line, int search)
-{
-	//static char **map;
-	(void)line;
-	(void)search;
-	return (0);
-	// add lines to map until search == 1
-	// when search == 1 : search for island
-}
 
 static int	check_around(char *line, int i, char *prev)
 {
@@ -44,7 +34,7 @@ static int	check_around(char *line, int i, char *prev)
 	return (OK);
 }
 
-int	is_line_valid(char *line, char *prev, int last_line)
+int	is_line_valid(char *line, char *prev, int last_line, int *is_player)
 {
 	int		i;
 	char	left_char;
@@ -53,6 +43,10 @@ int	is_line_valid(char *line, char *prev, int last_line)
 	left_char = 0;
 	while (line[++i])
 	{
+		if (ft_strchr(PLAYER_CHAR, line[i]))
+			++*is_player;
+		if (!ft_strchr(VALID_CHAR, line[i]))
+			return (NO);
 		if (last_line && line[i] == '0')
 			return (NO);
 		if (!last_line && !ft_strchr(line, '1'))
@@ -64,13 +58,13 @@ int	is_line_valid(char *line, char *prev, int last_line)
 	return (YES);
 }
 
-static int	control_loop(char **line, int ret)
+static int	control_loop(char **line, int ret, int *is_player)
 {
 	static char	*prev = NULL;
 	int			last_line;	
 
 	last_line = !ret;
-	if (is_line_valid(*line, prev, last_line))
+	if (is_line_valid(*line, prev, last_line, is_player))
 	{
 		printf("line : %s : OK\n", *line);
 		ret = !last_line;
@@ -91,19 +85,28 @@ static int	control_loop(char **line, int ret)
 int	map_controller(int fd)
 {
 	int		ret;
+	int		nb;
+	int		is_player;
 	char	*line;
 
 	line = NULL;
+	is_player = 0;
 	ret = ft_get_next_line(fd, &line, 0);
 	while (ret >= 0)
 	{
-		ret = control_loop(&line, ret);
+		if (count_island(line, ADD) == ERROR)
+		{
+			ret = ERROR;
+			break ;
+		}
+		ret = control_loop(&line, ret, &is_player);
 		if (ret == 0 || ret == ERROR)
 			break ;
 		ret = ft_get_next_line(fd, &line, 0);
 	}
 	free(line);
-	if (ret == ERROR)
+	nb = count_island(NULL, COUNT);
+	if (ret == ERROR || is_player != 1 || nb > 1)
 		return (ERROR);
 	return (OK);
 }
