@@ -6,7 +6,7 @@
 #    By: nammari <nammari@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/01 15:32:48 by twagner           #+#    #+#              #
-#    Updated: 2022/01/23 13:16:31 by nammari          ###   ########.fr        #
+#    Updated: 2022/01/23 13:51:43 by nammari          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,15 +37,28 @@ AR			= ar rcs
 ################################################################################
 #                                 SOURCES                                      #
 ################################################################################
-SRCS		= srcs/main.c \
+
+SRCS_DIR = srcs/
+OBJS_DIR = objs/
+
+PARSER_FILES = $(addprefix parser/, parser.c params_controller.c \
+				param_utils.c map_controller.c)
+SRCS_FILES = main.c $(PARSER_FILES)
+
+SRCS = $(addprefix $(SRCS_DIR), $(SRCS_FILES))
+
+#SRCS		= srcs/main.c \
 			  srcs/parser/parser.c \
 			  srcs/parser/params_controller.c \
 			  srcs/parser/map_controller.c \
 			  srcs/parser/island_detector.c \
 			  srcs/parser/param_utils.c
 
-OBJS		= $(SRCS:.c=.o)
+#OBJS		= $(SRCS:.c=.o)
 
+OBJS_FILES		= $(SRCS_FILES:.c=.o)
+OBJS			= $(addprefix $(OBJS_DIR), $(OBJS_FILES))
+OBJS_SUB_DIRS = $(addprefix objs/, parser)
 ################################################################################
 #                           EXECUTABLES & LIBRARIES                            #
 ################################################################################
@@ -89,11 +102,15 @@ endif
 ################################################################################
 #                                    RULES                                     #
 ################################################################################
-.c.o:
-			@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I$(HEADERS) \
-			-I$(LFTDIR) -I$(LMLXDIR)
 
-$(NAME):	$(LMLX) $(LFT) $(OBJS)
+$(OBJS_DIR):
+			@mkdir $(OBJS_DIR)
+			@mkdir $(OBJS_SUB_DIRS)
+
+$(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADERS)
+			@$(CC) -I$(HEADERS) -I$(LFTDIR) -I$(LMLXDIR) -c $(CFLAGS) -o $@ $< 
+
+$(NAME):	$(OBJS_DIR) $(OBJS) $(LMLX) $(LFT)
 			@printf  "$(BLUE)Creating $(RESET) $(YELLOW)[$(NAME)]$(RESET)" 
 			@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -I$(HEADERS) -I$(LMLXDIR) $(LMLXFLAGS) $(LFTFLAGS)
 			@echo " : $(GREEN)OK !$(RESET)"
@@ -108,6 +125,7 @@ clean:
 fclean:		clean
 			@printf "$(BLUE)Cleaning $(RESET) $(YELLOW)[executable(s)]$(RESET)"
 			@$(RM) $(NAME)
+			@$(RM) $(OBJS_DIR)
 			@echo " : $(GREEN)OK !$(RESET)"
 
 re:			fclean all
