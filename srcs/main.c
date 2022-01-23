@@ -6,7 +6,7 @@
 /*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:47 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/23 16:00:21 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/23 19:18:52 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	cub_file_parser(char **av, t_param *param)
 	{
 		exit_clean(FILE_ERROR, 0, NULL);	
 	}
-	if (!are_params_ok(av[1], &fd))
+	if (!are_parameters_ok(av[1], &fd))
 	{
 		exit_clean(PARAM_ERROR, fd, NULL);
 	}

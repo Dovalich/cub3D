@@ -6,7 +6,7 @@
 #    By: nammari <nammari@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/01 15:32:48 by twagner           #+#    #+#              #
-#    Updated: 2022/01/23 15:06:49 by nammari          ###   ########.fr        #
+#    Updated: 2022/01/23 19:06:05 by nammari          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,6 +88,7 @@ LMLXDIR		= minilibx-linux/
 ################################################################################
 CFLAGS		:= -Wall -Wextra -Werror
 LFTFLAGS	:= -L. -lft
+DEBUG		:= false
 
 ifeq ($(DEBUG), true)
 	CFLAGS	+= -fsanitize=address -g3 -O0

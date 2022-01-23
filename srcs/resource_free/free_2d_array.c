@@ -6,7 +6,7 @@
 /*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 14:45:52 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/23 15:12:50 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/23 19:05:07 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	free_two_d_array(char **tab)
 {
     int	i;
 
-    i = -1;
+    i = 0;
     if (!tab)
         return ;
     while (tab[i])

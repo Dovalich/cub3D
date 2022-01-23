@@ -6,7 +6,7 @@
 /*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:03:50 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/23 16:03:59 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/23 19:17:54 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,28 @@ bool	is_cub_file(char *file)
 	return (true);
 }
 
-bool	are_params_ok(char *file, int *fd)
+bool	are_parameters_ok(char *file, int *fd)
 {
+	char	*line;
+	char	param_bit_counter;
+
+	line = NULL;
+	param_bit_counter = 0;
 	*fd = open(file, O_RDONLY);
 	if (*fd == ERROR)
 		return (false);
-	if (param_controller(*fd) == ERROR)
+	if (!are_texture_param_ok(*fd, &param_bit_counter, &line))
+	{
+		free(line);
 		return (false);
+	}
+	if (!are_color_param_ok(*fd, &param_bit_counter, &line))
+	{
+		free(line);
+		return (false);
+	}
+	free(line);
+	printf("params OK\n");
 	return (true);
 }
 

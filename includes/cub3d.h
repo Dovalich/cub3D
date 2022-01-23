@@ -6,7 +6,7 @@
 /*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:12 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/23 16:03:44 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/23 19:18:37 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,14 @@ int exit_clean(int error_msg, int fd, char **to_free);
 ** parser
 */
 bool	is_cub_file(char *file);
-bool	are_params_ok(char *file, int *fd);
+bool	are_parameters_ok(char *file, int *fd);
 int		param_controller(int fd);
 bool	is_map_ok(int fd);
 int		map_controller(int fd);
 int		count_island(char *line, int action);
 int		init_param(char *file, t_param *param);
-
+bool	are_color_param_ok(int fd, char *param_bit_counter, char **line);
+bool	are_texture_param_ok(int fd, char *param_bit_counter, char **line);
 /*
 ** Resource Free
 */
