@@ -6,7 +6,7 @@
 /*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:48:01 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/23 19:39:11 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/23 19:40:21 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	line_param_code(char *line)
 	return (ERROR);
 }
 
-static bool	is_file_valid(char *line)
+static bool	is_texture_file_valid(char *line)
 {
 	int		i;
 	int		fd;
@@ -98,7 +98,7 @@ bool	are_texture_param_ok(int fd, char *param_bit_counter, char **line)
 			return(false);
 		else if (code_bits <= 4 && *param_bit_counter == 60)
 			return (true);
-		else if (code_bits != 0 && is_file_valid(*line))
+		else if (code_bits != 0 && is_texture_file_valid(*line))
 			*param_bit_counter = code_bits | *param_bit_counter;
 		else if (code_bits != 0)
 			return (false);
