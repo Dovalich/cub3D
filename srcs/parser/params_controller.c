@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   params_controller.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:48:01 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/22 11:06:23 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/23 13:01:47 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	param_controller(int fd)
 
 	param_checker = 0;
 	ret = ft_get_next_line(fd, &line, 0);
-	while (ret >= 0)
+	while (ret > 0)
 	{
 		if (line_param_code(line) >= 0 && is_file_valid(line)
 			&& is_color_valid(line))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   param_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 09:50:15 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/22 10:25:12 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/23 12:42:27 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 t_param	*init_param(char *file)
 {
-	(void)file;
-	return (NULL);
+	file = malloc(sizeof(2));
+	
+	file[0] = '1';
+	file[1] = '\0';
+	return (file);
 }

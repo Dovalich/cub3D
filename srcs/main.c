@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:47 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/22 13:12:13 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/23 13:02:34 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_param	*cub_file_parser(int ac, char **av)
 	{
 		if (is_cub_file(av[1]))
 		{
-			if (are_params_ok(av[1], &fd))
+			if (are_params_ok(av[1], &fd) != ERROR)
 			{
 				if (is_map_ok(fd))
 				{
@@ -44,10 +44,10 @@ int	main(int ac, char **av)
 	t_param	*param;
 
 	param = cub_file_parser(ac, av);
-	if (param)
+	if (!param)
 	{
-		printf("map is OK !\n");
-		return (OK);
+		return (KO);
 	}
-	return (KO);
+	printf("map is OK !\n");
+	return (OK);
 }

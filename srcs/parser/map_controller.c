@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_controller.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 11:01:31 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/22 17:32:02 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/23 13:03:58 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ static int	check_around(char *line, int i, char *prev)
 int	is_line_valid(char *line, char *prev, int last_line, int *is_player)
 {
 	int		i;
-	char	left_char;
+	// char	left_char;
 
 	i = -1;
-	left_char = 0;
+	// left_char = 0;
 	while (line[++i])
 	{
 		if (ft_strchr(PLAYER_CHAR, line[i]))
@@ -53,7 +53,7 @@ int	is_line_valid(char *line, char *prev, int last_line, int *is_player)
 			return (NO);
 		if (check_around(line, i, prev))
 			return (NO);
-		left_char = line[i];
+		// left_char = line[i]; unused
 	}
 	return (YES);
 }
@@ -85,7 +85,6 @@ static int	control_loop(char **line, int ret, int *is_player)
 int	map_controller(int fd)
 {
 	int		ret;
-	int		nb;
 	int		is_player;
 	char	*line;
 
@@ -94,19 +93,13 @@ int	map_controller(int fd)
 	ret = ft_get_next_line(fd, &line, 0);
 	while (ret >= 0)
 	{
-		if (count_island(line, ADD) == ERROR)
-		{
-			ret = ERROR;
-			break ;
-		}
 		ret = control_loop(&line, ret, &is_player);
 		if (ret == 0 || ret == ERROR)
 			break ;
 		ret = ft_get_next_line(fd, &line, 0);
 	}
 	free(line);
-	nb = count_island(NULL, COUNT);
-	if (ret == ERROR || is_player != 1 || nb > 1)
+	if (ret == ERROR || is_player != 1)
 		return (ERROR);
 	return (OK);
 }
