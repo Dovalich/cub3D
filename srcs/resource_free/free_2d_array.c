@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   param_utils.c                                      :+:      :+:    :+:   */
+/*   free_2d_array.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/22 09:50:15 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/23 15:11:36 by nammari          ###   ########.fr       */
+/*   Created: 2022/01/23 14:45:52 by nammari           #+#    #+#             */
+/*   Updated: 2022/01/23 15:12:50 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include <stdlib.h>
 
-int	init_param(char *file, t_param *param)
+void	free_two_d_array(char **tab)
 {
-	(void)file;
-	param = malloc(sizeof(t_param));
-	param->map = NULL;
-	return (SUCCESS);
+    int	i;
+
+    i = -1;
+    if (!tab)
+        return ;
+    while (tab[i])
+    {
+        free(tab[i]);
+        ++i;
+    }
+    free(tab);
 }

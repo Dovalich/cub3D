@@ -6,36 +6,33 @@
 /*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:47 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/23 13:12:43 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/23 15:13:39 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static t_param	*cub_file_parser(char **av)
+static int cub_file_parser(char **av, t_param *param)
 {
 	int	fd;
 
 	if (is_cub_file(av[1]))
 	{
-		if (are_params_ok(av[1], &fd) != ERROR)
+		if (are_params_ok(av[1], &fd))
 		{
-			if (is_map_ok(fd) != ERROR)
+			if (is_map_ok(fd))
 			{
-				ft_get_next_line(0, NULL, 1);
-				return (init_param(av[1]));
+				init_param(av[1], param);
+				return (SUCCESS);
 			}
-			ft_putstr_fd("Error\nMap error\n", 2);
+			else
+				exit_error_clean(MAP_ERROR, 0, NULL);
 		}
 		else
-			ft_putstr_fd("Error\nParams error\n", 2);
+			exit_error_clean(PARAM_ERROR, 0, NULL);
 	}
-	else
-	{
-		ft_putstr_fd("Error\nFile is not .cub file\n", 2);
-	}
-	ft_get_next_line(0, NULL, 1);
-	return (NULL);
+	exit_error_clean(FILE_ERROR, 0, NULL);
+	return (ERROR);
 }
 
 int	main(int ac, char **av)
@@ -44,12 +41,8 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 		return (KO);
-	param = cub_file_parser(av);
-	if (!param)
-	{
-		printf("Cub_file_parser returned nothing\n");
-		return (KO);
-	}
+	param = NULL;
+	cub_file_parser(av, param);
 	printf("map is OK !\n");
-	return (OK);
+	return (SUCCESS);
 }

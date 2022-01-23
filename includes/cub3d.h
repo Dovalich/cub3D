@@ -6,7 +6,7 @@
 /*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:12 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/23 13:13:08 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/23 15:11:04 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ enum e_exit_codes {
 	MALLOC_FAIL,
 	MLX_FAIL,
 	USER_INTERRUPT,
+	NUMBER_OF_EXIT_CODES,
 };
 
 typedef enum e_island_action
@@ -73,14 +74,24 @@ typedef struct s_param
 */
 
 /*
+** Error Handling
+*/
+int exit_error_clean(int error_msg, int fd, char **to_free);
+
+/*
 ** parser
 */
-int		is_cub_file(char *file);
-int		are_params_ok(char *file, int *fd);
+bool	is_cub_file(char *file);
+bool	are_params_ok(char *file, int *fd);
 int		param_controller(int fd);
-int		is_map_ok(int fd);
+bool	is_map_ok(int fd);
 int		map_controller(int fd);
 int		count_island(char *line, int action);
-t_param	*init_param(char *file);
+int		init_param(char *file, t_param *param);
+
+/*
+** Resource Free
+*/
+void	free_two_d_array(char **tab);
 
 #endif

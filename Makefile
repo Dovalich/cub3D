@@ -6,7 +6,7 @@
 #    By: nammari <nammari@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/01 15:32:48 by twagner           #+#    #+#              #
-#    Updated: 2022/01/23 13:51:43 by nammari          ###   ########.fr        #
+#    Updated: 2022/01/23 15:06:49 by nammari          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ endif
 ################################################################################
 #                                 COMMANDS                                     #
 ################################################################################
-RM			= rm -f
+RM			= rm -rf
 CC			= gcc
 AR			= ar rcs
 
@@ -43,7 +43,12 @@ OBJS_DIR = objs/
 
 PARSER_FILES = $(addprefix parser/, parser.c params_controller.c \
 				param_utils.c map_controller.c)
-SRCS_FILES = main.c $(PARSER_FILES)
+
+ERROR_FILES = $(addprefix error_handling/, error_messages.c)
+
+RESSOURCE_FREE_FILES = $(addprefix resource_free/, free_2d_array.c)
+
+SRCS_FILES = main.c $(PARSER_FILES) $(ERROR_FILES) $(RESSOURCE_FREE_FILES)
 
 SRCS = $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 
@@ -58,7 +63,7 @@ SRCS = $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 
 OBJS_FILES		= $(SRCS_FILES:.c=.o)
 OBJS			= $(addprefix $(OBJS_DIR), $(OBJS_FILES))
-OBJS_SUB_DIRS = $(addprefix objs/, parser)
+OBJS_SUB_DIRS = $(addprefix objs/, parser error_handling resource_free)
 ################################################################################
 #                           EXECUTABLES & LIBRARIES                            #
 ################################################################################
