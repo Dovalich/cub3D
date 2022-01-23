@@ -6,7 +6,7 @@
 /*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 14:27:59 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/23 15:12:19 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/23 16:03:27 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 // When exiting due to an error we need a way 
 // to close fds and free 2-d arrays if any. 
 
-int exit_error_clean(int error_msg, int fd, char **to_free)
+int exit_clean(int error_msg, int fd, char **to_free)
 {
     char	*tab[6];
 
-    tab[MAP_ERROR] = "There's an error in the map.\n"; 
-	tab[PARAM_ERROR] = "There's an error with the parameters.\n";
-	tab[FILE_ERROR] = "There's an error with the file.\n";
+    tab[MAP_ERROR] = "Something's wrong in the map.\n"; 
+	tab[PARAM_ERROR] = "Something's wrong with the parameters.\n";
+	tab[FILE_ERROR] = "The file doesn't seem to be working.\n";
 	tab[MALLOC_FAIL] = "Malloc failed. Oopsi.\n";
 	tab[MLX_FAIL] = "An MLX Function just shat its pants.\n";
 	tab[USER_INTERRUPT] = "User interrupted the game.\n";
@@ -31,7 +31,7 @@ int exit_error_clean(int error_msg, int fd, char **to_free)
     if (fd > 1)
         close(fd);
     free_two_d_array(to_free);
-	ft_get_next_line(0, NULL, 1);
+    free_gnl_buffer();
     exit (error_msg);
     return (error_msg);
 }

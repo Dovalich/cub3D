@@ -6,7 +6,7 @@
 /*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 11:01:31 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/23 13:03:58 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/23 16:09:36 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,28 +34,25 @@ static int	check_around(char *line, int i, char *prev)
 	return (OK);
 }
 
-int	is_line_valid(char *line, char *prev, int last_line, int *is_player)
+bool	is_line_valid(char *line, char *prev, int last_line, int *is_player)
 {
 	int		i;
-	// char	left_char;
 
 	i = -1;
-	// left_char = 0;
 	while (line[++i])
 	{
 		if (ft_strchr(PLAYER_CHAR, line[i]))
 			++*is_player;
 		if (!ft_strchr(VALID_CHAR, line[i]))
-			return (NO);
+			return (false);
 		if (last_line && line[i] == '0')
-			return (NO);
+			return (false);
 		if (!last_line && !ft_strchr(line, '1'))
-			return (NO);
+			return (false);
 		if (check_around(line, i, prev))
-			return (NO);
-		// left_char = line[i]; unused
+			return (false);
 	}
-	return (YES);
+	return (true);
 }
 
 static int	control_loop(char **line, int ret, int *is_player)

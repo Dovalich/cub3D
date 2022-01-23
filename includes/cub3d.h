@@ -6,7 +6,7 @@
 /*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:12 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/23 15:11:04 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/23 16:03:44 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 # define PLAYER_CHAR "NSWE"
 # define VALID_CHAR "NSWE 01"
-
+# define free_gnl_buffer() ft_get_next_line(0, NULL, 1)
 typedef enum e_return_codes
 {
 	OK = 0,
@@ -76,7 +76,7 @@ typedef struct s_param
 /*
 ** Error Handling
 */
-int exit_error_clean(int error_msg, int fd, char **to_free);
+int exit_clean(int error_msg, int fd, char **to_free);
 
 /*
 ** parser
