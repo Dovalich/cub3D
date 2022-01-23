@@ -6,7 +6,7 @@
 /*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:48:01 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/23 19:16:57 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/23 19:39:11 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static bool	is_file_valid(char *line)
 		return (true);
 	}
 	else
-		return (true);
+		return (false);
 }
 
 static bool	is_color_valid(char *line)
