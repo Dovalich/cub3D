@@ -6,7 +6,7 @@
 /*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:03:50 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/23 12:56:54 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/23 13:18:43 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,4 @@ int	is_map_ok(int fd)
 	}
 	close(fd);
 	return (YES);
-}
-
-t_param	*init_param(char *file)
-{
-	(void)file;
-	return (NULL);
 }

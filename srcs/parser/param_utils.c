@@ -6,7 +6,7 @@
 /*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 09:50:15 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/23 12:42:27 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/23 13:17:49 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 t_param	*init_param(char *file)
 {
-	file = malloc(sizeof(2));
+	t_param	*tmp_to_silence_error;
 	
-	file[0] = '1';
-	file[1] = '\0';
-	return (file);
+	(void)file;
+	tmp_to_silence_error = malloc(sizeof(t_param));
+	tmp_to_silence_error->map = NULL;
+	return (tmp_to_silence_error);
 }

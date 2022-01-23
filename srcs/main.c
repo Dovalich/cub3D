@@ -6,7 +6,7 @@
 /*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:47 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/23 13:07:41 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/23 13:12:43 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	main(int ac, char **av)
 	param = cub_file_parser(av);
 	if (!param)
 	{
+		printf("Cub_file_parser returned nothing\n");
 		return (KO);
 	}
 	printf("map is OK !\n");

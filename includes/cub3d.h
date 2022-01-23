@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:12 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/22 17:15:02 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/23 13:13:08 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 # include "libft.h"
-# include "unistd.h"
 # include <sys/types.h>
 # include <sys/uio.h>
-# include <unistd.h>
 # include <fcntl.h>
+# include <stdbool.h>
 
 /*
 ** PARAMS
@@ -33,6 +32,16 @@ typedef enum e_return_codes
 	YES = 1,
 	KO = 1
 }	t_return_codes;
+
+enum e_exit_codes {
+	SUCCESS = 0,
+	MAP_ERROR,
+	PARAM_ERROR,
+	FILE_ERROR,
+	MALLOC_FAIL,
+	MLX_FAIL,
+	USER_INTERRUPT,
+};
 
 typedef enum e_island_action
 {
