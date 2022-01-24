@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_messages.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 14:27:59 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/23 16:03:27 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/24 13:55:47 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 int exit_clean(int error_msg, int fd, char **to_free)
 {
-    char	*tab[6];
+    char	*tab[NUMBER_OF_EXIT_CODES];
 
     tab[MAP_ERROR] = "Something's wrong in the map.\n"; 
 	tab[PARAM_ERROR] = "Something's wrong with the parameters.\n";

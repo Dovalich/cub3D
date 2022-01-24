@@ -6,33 +6,11 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:48:01 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/24 11:29:35 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/24 14:00:57 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static bool	is_valid_file_name(char *line)
-{
-	int	i;
-
-	i = 0;
-	if (!line)
-		return (false);
-	while (line[i])
-	{
-		if (line[i] == '\\')
-			return (false);
-		++i;
-		if (line[i] == ' ')
-			break ;
-	}
-	while (line[i] == ' ')
-		++i;
-	if (line[i] == '\0')
-		return (true);
-	return (false);
-}
 
 static bool	is_texture_file_valid(char *line)
 {
@@ -46,15 +24,13 @@ static bool	is_texture_file_valid(char *line)
 		i = 3;
 		while (line[i] == ' ')
 			++i;
-		if (!is_valid_file_name(line + i))
-			return (false);
 		file_name = ft_get_trimed_right(line + i);
 		if (file_name == NULL)
 			return (false);
 		fd = open(file_name, O_RDONLY);
+		free(file_name);
 		if (fd == ERROR)
 			return (false);
-		free(file_name);
 		close(fd);
 		return (true);
 	}
@@ -62,32 +38,74 @@ static bool	is_texture_file_valid(char *line)
 		return (false);
 }
 
+static bool	are_digits_and_two_colons_only(char *line)
+{
+	int	i;
+	int	nb_colon;
+	
+	i = 0;
+	nb_colon = 0;
+	if (!line || !line[i])
+		return (false);
+	while (line[i])
+	{
+		if (line[i] == ',')
+			++nb_colon;
+		else if (line[i] && !ft_is_space(line[i]) && !ft_isdigit(line[i]))
+			return (false);
+		++i;
+	}
+	if (nb_colon != 2)
+		return (false);
+	return (true);
+}
+
+static bool	are_num_valid(char **num)
+{
+	int	i;
+	int	j;
+	int	value;
+
+	i = 0;
+	while (num[i] && i < 3)
+	{
+		j = 0;
+		while (ft_is_space(num[i][j]))
+			++j;
+		while (num[i][j] && ft_isdigit(num[i][j]))
+			++j;
+		value = ft_atoi(num[i]);
+		if (value > 255 || value < 0)
+			return (false);
+		++i;
+	}
+	if (num[i] != NULL || i < 3)
+		return (false);
+	return (true);
+}
+
 static bool	is_color_valid(char *line)
 {
-	int		i;
-	int		value;
-	int		ret;
 	char	**color;
 
-	ret = true;
-	color = NULL;
-	i = -1;
 	if (!ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "C ", 2))
 	{
-		color = ft_split(line + 2, ',');
-		if (!color || (color && color[0] && color[1] && color[2] && color[3]))
+		if (line && (line + 1) && (line + 2))
+			line += 2;
+		else
 			return (false);
-		while (++i < 3 && color[i])
+		if (!are_digits_and_two_colons_only(line))
+			return (false);
+		color = ft_split(line, ',');
+		if (!color || !are_num_valid(color))
 		{
-			value = ft_atoi(color[i]);
-			if (ft_strchr(color[i], '-') || value < 0 || value > 255)
-				ret = false;
+			free_two_d_array(color);
+			return (false);
 		}
+		free_two_d_array(color);
+		return (true);
 	}
-	if (i == -1 || (i > 0 && i != 3))
-		ret = false;
-	free_two_d_array(color);
-	return (ret);
+	return (false);
 }
 
 bool	is_valid_parameter(char *line, char param_counter, char code)
@@ -103,34 +121,3 @@ bool	is_valid_parameter(char *line, char param_counter, char code)
 	else
 		return (false);
 }
-
-/* Legacy function -> Will delete after talking with Thomas.
-
-int	param_controller(int fd)
-{
-	int		ret;
-	char	*line;
-	char	param_checker;
-
-	param_checker = 0;
-	ret = ft_get_next_line(fd, &line, 0);
-	while (ret > 0)
-	{
-		if (line_param_code(line) >= 0 && is_file_valid(line)
-			&& is_color_valid(line))
-		{
-			param_checker = param_checker | line_param_code(line);
-			ret = param_checker ^ 63;
-		}
-		else
-			ret = ERROR;
-		free(line);
-		line = NULL;
-		if (ret == 0 || ret == ERROR)
-			break ;
-		ret = ft_get_next_line(fd, &line, 0);
-	}
-	if (ret == ERROR)
-		return (ERROR);
-	return (OK);
-}*/
