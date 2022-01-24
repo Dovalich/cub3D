@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:12 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/24 12:21:08 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/24 16:30:48 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 # include <fcntl.h>
-# include <stdbool.h>
 
 /*
 ** PARAMS
@@ -24,7 +23,13 @@
 
 # define PLAYER_CHAR "NSWE"
 # define VALID_CHAR "NSWE 01"
+
+// A call to free_gnl_buffer() frees the buffer of GNL
+
 # define free_gnl_buffer() ft_get_next_line(0, NULL, 1)
+
+
+
 typedef enum e_return_codes
 {
 	OK = 0,
@@ -32,6 +37,8 @@ typedef enum e_return_codes
 	YES = 1,
 	KO = 1
 }	t_return_codes;
+
+// Used to count the number of parameters in the parser
 
 enum	e_parameter_bit_codes {
 	ALL_PARAMS_ARE_SET = 63,
@@ -54,11 +61,6 @@ enum e_exit_codes {
 	NUMBER_OF_EXIT_CODES,
 };
 
-typedef enum e_island_action
-{
-	ADD,
-	COUNT
-}	t_island_action;
 
 /* for floor and ceiling colors
 blue = (RGB >> 16) & 0xFF;
@@ -74,8 +76,8 @@ typedef struct s_param
 	char	*tex_so;
 	char	*tex_we;
 	char	*tex_ea;
-	int		*col_floor;
-	int		*col_ceiling;
+	int		col_floor;
+	int		col_ceiling;
 	char	**map;
 }			t_param;
 
@@ -86,21 +88,23 @@ typedef struct s_param
 /*
 ** Error Handling
 */
-int exit_clean(int error_msg, int fd, char **to_free);
+int	exit_clean(int error_msg, int fd, char **to_free, t_param *param);
 
 /*
 ** parser
 */
+int		line_param_code(char *line);
 bool	is_cub_file(char *file);
 bool	are_parameters_ok(int fd);
 int		param_controller(int fd);
-bool	is_map_ok(int fd);
-int		map_controller(int fd);
-int		init_param(char *file, t_param *param);
+bool	is_map_ok(int fd, int *longest_map_width, int *map_height);
+int		map_controller(int fd, int *longest_map_width, int *map_height);
+int		init_param(char *file, t_param *param, int height, int width);
 bool	is_valid_parameter(char *line, char param_counter, char code);
 /*
 ** Resource Free
 */
 void	free_two_d_array(char **tab);
+void    free_param(t_param *param);
 
 #endif

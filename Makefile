@@ -6,7 +6,7 @@
 #    By: noufel <noufel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/01 15:32:48 by twagner           #+#    #+#              #
-#    Updated: 2022/01/24 14:41:26 by noufel           ###   ########.fr        #
+#    Updated: 2022/01/24 16:32:30 by noufel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,20 +46,11 @@ PARSER_FILES = $(addprefix parser/, parser.c params_controller.c \
 
 ERROR_FILES = $(addprefix error_handling/, error_messages.c)
 
-RESSOURCE_FREE_FILES = $(addprefix resource_free/, free_2d_array.c)
+RESSOURCE_FREE_FILES = $(addprefix resource_free/, free_resource.c)
 
 SRCS_FILES = main.c $(PARSER_FILES) $(ERROR_FILES) $(RESSOURCE_FREE_FILES)
 
 SRCS = $(addprefix $(SRCS_DIR), $(SRCS_FILES))
-
-#SRCS		= srcs/main.c \
-			  srcs/parser/parser.c \
-			  srcs/parser/params_controller.c \
-			  srcs/parser/map_controller.c \
-			  srcs/parser/island_detector.c \
-			  srcs/parser/param_utils.c
-
-#OBJS		= $(SRCS:.c=.o)
 
 OBJS_FILES		= $(SRCS_FILES:.c=.o)
 OBJS			= $(addprefix $(OBJS_DIR), $(OBJS_FILES))

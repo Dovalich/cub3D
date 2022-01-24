@@ -6,13 +6,13 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:03:50 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/24 12:20:17 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/24 15:48:04 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	line_param_code(char *line)
+int	line_param_code(char *line)
 {
 	if (ft_strlen(line) == 0)
 		return (0);
@@ -78,9 +78,9 @@ bool	are_parameters_ok(int fd)
 	return (false);
 }
 
-bool	is_map_ok(int fd)
+bool	is_map_ok(int fd, int *longest_map_width, int *map_height)
 {
-	if (map_controller(fd) == ERROR)
+	if (map_controller(fd, longest_map_width, map_height) == ERROR)
 	{
 		return (false);
 	}

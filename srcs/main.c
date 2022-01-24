@@ -6,30 +6,36 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:47 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/24 14:04:08 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/24 16:31:27 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+// Longest map width helps us malloc the right size <-->
+// Map height helps us malloc enough blocks map[height][width]
+// I put them here to avoid opening the file again just to count the lines
+
 static void	cub_file_parser(char **av, t_param *param)
 {
 	int	fd;
+	int	longest_map_width;
+	int	map_height;
 
 	if (!is_cub_file(av[1]))
 	{
-		exit_clean(FILE_ERROR, 0, NULL);	
+		exit_clean(FILE_ERROR, 0, NULL, NULL);	
 	}
 	fd = open(av[1], O_RDONLY);
 	if ((fd == ERROR) || !are_parameters_ok(fd))
 	{
-		exit_clean(PARAM_ERROR, fd, NULL);
+		exit_clean(PARAM_ERROR, fd, NULL, NULL);
 	}
-	if (!is_map_ok(fd))
+	if (!is_map_ok(fd, &longest_map_width, &map_height))
 	{
-		exit_clean(MAP_ERROR, fd, NULL);
+		exit_clean(MAP_ERROR, fd, NULL, NULL);
 	}
-	init_param(av[1], param);
+	init_param(av[1], param, longest_map_width, map_height);
 }
 
 int	main(int ac, char **av, char **envp)
