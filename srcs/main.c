@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:47 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/23 19:18:52 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/24 11:22:55 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static void	cub_file_parser(char **av, t_param *param)
 	{
 		exit_clean(FILE_ERROR, 0, NULL);	
 	}
-	if (!are_parameters_ok(av[1], &fd))
+	fd = open(av[1], O_RDONLY);
+	if ((fd == ERROR) || !are_parameters_ok(fd))
 	{
 		exit_clean(PARAM_ERROR, fd, NULL);
 	}
@@ -39,6 +40,9 @@ int	main(int ac, char **av)
 		return (KO);
 	param = NULL;
 	cub_file_parser(av, param);
+	// int fd = open(av[1], O_RDONLY);
+	// printf("this is the value of fd %d and the name of the file |%s|\n", fd, av[1]);
+	// close(fd);
 	printf("map is OK !\n");
 	return (SUCCESS);
 }

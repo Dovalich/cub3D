@@ -3,39 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   params_controller.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:48:01 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/23 19:40:21 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/24 11:29:35 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	line_param_code(char *line)
+static bool	is_valid_file_name(char *line)
 {
-	if (ft_strlen(line) == 0)
-		return (0);
-	if (!ft_strncmp(line, "NO ", 3))
-		return (32);
-	if (!ft_strncmp(line, "SO ", 3))
-		return (16);
-	if (!ft_strncmp(line, "WE ", 3))
-		return (8);
-	if (!ft_strncmp(line, "EA ", 3))
-		return (4);
-	if (!ft_strncmp(line, "F ", 2))
-		return (2);
-	if (!ft_strncmp(line, "C ", 2))
-		return (1);
-	return (ERROR);
+	int	i;
+
+	i = 0;
+	if (!line)
+		return (false);
+	while (line[i])
+	{
+		if (line[i] == '\\')
+			return (false);
+		++i;
+		if (line[i] == ' ')
+			break ;
+	}
+	while (line[i] == ' ')
+		++i;
+	if (line[i] == '\0')
+		return (true);
+	return (false);
 }
 
 static bool	is_texture_file_valid(char *line)
 {
 	int		i;
 	int		fd;
-	char	*file;
+	char	*file_name;
 
 	if (!ft_strncmp(line, "NO ", 3) || !ft_strncmp(line, "SO ", 3)
 		|| !ft_strncmp(line, "WE ", 3) || !ft_strncmp(line, "EA ", 3))
@@ -43,13 +46,15 @@ static bool	is_texture_file_valid(char *line)
 		i = 3;
 		while (line[i] == ' ')
 			++i;
-		file = ft_strdup(line + i);
-		if (!file)
+		if (!is_valid_file_name(line + i))
 			return (false);
-		fd = open(file, O_RDONLY);
-		free(file);
+		file_name = ft_get_trimed_right(line + i);
+		if (file_name == NULL)
+			return (false);
+		fd = open(file_name, O_RDONLY);
 		if (fd == ERROR)
 			return (false);
+		free(file_name);
 		close(fd);
 		return (true);
 	}
@@ -79,60 +84,24 @@ static bool	is_color_valid(char *line)
 				ret = false;
 		}
 	}
-	if (i > 0 && i != 3)
+	if (i == -1 || (i > 0 && i != 3))
 		ret = false;
 	free_two_d_array(color);
 	return (ret);
 }
 
-bool	are_texture_param_ok(int fd, char *param_bit_counter, char **line)
+bool	is_valid_parameter(char *line, char param_counter, char code)
 {
-	int		ret;
-	char	code_bits;
-	
-	ret = ft_get_next_line(fd, line, 0);
-	while (ret > 0)
-	{
-		code_bits = line_param_code(*line);
-		if (code_bits == ERROR || (code_bits & *param_bit_counter) != 0)
-			return(false);
-		else if (code_bits <= 4 && *param_bit_counter == 60)
-			return (true);
-		else if (code_bits != 0 && is_texture_file_valid(*line))
-			*param_bit_counter = code_bits | *param_bit_counter;
-		else if (code_bits != 0)
-			return (false);
-		free(*line);
-		ret = ft_get_next_line(fd, line, 0);
-	}
-	return (false);
-}
-
-bool	are_color_param_ok(int fd, char *param_bit_counter, char **line)
-{
-	int		ret;
-	char	code_bits;
-
-	ret = 1;
-	while (ret > 0)
-	{
-		code_bits = line_param_code(*line);
-		if (code_bits == ERROR || (code_bits & *param_bit_counter) != 0)
-			return (false);
-		else if (*param_bit_counter == 63)
-		{
-			return (true);
-		}
-		else if (code_bits != 0 && is_color_valid(*line) == false)
-		{
-			return (false);
-		}
-		else if (code_bits != 0)
-			*param_bit_counter = *param_bit_counter | code_bits;
-		free(*line);
-		ret = ft_get_next_line(fd, line, 0);
-	}
-	return (false);
+	if (code != 0 && (param_counter & code) != 0)
+		return (false);
+	else if (code == 0)
+		return (true);
+	else if (is_texture_file_valid(line))
+		return (true);
+	else if (is_color_valid(line))
+		return (true);
+	else
+		return (false);
 }
 
 /* Legacy function -> Will delete after talking with Thomas.
