@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 11:01:31 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/24 16:13:17 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/24 17:31:26 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,19 +86,19 @@ int	map_controller(int fd, int *longest_map_width, int *map_height)
 	int		line_len;
 	char	*line;
 
-	line = NULL;
 	*map_height = 0;
 	is_player = 0;
 	ret = ft_get_next_line(fd, &line, 0);
 	*longest_map_width = ft_strlen(line);
 	while (ret >= 0)
 	{
-		*map_height += 1;
 		ret = control_loop(&line, ret, &is_player);
 		if (ret == 0 || ret == ERROR)
 			break ;
 		ret = ft_get_next_line(fd, &line, 0);
 		line_len = ft_strlen(line);
+		if (line_len > 0)
+			*map_height += 1;
 		if (line_len > *longest_map_width)
 			*longest_map_width = line_len;	
 	}

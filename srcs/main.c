@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:47 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/24 16:31:27 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/24 18:01:59 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // Map height helps us malloc enough blocks map[height][width]
 // I put them here to avoid opening the file again just to count the lines
 
-static void	cub_file_parser(char **av, t_param *param)
+static void	cub_file_parser(char **av, t_param **param)
 {
 	int	fd;
 	int	longest_map_width;
@@ -35,7 +35,10 @@ static void	cub_file_parser(char **av, t_param *param)
 	{
 		exit_clean(MAP_ERROR, fd, NULL, NULL);
 	}
-	init_param(av[1], param, longest_map_width, map_height);
+	*param = malloc(sizeof(**param));
+	if (!*param)
+		exit_clean(MALLOC_FAIL, fd, NULL, NULL);
+	init_param(av[1], *param, longest_map_width, map_height);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -45,7 +48,10 @@ int	main(int ac, char **av, char **envp)
 	if (ac != 2 || !envp || !*envp)
 		return (ERROR);
 	param = NULL;
-	cub_file_parser(av, param);
+	cub_file_parser(av, &param);
+	print_param(param);
+	print_map(param);
+	free_param(param);
 	// int fd = open(av[1], O_RDONLY);
 	// printf("this is the value of fd %d and the name of the file |%s|\n", fd, av[1]);
 	// close(fd);

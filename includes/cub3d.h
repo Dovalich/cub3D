@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:12 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/24 16:30:48 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/24 17:55:15 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,9 @@ bool	is_valid_parameter(char *line, char param_counter, char code);
 void	free_two_d_array(char **tab);
 void    free_param(t_param *param);
 
+/*
+** Test functions
+*/
+void	print_param(t_param *param);
+void	print_map(t_param *param);
 #endif

@@ -6,11 +6,25 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 09:50:15 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/24 16:37:07 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/24 18:02:27 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+//test function to be deleted before we push
+
+void	print_map(t_param *param)
+{
+	int	y;
+
+	y = 0;
+	while (param->map[y])
+	{
+		printf("%s\n", param->map[y]);
+		++y;
+	}
+}
 
 void	print_param(t_param *param)
 {
@@ -98,22 +112,57 @@ static void	get_params(t_param *param, int fd)
 	}
 }
 
-int	init_param(char *file, t_param *param, int height, int width)
+static void	get_map(t_param *param, int height, int width, int fd)
+{
+	char	*line;
+	int		y;
+	int		x;
+
+	y = -1;
+	while (ft_get_next_line(fd, &line, 0) > 0)
+	{
+		if (ft_strlen(line) > 0)
+			break ;
+		free(line);
+	}
+	while (++y < height)
+	{
+		if (y > 0 && ft_get_next_line(fd, &line, 0) == ERROR)
+			exit_clean(MALLOC_FAIL, fd, NULL, param);
+		ft_memset(param->map[y], '1', width);
+		param->map[y][width] = '\0';
+		x = -1;
+		while (line[++x])
+			if (line[x] != ' ')
+				param->map[y][x] = line[x];
+		free(line);
+	}
+	close(fd);
+	free_gnl_buffer();
+}
+
+int	init_param(char *file, t_param *param, int width, int height)
 {
 	int	fd;
+	int	i;
 
-	(void)width;
-	(void)height;
 	fd = open(file, O_RDONLY);
 	if (fd == ERROR)
 		return (ERROR);
-	param = malloc(sizeof(*param));
-	if (!param)
-		return (ERROR);
 	ft_bzero(param, sizeof(*param));
 	get_params(param, fd);
-	free_param(param);
-	// get_map(param, fd, width, height);
-	// init_player_pos(param);	
+	param->map = malloc(sizeof(*param->map) * (height + 1));
+	if (!param->map)
+		exit_clean(MALLOC_FAIL, fd, NULL, param);
+	param->map[height] = NULL;
+	i = 0;
+	while (i < height)
+	{
+		param->map[i] = malloc(sizeof(char) * (width + 1));
+		if (!(param->map[i]))
+			exit_clean(MALLOC_FAIL, fd, NULL, param);
+		++i;
+	}
+	get_map(param, height, width, fd);
 	return (SUCCESS);
 }
