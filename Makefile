@@ -6,7 +6,7 @@
 #    By: noufel <noufel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/01 15:32:48 by twagner           #+#    #+#              #
-#    Updated: 2022/01/24 13:42:33 by noufel           ###   ########.fr        #
+#    Updated: 2022/01/24 14:41:26 by noufel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ SRCS_DIR = srcs/
 OBJS_DIR = objs/
 
 PARSER_FILES = $(addprefix parser/, parser.c params_controller.c \
-				param_utils.c map_controller.c)
+				init_param_struct.c map_controller.c)
 
 ERROR_FILES = $(addprefix error_handling/, error_messages.c)
 
@@ -109,14 +109,11 @@ endif
 #                                    RULES                                     #
 ################################################################################
 
-$(OBJS_DIR):
-			@mkdir $(OBJS_DIR)
-			@mkdir $(OBJS_SUB_DIRS)
 
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADERS)
 			@$(CC) -I$(HEADERS) -I$(LFTDIR) -I$(LMLXDIR) -c $(CFLAGS) -o $@ $< 
 
-$(NAME):	$(OBJS_DIR) $(OBJS) $(LMLX) $(LFT)
+$(NAME):	$(OBJS) $(LMLX) $(LFT)
 			@printf  "$(BLUE)Creating $(RESET) $(YELLOW)[$(NAME)]$(RESET)" 
 			@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -I$(HEADERS) -I$(LMLXDIR) $(LMLXFLAGS) $(LFTFLAGS)
 			@echo " : $(GREEN)OK !$(RESET)"
@@ -131,7 +128,6 @@ clean:
 fclean:		clean
 			@printf "$(BLUE)Cleaning $(RESET) $(YELLOW)[executable(s)]$(RESET)"
 			@$(RM) $(NAME)
-			@$(RM) $(OBJS_DIR)
 			@echo " : $(GREEN)OK !$(RESET)"
 
 re:			fclean all

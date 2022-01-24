@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:47 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/24 11:22:55 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/24 14:04:08 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ static void	cub_file_parser(char **av, t_param *param)
 	init_param(av[1], param);
 }
 
-int	main(int ac, char **av)
+int	main(int ac, char **av, char **envp)
 {
 	t_param	*param;
 
-	if (ac != 2)
-		return (KO);
+	if (ac != 2 || !envp || !*envp)
+		return (ERROR);
 	param = NULL;
 	cub_file_parser(av, param);
 	// int fd = open(av[1], O_RDONLY);

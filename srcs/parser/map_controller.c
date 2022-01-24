@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_controller.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 11:01:31 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/23 16:09:36 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/24 14:42:36 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ static int	check_around(char *line, int i, char *prev)
 	if (line[i] == '0' && (left_char == ' ' || left_char == 0
 			|| right_char == ' ' || right_char == 0
 			|| top_char == ' ' || top_char == 0))
-		return (KO);
+		return (ERROR);
 	if (line[i] == ' ' && top_char == '0')
-		return (KO);
-	return (OK);
+		return (ERROR);
+	return (SUCCESS);
 }
 
 bool	is_line_valid(char *line, char *prev, int last_line, int *is_player)
@@ -63,7 +63,7 @@ static int	control_loop(char **line, int ret, int *is_player)
 	last_line = !ret;
 	if (is_line_valid(*line, prev, last_line, is_player))
 	{
-		printf("line : %s : OK\n", *line);
+		printf("line : %s : \n", *line);
 		ret = !last_line;
 	}
 	else
@@ -98,5 +98,5 @@ int	map_controller(int fd)
 	free(line);
 	if (ret == ERROR || is_player != 1)
 		return (ERROR);
-	return (OK);
+	return (SUCCESS);
 }
