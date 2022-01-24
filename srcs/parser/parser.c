@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:03:50 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/24 11:02:52 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/24 12:20:17 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ static int	line_param_code(char *line)
 	if (ft_strlen(line) == 0)
 		return (0);
 	if (!ft_strncmp(line, "NO ", 3))
-		return (32);
+		return (NO_TEXTURE_CODE);
 	if (!ft_strncmp(line, "SO ", 3))
-		return (16);
+		return (SO_TEXTURE_CODE);
 	if (!ft_strncmp(line, "WE ", 3))
-		return (8);
+		return (WE_TEXTURE_CODE);
 	if (!ft_strncmp(line, "EA ", 3))
-		return (4);
+		return (EA_TEXTURE_CODE);
 	if (!ft_strncmp(line, "F ", 2))
-		return (2);
+		return (F_COLOR_CODE);
 	if (!ft_strncmp(line, "C ", 2))
-		return (1);
+		return (C_COLOR_CODE);
 	return (ERROR);
 }
 
@@ -71,7 +71,7 @@ bool	are_parameters_ok(int fd)
 		free(line);
 		if (code != 0)
 			param_counter = param_counter | code;
-		if (param_counter == 63)
+		if (param_counter == ALL_PARAMS_ARE_SET)
 			return (true);
 	}
 	free(line);

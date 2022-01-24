@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:12 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/24 11:03:33 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/24 12:21:08 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,16 @@ typedef enum e_return_codes
 	YES = 1,
 	KO = 1
 }	t_return_codes;
+
+enum	e_parameter_bit_codes {
+	ALL_PARAMS_ARE_SET = 63,
+	NO_TEXTURE_CODE = 32,
+	SO_TEXTURE_CODE = 16,
+	WE_TEXTURE_CODE = 8,
+	EA_TEXTURE_CODE = 4,
+	F_COLOR_CODE	= 2,
+	C_COLOR_CODE	= 1,
+};
 
 enum e_exit_codes {
 	SUCCESS = 0,
