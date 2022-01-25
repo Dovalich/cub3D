@@ -6,7 +6,7 @@
 /*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:47 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/25 10:50:03 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/25 15:16:38 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,7 @@
 // Map height helps us malloc enough blocks map[height][width]
 // I put them here to avoid opening the file again just to count the lines
 
-void	get_player_pos(t_data *data)
-{
-	int	x;
-	int	y;
 
-	y = 0;
-	while (data->map[y])
-	{
-		x = 0;
-		while (data->map[y][x])
-		{
-			if (ft_strchr(PLAYER_CHAR, data->map[y][x]) != NULL)
-			{
-				data->pos_vect[X] = x;
-				data->pos_vect[Y] = y;
-				return ;
-			}
-			++x;
-		}
-		++y;
-	}
-}
 
 static void	cub_file_parser(char **av, t_param **param)
 {

@@ -6,7 +6,7 @@
 /*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:12 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/25 10:16:28 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/25 15:20:11 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <sys/uio.h>
 # include <fcntl.h>
 # include "../minilibx-linux/mlx.h" 
-
+# include <math.h>
 /*
 ** PARAMS
 */
