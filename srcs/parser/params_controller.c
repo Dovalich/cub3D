@@ -3,39 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   params_controller.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:48:01 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/22 11:06:23 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/24 14:00:57 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	line_param_code(char *line)
-{
-	if (ft_strlen(line) == 0)
-		return (0);
-	if (!ft_strncmp(line, "NO ", 3))
-		return (32);
-	if (!ft_strncmp(line, "SO ", 3))
-		return (16);
-	if (!ft_strncmp(line, "WE ", 3))
-		return (8);
-	if (!ft_strncmp(line, "EA ", 3))
-		return (4);
-	if (!ft_strncmp(line, "F ", 2))
-		return (2);
-	if (!ft_strncmp(line, "C ", 2))
-		return (1);
-	return (ERROR);
-}
-
-static int	is_file_valid(char *line)
+static bool	is_texture_file_valid(char *line)
 {
 	int		i;
 	int		fd;
-	char	*file;
+	char	*file_name;
 
 	if (!ft_strncmp(line, "NO ", 3) || !ft_strncmp(line, "SO ", 3)
 		|| !ft_strncmp(line, "WE ", 3) || !ft_strncmp(line, "EA ", 3))
@@ -43,89 +24,100 @@ static int	is_file_valid(char *line)
 		i = 3;
 		while (line[i] == ' ')
 			++i;
-		file = ft_strdup(line + i);
-		if (!file)
-			return (NO);
-		fd = open(file, O_RDONLY);
-		free(file);
+		file_name = ft_get_trimed_right(line + i);
+		if (file_name == NULL)
+			return (false);
+		fd = open(file_name, O_RDONLY);
+		free(file_name);
 		if (fd == ERROR)
-			return (NO);
+			return (false);
 		close(fd);
-		return (YES);
+		return (true);
 	}
 	else
-		return (YES);
+		return (false);
 }
 
-static void	free_color(char **color)
+static bool	are_digits_and_two_colons_only(char *line)
 {
-	char	**tmp;
-
-	if (color)
+	int	i;
+	int	nb_colon;
+	
+	i = 0;
+	nb_colon = 0;
+	if (!line || !line[i])
+		return (false);
+	while (line[i])
 	{
-		tmp = color;
-		while (*tmp)
-		{
-			free(*tmp);
-			++tmp;
-		}
-		free(color);
+		if (line[i] == ',')
+			++nb_colon;
+		else if (line[i] && !ft_is_space(line[i]) && !ft_isdigit(line[i]))
+			return (false);
+		++i;
 	}
+	if (nb_colon != 2)
+		return (false);
+	return (true);
 }
 
-static int	is_color_valid(char *line)
+static bool	are_num_valid(char **num)
 {
-	int		i;
-	int		value;
-	int		ret;
+	int	i;
+	int	j;
+	int	value;
+
+	i = 0;
+	while (num[i] && i < 3)
+	{
+		j = 0;
+		while (ft_is_space(num[i][j]))
+			++j;
+		while (num[i][j] && ft_isdigit(num[i][j]))
+			++j;
+		value = ft_atoi(num[i]);
+		if (value > 255 || value < 0)
+			return (false);
+		++i;
+	}
+	if (num[i] != NULL || i < 3)
+		return (false);
+	return (true);
+}
+
+static bool	is_color_valid(char *line)
+{
 	char	**color;
 
-	ret = YES;
-	color = NULL;
-	i = -1;
 	if (!ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "C ", 2))
 	{
-		color = ft_split(line + 2, ',');
-		if (!color || (color && color[0] && color[1] && color[2] && color[3]))
-			return (NO);
-		while (++i < 3 && color[i])
+		if (line && (line + 1) && (line + 2))
+			line += 2;
+		else
+			return (false);
+		if (!are_digits_and_two_colons_only(line))
+			return (false);
+		color = ft_split(line, ',');
+		if (!color || !are_num_valid(color))
 		{
-			value = ft_atoi(color[i]);
-			if (ft_strchr(color[i], '-') || value < 0 || value > 255)
-				ret = NO;
+			free_two_d_array(color);
+			return (false);
 		}
+		free_two_d_array(color);
+		return (true);
 	}
-	if (i > 0 && i != 3)
-		ret = NO;
-	free_color(color);
-	return (ret);
+	return (false);
 }
 
-int	param_controller(int fd)
+bool	is_valid_parameter(char *line, char param_counter, char code)
 {
-	int		ret;
-	char	*line;
-	char	param_checker;
-
-	param_checker = 0;
-	ret = ft_get_next_line(fd, &line, 0);
-	while (ret >= 0)
-	{
-		if (line_param_code(line) >= 0 && is_file_valid(line)
-			&& is_color_valid(line))
-		{
-			param_checker = param_checker | line_param_code(line);
-			ret = param_checker ^ 63;
-		}
-		else
-			ret = ERROR;
-		free(line);
-		line = NULL;
-		if (ret == 0 || ret == ERROR)
-			break ;
-		ret = ft_get_next_line(fd, &line, 0);
-	}
-	if (ret == ERROR)
-		return (ERROR);
-	return (OK);
+	if (code != 0 && (param_counter & code) != 0)
+		return (false);
+	else if (code == 0)
+		return (true);
+	else if (is_texture_file_valid(line))
+		return (true);
+	else if (is_color_valid(line))
+		return (true);
+	else
+		return (false);
 }

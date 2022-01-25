@@ -3,59 +3,88 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:03:50 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/22 10:35:06 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/24 15:48:04 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	is_cub_file(char *file)
+int	line_param_code(char *line)
+{
+	if (ft_strlen(line) == 0)
+		return (0);
+	if (!ft_strncmp(line, "NO ", 3))
+		return (NO_TEXTURE_CODE);
+	if (!ft_strncmp(line, "SO ", 3))
+		return (SO_TEXTURE_CODE);
+	if (!ft_strncmp(line, "WE ", 3))
+		return (WE_TEXTURE_CODE);
+	if (!ft_strncmp(line, "EA ", 3))
+		return (EA_TEXTURE_CODE);
+	if (!ft_strncmp(line, "F ", 2))
+		return (F_COLOR_CODE);
+	if (!ft_strncmp(line, "C ", 2))
+		return (C_COLOR_CODE);
+	return (ERROR);
+}
+
+bool	is_cub_file(char *file)
 {
 	int	dot_pos;
 
 	dot_pos = ft_strchr_index(file, '.', -1);
 	if (dot_pos == ERROR)
-		return (NO);
+		return (false);
 	else
 	{	
 		if ((ft_strcmp(file + dot_pos, ".cub")) == 0 \
 			&& (dot_pos != 0) \
 			&& (*(file + dot_pos - 1) != '/'))
-			return (YES);
+			return (true);
 		else
-			return (NO);
+				
+			return (false);
 	}
+	return (true);
 }
 
-int	are_params_ok(char *file, int *fd)
+
+bool	are_parameters_ok(int fd)
 {
-	*fd = open(file, O_RDONLY);
-	if (*fd == ERROR)
-		return (ERROR);
-	if (param_controller(*fd) == ERROR)
+	char	*line;
+	char	param_counter;
+	char	code;
+	int		ret;
+
+	param_counter = 0;
+	code = 0;
+	ret = 1;
+	while (ret > 0)
 	{
-		close(*fd);
-		return (NO);
+		ret = ft_get_next_line(fd, &line, 0);
+		code = line_param_code(line);
+		if (!is_valid_parameter(line, param_counter, code))
+			break ;
+		free(line);
+		if (code != 0)
+			param_counter = param_counter | code;
+		if (param_counter == ALL_PARAMS_ARE_SET)
+			return (true);
 	}
-	return (YES);
+	free(line);
+	return (false);
 }
 
-int	is_map_ok(int fd)
+bool	is_map_ok(int fd, int *longest_map_width, int *map_height)
 {
-	if (map_controller(fd) == ERROR)
+	if (map_controller(fd, longest_map_width, map_height) == ERROR)
 	{
-		close(fd);
-		return (NO);
+		return (false);
 	}
+	free_gnl_buffer();
 	close(fd);
-	return (YES);
-}
-
-t_param	*init_param(char *file)
-{
-	(void)file;
-	return (NULL);
+	return (true);
 }

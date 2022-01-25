@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: twagner <twagner@student.42.fr>            +#+  +:+       +#+         #
+#    By: nammari <nammari@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/01 15:32:48 by twagner           #+#    #+#              #
-#    Updated: 2022/01/22 17:14:31 by twagner          ###   ########.fr        #
+#    Updated: 2022/01/25 09:29:24 by nammari          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,21 +30,31 @@ endif
 ################################################################################
 #                                 COMMANDS                                     #
 ################################################################################
-RM			= rm -f
+RM			= rm -rf
 CC			= gcc
 AR			= ar rcs
 
 ################################################################################
 #                                 SOURCES                                      #
 ################################################################################
-SRCS		= srcs/main.c \
-			  srcs/parser/parser.c \
-			  srcs/parser/params_controller.c \
-			  srcs/parser/map_controller.c \
-			  srcs/parser/island_detector.c
 
-OBJS		= $(SRCS:.c=.o)
+SRCS_DIR = srcs/
+OBJS_DIR = objs/
 
+PARSER_FILES = $(addprefix parser/, parser.c params_controller.c \
+				init_param_struct.c map_controller.c)
+
+ERROR_FILES = $(addprefix error_handling/, error_messages.c)
+
+RESSOURCE_FREE_FILES = $(addprefix resource_free/, free_resource.c)
+
+SRCS_FILES = main.c $(PARSER_FILES) $(ERROR_FILES) $(RESSOURCE_FREE_FILES)
+
+SRCS = $(addprefix $(SRCS_DIR), $(SRCS_FILES))
+
+OBJS_FILES		= $(SRCS_FILES:.c=.o)
+OBJS			= $(addprefix $(OBJS_DIR), $(OBJS_FILES))
+OBJS_SUB_DIRS = $(addprefix objs/, parser error_handling resource_free)
 ################################################################################
 #                           EXECUTABLES & LIBRARIES                            #
 ################################################################################
@@ -69,6 +79,7 @@ LMLXDIR		= minilibx-linux/
 ################################################################################
 CFLAGS		:= -Wall -Wextra -Werror
 LFTFLAGS	:= -L. -lft
+DEBUG		:= true
 
 ifeq ($(DEBUG), true)
 	CFLAGS	+= -fsanitize=address -g3 -O0
@@ -88,16 +99,21 @@ endif
 ################################################################################
 #                                    RULES                                     #
 ################################################################################
-.c.o:
-			@$(CC) $(CFLAGS) -c $< -o $(<:.c=.o) -I$(HEADERS) \
-			-I$(LFTDIR) -I$(LMLXDIR)
 
-$(NAME):	$(LMLX) $(LFT) $(OBJS)
+
+$(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADERS)
+			@$(CC) -I$(HEADERS) -I$(LFTDIR) -I$(LMLXDIR) -c $(CFLAGS) -o $@ $< 
+
+$(NAME):	$(OBJS) $(LMLX) $(LFT)
 			@printf  "$(BLUE)Creating $(RESET) $(YELLOW)[$(NAME)]$(RESET)" 
 			@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -I$(HEADERS) -I$(LMLXDIR) $(LMLXFLAGS) $(LFTFLAGS)
 			@echo " : $(GREEN)OK !$(RESET)"
 
 all:		$(NAME)
+
+OBJ_MK:		
+			mkdir $(OBJS_DIR)
+			mkdir $(OBJS_SUB_DIRS)
 
 clean:
 			@printf "$(BLUE)Cleaning $(RESET) $(YELLOW)[objects & libraries]$(RESET)"

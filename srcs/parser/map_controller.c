@@ -6,7 +6,7 @@
 /*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 11:01:31 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/23 12:26:40 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/25 09:36:56 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,34 +28,31 @@ static int	check_around(char *line, int i, char *prev)
 	if (line[i] == '0' && (left_char == ' ' || left_char == 0
 			|| right_char == ' ' || right_char == 0
 			|| top_char == ' ' || top_char == 0))
-		return (KO);
+		return (ERROR);
 	if (line[i] == ' ' && top_char == '0')
-		return (KO);
-	return (OK);
+		return (ERROR);
+	return (SUCCESS);
 }
 
-int	is_line_valid(char *line, char *prev, int last_line, int *is_player)
+bool	is_line_valid(char *line, char *prev, int last_line, int *is_player)
 {
 	int		i;
-	// char	left_char;
 
 	i = -1;
-	// left_char = 0;
 	while (line[++i])
 	{
 		if (ft_strchr(PLAYER_CHAR, line[i]))
 			++*is_player;
 		if (!ft_strchr(VALID_CHAR, line[i]))
-			return (NO);
+			return (false);
 		if (last_line && line[i] == '0')
-			return (NO);
+			return (false);
 		if (!last_line && !ft_strchr(line, '1'))
-			return (NO);
+			return (false);
 		if (check_around(line, i, prev))
-			return (NO);
-		// left_char = line[i]; never used
+			return (false);
 	}
-	return (YES);
+	return (true);
 }
 
 static int	control_loop(char **line, int ret, int *is_player)
@@ -66,7 +63,7 @@ static int	control_loop(char **line, int ret, int *is_player)
 	last_line = !ret;
 	if (is_line_valid(*line, prev, last_line, is_player))
 	{
-		printf("line : %s : OK\n", *line);
+		printf("line : %s : \n", *line);
 		ret = !last_line;
 	}
 	else
@@ -82,31 +79,31 @@ static int	control_loop(char **line, int ret, int *is_player)
 	return (ret);
 }
 
-int	map_controller(int fd)
+int	map_controller(int fd, int *longest_map_width, int *map_height)
 {
 	int		ret;
-	int		nb;
 	int		is_player;
+	int		line_len;
 	char	*line;
 
-	line = NULL;
+	*map_height = 0;
 	is_player = 0;
 	ret = ft_get_next_line(fd, &line, 0);
+	*longest_map_width = ft_strlen(line);
 	while (ret >= 0)
 	{
-		if (count_island(line, ADD) == ERROR)
-		{
-			ret = ERROR;
-			break ;
-		}
 		ret = control_loop(&line, ret, &is_player);
 		if (ret == 0 || ret == ERROR)
 			break ;
 		ret = ft_get_next_line(fd, &line, 0);
+		line_len = ft_strlen(line);
+		if (line_len > 0)
+			*map_height += 1;
+		if (line_len > *longest_map_width)
+			*longest_map_width = line_len;	
 	}
 	free(line);
-	nb = count_island(NULL, COUNT);
-	if (ret == ERROR || is_player != 1 || nb > 1)
+	if (ret == ERROR || is_player != 1)
 		return (ERROR);
-	return (OK);
+	return (SUCCESS);
 }

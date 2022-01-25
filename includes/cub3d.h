@@ -3,20 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:12 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/22 17:15:02 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/24 17:55:15 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 # include "libft.h"
-# include "unistd.h"
 # include <sys/types.h>
 # include <sys/uio.h>
-# include <unistd.h>
 # include <fcntl.h>
 
 /*
@@ -26,6 +24,12 @@
 # define PLAYER_CHAR "NSWE"
 # define VALID_CHAR "NSWE 01"
 
+// A call to free_gnl_buffer() frees the buffer of GNL
+
+# define free_gnl_buffer() ft_get_next_line(0, NULL, 1)
+
+
+
 typedef enum e_return_codes
 {
 	OK = 0,
@@ -34,11 +38,29 @@ typedef enum e_return_codes
 	KO = 1
 }	t_return_codes;
 
-typedef enum e_island_action
-{
-	ADD,
-	COUNT
-}	t_island_action;
+// Used to count the number of parameters in the parser
+
+enum	e_parameter_bit_codes {
+	ALL_PARAMS_ARE_SET = 63,
+	NO_TEXTURE_CODE = 32,
+	SO_TEXTURE_CODE = 16,
+	WE_TEXTURE_CODE = 8,
+	EA_TEXTURE_CODE = 4,
+	F_COLOR_CODE	= 2,
+	C_COLOR_CODE	= 1,
+};
+
+enum e_exit_codes {
+	SUCCESS = 0,
+	MAP_ERROR,
+	PARAM_ERROR,
+	FILE_ERROR,
+	MALLOC_FAIL,
+	MLX_FAIL,
+	USER_INTERRUPT,
+	NUMBER_OF_EXIT_CODES,
+};
+
 
 /* for floor and ceiling colors
 blue = (RGB >> 16) & 0xFF;
@@ -54,8 +76,8 @@ typedef struct s_param
 	char	*tex_so;
 	char	*tex_we;
 	char	*tex_ea;
-	int		*col_floor;
-	int		*col_ceiling;
+	int		col_floor;
+	int		col_ceiling;
 	char	**map;
 }			t_param;
 
@@ -64,14 +86,30 @@ typedef struct s_param
 */
 
 /*
+** Error Handling
+*/
+int	exit_clean(int error_msg, int fd, char **to_free, t_param *param);
+
+/*
 ** parser
 */
-int		is_cub_file(char *file);
-int		are_params_ok(char *file, int *fd);
+int		line_param_code(char *line);
+bool	is_cub_file(char *file);
+bool	are_parameters_ok(int fd);
 int		param_controller(int fd);
-int		is_map_ok(int fd);
-int		map_controller(int fd);
-int		count_island(char *line, int action);
-t_param	*init_param(char *file);
+bool	is_map_ok(int fd, int *longest_map_width, int *map_height);
+int		map_controller(int fd, int *longest_map_width, int *map_height);
+int		init_param(char *file, t_param *param, int height, int width);
+bool	is_valid_parameter(char *line, char param_counter, char code);
+/*
+** Resource Free
+*/
+void	free_two_d_array(char **tab);
+void    free_param(t_param *param);
 
+/*
+** Test functions
+*/
+void	print_param(t_param *param);
+void	print_map(t_param *param);
 #endif

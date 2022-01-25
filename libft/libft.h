@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 12:37:12 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/21 11:21:55 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/25 09:36:34 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <stddef.h>
 # include <stdlib.h>
+# include <stdbool.h>
 # define ERROR -1
 # define STD_LINE 1
 # define LAST_LINE 0
@@ -40,7 +41,7 @@ void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 size_t	ft_strlen(const char *s);
 int		ft_isalpha(int c);
-int		ft_isdigit(int c);
+bool	ft_isdigit(int c);
 int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
@@ -79,5 +80,7 @@ int		ft_get_next_line(int fd, char **line, int to_free);
 void	*ft_realloc(void *ptr, size_t size);
 char	*ft_strcpy(char *dst, const char *src);
 int		ft_strchr_index(const char *s, int c, int offset);
+char	*ft_get_trimed_right(char *str);
+bool	ft_is_space(char c);
 
 #endif

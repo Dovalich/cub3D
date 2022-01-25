@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   param_utils.c                                      :+:      :+:    :+:   */
+/*   ft_is_space.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/22 09:50:15 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/22 10:25:12 by twagner          ###   ########.fr       */
+/*   Created: 2022/01/24 13:19:51 by noufel            #+#    #+#             */
+/*   Updated: 2022/01/24 13:22:16 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include <stdbool.h>
 
-t_param	*init_param(char *file)
+bool	ft_is_space(char c)
 {
-	(void)file;
-	return (NULL);
+	if (c == 32 || c == 9)
+		return (true);
+	return (false);
 }

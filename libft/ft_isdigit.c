@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: twagner <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/20 15:47:39 by twagner           #+#    #+#             */
-/*   Updated: 2021/05/20 15:55:46 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/25 09:36:13 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isdigit(int c)
+#include <stdbool.h>
+
+bool	ft_isdigit(int c)
 {
 	if (c >= 48 && c <= 57)
-		return (1);
-	return (0);
+		return (true);
+	return (false);
 }
