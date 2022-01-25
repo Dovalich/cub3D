@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:12 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/24 17:55:15 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/25 10:16:28 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <sys/types.h>
 # include <sys/uio.h>
 # include <fcntl.h>
+# include "../minilibx-linux/mlx.h" 
 
 /*
 ** PARAMS
@@ -79,6 +80,8 @@ typedef struct s_param
 	int		col_floor;
 	int		col_ceiling;
 	char	**map;
+	int		width;
+	int		height;
 }			t_param;
 
 /*

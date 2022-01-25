@@ -6,7 +6,7 @@
 #    By: nammari <nammari@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/01 15:32:48 by twagner           #+#    #+#              #
-#    Updated: 2022/01/25 09:29:24 by nammari          ###   ########.fr        #
+#    Updated: 2022/01/25 10:02:24 by nammari          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,13 +48,16 @@ ERROR_FILES = $(addprefix error_handling/, error_messages.c)
 
 RESSOURCE_FREE_FILES = $(addprefix resource_free/, free_resource.c)
 
-SRCS_FILES = main.c $(PARSER_FILES) $(ERROR_FILES) $(RESSOURCE_FREE_FILES)
+EXECUTION_FILES = $(addprefix execution/, game_loop.c)
+
+SRCS_FILES = main.c $(PARSER_FILES) $(ERROR_FILES) $(RESSOURCE_FREE_FILES)\
+			$(EXECUTION_FILES)
 
 SRCS = $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 
 OBJS_FILES		= $(SRCS_FILES:.c=.o)
 OBJS			= $(addprefix $(OBJS_DIR), $(OBJS_FILES))
-OBJS_SUB_DIRS = $(addprefix objs/, parser error_handling resource_free)
+OBJS_SUB_DIRS = $(addprefix objs/, parser error_handling resource_free execution)
 ################################################################################
 #                           EXECUTABLES & LIBRARIES                            #
 ################################################################################
@@ -112,7 +115,7 @@ $(NAME):	$(OBJS) $(LMLX) $(LFT)
 all:		$(NAME)
 
 OBJ_MK:		
-			mkdir $(OBJS_DIR)
+			#mkdir $(OBJS_DIR)
 			mkdir $(OBJS_SUB_DIRS)
 
 clean:

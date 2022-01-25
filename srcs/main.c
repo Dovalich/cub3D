@@ -3,18 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:47 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/24 18:01:59 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/25 10:50:03 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "execution.h"
+
 
 // Longest map width helps us malloc the right size <-->
 // Map height helps us malloc enough blocks map[height][width]
 // I put them here to avoid opening the file again just to count the lines
+
+void	get_player_pos(t_data *data)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (data->map[y])
+	{
+		x = 0;
+		while (data->map[y][x])
+		{
+			if (ft_strchr(PLAYER_CHAR, data->map[y][x]) != NULL)
+			{
+				data->pos_vect[X] = x;
+				data->pos_vect[Y] = y;
+				return ;
+			}
+			++x;
+		}
+		++y;
+	}
+}
 
 static void	cub_file_parser(char **av, t_param **param)
 {
@@ -39,11 +64,14 @@ static void	cub_file_parser(char **av, t_param **param)
 	if (!*param)
 		exit_clean(MALLOC_FAIL, fd, NULL, NULL);
 	init_param(av[1], *param, longest_map_width, map_height);
+	(*param)->width = longest_map_width;
+	(*param)->height = map_height;
 }
 
 int	main(int ac, char **av, char **envp)
 {
 	t_param	*param;
+	t_data	data;
 
 	if (ac != 2 || !envp || !*envp)
 		return (ERROR);
@@ -51,10 +79,17 @@ int	main(int ac, char **av, char **envp)
 	cub_file_parser(av, &param);
 	print_param(param);
 	print_map(param);
-	free_param(param);
+	data.param = param;
+	data.map = param->map;
+	printf("map is OK !\n");
+	if (create_window(&data))
+	{
+		printf("Error with window creation\n");
+		return (ERROR);
+	}
 	// int fd = open(av[1], O_RDONLY);
 	// printf("this is the value of fd %d and the name of the file |%s|\n", fd, av[1]);
 	// close(fd);
-	printf("map is OK !\n");
+	free_param(param);
 	return (SUCCESS);
 }
