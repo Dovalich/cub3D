@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: noufel <noufel@student.42.fr>              +#+  +:+       +#+         #
+#    By: nammari <nammari@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/01 15:32:48 by twagner           #+#    #+#              #
-#    Updated: 2022/01/24 16:32:30 by noufel           ###   ########.fr        #
+#    Updated: 2022/01/25 09:29:24 by nammari          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -110,6 +110,10 @@ $(NAME):	$(OBJS) $(LMLX) $(LFT)
 			@echo " : $(GREEN)OK !$(RESET)"
 
 all:		$(NAME)
+
+OBJ_MK:		
+			mkdir $(OBJS_DIR)
+			mkdir $(OBJS_SUB_DIRS)
 
 clean:
 			@printf "$(BLUE)Cleaning $(RESET) $(YELLOW)[objects & libraries]$(RESET)"
