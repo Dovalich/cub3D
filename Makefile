@@ -115,7 +115,7 @@ $(NAME):	$(OBJS) $(LMLX) $(LFT)
 all:		$(NAME)
 
 OBJ_MK:		
-			#mkdir $(OBJS_DIR)
+			mkdir $(OBJS_DIR)
 			mkdir $(OBJS_SUB_DIRS)
 
 clean:
