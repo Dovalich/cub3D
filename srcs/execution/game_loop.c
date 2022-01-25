@@ -6,7 +6,7 @@
 /*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:40:52 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/25 16:51:14 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/25 17:06:16 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	draw_line(t_data *data, t_img_data *frame, int x)
 	}
 }
 
+int start = 0;
+
 int	raycaster(t_data *data)
 {
 	int			x;
@@ -78,10 +80,13 @@ int	raycaster(t_data *data)
 	t_vector	ray_dir;
 
 	width = SCREEN_WIDTH;
+	x = 0;
+	if (start != 0)
+		mlx_destroy_image(data->mlx, data->frame.img);
+	start = 1;
 	data->frame.img = mlx_new_image(data->mlx, width, SCREEN_HEIGHT);
 	data->frame.addr = mlx_get_data_addr(data->frame.img, \
 		&data->frame.bpp, &data->frame.line_len, &data->frame.endian);
-	x = 0;
 	while (x < width)
 	{
 		camera[X] = (2 * x / (double)width) - 1;
@@ -91,7 +96,9 @@ int	raycaster(t_data *data)
 		//calculate pixel len to draw on column
 		calculate_line_height(data);
 		if (data->side == 1)
-			data->color = RGB_BLUE / 2;
+		{
+			data->color = 0x000000AA;
+		}
 		else
 			data->color = RGB_BLUE;
 		// if (!(data->frame))
@@ -154,7 +161,6 @@ void	hit_detector(t_data *data, t_coord map, int *side)
 int	dda(t_data *data, t_vector ray_dir)
 {
 	t_coord	map;
-	int	side;	
 
 	map[X] = (int)(data->pos[X]);
 	map[Y] = (int)(data->pos[Y]);
@@ -167,9 +173,9 @@ int	dda(t_data *data, t_vector ray_dir)
 	else
 		data->delta_dist[Y] = fabs(1 / ray_dir[Y]);
 	calculate_side_dist(data, map, ray_dir);
-	side = 0;
-	hit_detector(data, map, &side);
-	if (side == 0)
+	data->side = 0;
+	hit_detector(data, map, &data->side);
+	if (data->side == 0)
 		data->perp_wall_dist = data->side_dist[X] - data->delta_dist[X];
 	else
 		data->perp_wall_dist = data->side_dist[Y] - data->delta_dist[Y];
