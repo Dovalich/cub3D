@@ -6,7 +6,7 @@
 /*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:40:52 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/25 15:22:30 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/25 16:51:14 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	init_vectors(t_data *data)
 	get_player_pos(data);
 	data->plane[X] = 0;
 	data->plane[Y] = 0.66;
-	data->dir[X] = 0;
+	data->dir[X] = 1;
 	data->dir[Y] = 1;
 }
 
@@ -48,13 +48,13 @@ void	calculate_line_height(t_data *data)
 {
 	int	line_height;
 
-	line_height = (int)((data->param->height) / data->perp_wall_dist);
-	data->draw_start = -1 * line_height / 2 + (data->param->height) / 2;
+	line_height = (int)(SCREEN_HEIGHT / data->perp_wall_dist);
+	data->draw_start = -1 * line_height / 2 + (SCREEN_HEIGHT) / 2;
 	if (data->draw_start < 0)
 		data->draw_start = 0;
-	data->draw_end = data->param->height / 2 + line_height / 2;
+	data->draw_end = SCREEN_HEIGHT / 2 + line_height / 2;
 	if (data->draw_end < 0)
-		data->draw_end = data->param->height - 1;
+		data->draw_end = SCREEN_HEIGHT - 1;
 	// why not : data->draw_end = data->draw_start + line_height ?
 }
 
@@ -70,13 +70,15 @@ void	draw_line(t_data *data, t_img_data *frame, int x)
 	}
 }
 
-int	raycaster(t_data *data, int width)
+int	raycaster(t_data *data)
 {
 	int			x;
+	int			width;
 	t_vector	camera;
 	t_vector	ray_dir;
 
-	data->frame.img = mlx_new_image(data->mlx, width, data->param->height);
+	width = SCREEN_WIDTH;
+	data->frame.img = mlx_new_image(data->mlx, width, SCREEN_HEIGHT);
 	data->frame.addr = mlx_get_data_addr(data->frame.img, \
 		&data->frame.bpp, &data->frame.line_len, &data->frame.endian);
 	x = 0;
@@ -174,12 +176,74 @@ int	dda(t_data *data, t_vector ray_dir)
 	return (SUCCESS);
 }
 
+
 int	game_loop(t_data *data)
 {
 	// dda
 	// put_frame
-	raycaster(data, SCREEN_WIDTH);
+	raycaster(data);
 	return (SUCCESS);
+}
+
+int	move_player(int keyhook, t_data *data)
+{
+	double		move_speed;
+	double		rot_speed;
+	t_vector	old_plane;
+	t_vector	old_dir;
+
+	move_speed = 0.15;
+	rot_speed = 0.09;
+	if (keyhook == 'w')
+	{
+		data->pos[X] += data->dir[X] * move_speed;
+		data->pos[Y] += data->dir[Y] * move_speed;
+	}
+	else if (keyhook == 's' && data->pos[Y] > 0)
+	{
+		data->pos[X] -= data->dir[X] * move_speed;
+		data->pos[Y] -= data->dir[Y] * move_speed;
+	}
+	else if (keyhook == 'd')
+	{
+		old_dir[X] = data->dir[X];
+		data->dir[X] = data->dir[X] * cos(-rot_speed) - data->dir[Y] * sin(-rot_speed);	
+		data->dir[Y] = old_dir[X] * sin(-rot_speed) + data->dir[Y] * cos(-rot_speed);
+		old_plane[X] = data->plane[X];
+		data->plane[X] = data->plane[X] * cos(-rot_speed) - data->plane[Y] * sin(-rot_speed);
+		data->plane[Y] = old_plane[X] * sin(-rot_speed) + data->plane[Y] * cos(-rot_speed);
+	}
+	else if (keyhook == 'a')
+	{
+		old_dir[X] = data->dir[X];
+		data->dir[X] = data->dir[X] * cos(rot_speed) - data->dir[Y] * sin(rot_speed);	
+		data->dir[Y] = old_dir[X] * sin(rot_speed) + data->dir[Y] * cos(rot_speed);
+		old_plane[X] = data->plane[X];
+		data->plane[X] = data->plane[X] * cos(rot_speed) - data->plane[Y] * sin(rot_speed);
+		data->plane[Y] = old_plane[X] * sin(rot_speed) + data->plane[Y] * cos(rot_speed);
+	}
+	return (0);
+}
+
+int	close_win(t_data *data)
+{
+	mlx_destroy_window(data->mlx, data->win);
+	data->win = NULL;
+	exit(0);
+	return (0);
+}
+
+int	get_hook(int keyhook, t_data *data)
+{
+	if (keyhook == 'w' || keyhook == 's' || keyhook == 'a' || keyhook == 'd')
+		return (move_player(keyhook, data));
+	else if (keyhook == 65307)
+	{
+		mlx_destroy_window(data->mlx, data->win);
+		data->win = NULL;
+		return (0);
+	}
+	return (1);
 }
 
 int	create_window(t_data *data)
@@ -191,12 +255,10 @@ int	create_window(t_data *data)
 	if (!data->win)
 		return (ERROR);
 	init_vectors(data);
-	while (1)
-	{
-		game_loop(data);
-	}
-	//mlx_loop_hook(data->mlx, game_loop, data);
-	// get_keys
+	mlx_loop_hook(data->mlx, game_loop, data);
+	mlx_hook(data->win, 3, 1L << 1, &get_hook, data);
+	mlx_hook(data->win, 17, 1L << 17, &close_win, data);
+	// mlx_hook(data->win, 12, 1L << 15, &resize_func, data);
 	mlx_loop(data->mlx);
 	return (SUCCESS);
 }
