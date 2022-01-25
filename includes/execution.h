@@ -23,6 +23,9 @@
 #define RGB_GREEN 0x0000FF00
 #define RGB_BLUE 0x000000FF
 
+#define SCREEN_WIDTH 800
+#define SCREEN_HEIGHT 600
+
 typedef double t_vector[2];
 typedef int		t_coord[2];
 
@@ -54,7 +57,7 @@ typedef struct mlx_data
 	t_vector			pos;
 	t_vector			side_dist;
 	t_vector			delta_dist;
-	t_img_data			*frame;
+	t_img_data			frame;
 }					t_data;
 
 

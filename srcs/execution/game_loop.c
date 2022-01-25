@@ -76,6 +76,9 @@ int	raycaster(t_data *data, int width)
 	t_vector	camera;
 	t_vector	ray_dir;
 
+	data->frame.img = mlx_new_image(data->mlx, width, data->param->height);
+	data->frame.addr = mlx_get_data_addr(data->frame.img, \
+		&data->frame.bpp, &data->frame.line_len, &data->frame.endian);
 	x = 0;
 	while (x < width)
 	{
@@ -89,12 +92,12 @@ int	raycaster(t_data *data, int width)
 			data->color = RGB_BLUE / 2;
 		else
 			data->color = RGB_BLUE;
-		data->frame = mlx_new_image(data->mlx, width, data->param->height);
-		if (!(data->frame))
-			exit_clean(MLX_FAIL, 0, NULL, data->param);
-		draw_line(data, data->frame, x);
-		mlx_put_image_to_window(data->mlx, data->win, data->frame, 0, 0);
+		// if (!(data->frame))
+		// 	exit_clean(MLX_FAIL, 0, NULL, data->param);
+		draw_line(data, &data->frame, x);
+		++x;
 	}
+	mlx_put_image_to_window(data->mlx, data->win, data->frame.img, 0, 0);
 	return (0);
 }
 
@@ -175,7 +178,7 @@ int	game_loop(t_data *data)
 {
 	// dda
 	// put_frame
-	raycaster(data, data->param->width);
+	raycaster(data, SCREEN_WIDTH);
 	return (SUCCESS);
 }
 
@@ -184,7 +187,7 @@ int	create_window(t_data *data)
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		return (ERROR);
-	data->win = mlx_new_window(data->mlx, 800, 600, "Welcome to CUB3D !");
+	data->win = mlx_new_window(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Welcome to CUB3D !");
 	if (!data->win)
 		return (ERROR);
 	init_vectors(data);
