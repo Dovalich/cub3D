@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:03:50 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/24 15:48:04 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/26 20:24:27 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ bool	is_cub_file(char *file)
 	return (true);
 }
 
-
 bool	are_parameters_ok(int fd)
 {
 	char	*line;
@@ -87,4 +86,28 @@ bool	is_map_ok(int fd, int *longest_map_width, int *map_height)
 	free_gnl_buffer();
 	close(fd);
 	return (true);
+}
+
+void	cub_file_parser(char **av, t_param *param)
+{
+	int	fd;
+	int	longest_map_width;
+	int	map_height;
+
+	if (!is_cub_file(av[1]))
+	{
+		exit_clean(FILE_ERROR, 0, NULL, NULL);	
+	}
+	fd = open(av[1], O_RDONLY);
+	if ((fd == ERROR) || !are_parameters_ok(fd))
+	{
+		exit_clean(PARAM_ERROR, fd, NULL, NULL);
+	}
+	if (!is_map_ok(fd, &longest_map_width, &map_height))
+	{
+		exit_clean(MAP_ERROR, fd, NULL, NULL);
+	}
+	init_param(av[1], param, longest_map_width, map_height);
+	param->width = longest_map_width;
+	param->height = map_height;
 }

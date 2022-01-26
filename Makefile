@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nammari <nammari@student.42.fr>            +#+  +:+       +#+         #
+#    By: noufel <noufel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/01 15:32:48 by twagner           #+#    #+#              #
-#    Updated: 2022/01/25 16:13:33 by nammari          ###   ########.fr        #
+#    Updated: 2022/01/26 20:25:48 by noufel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,8 @@ ERROR_FILES = $(addprefix error_handling/, error_messages.c)
 
 RESSOURCE_FREE_FILES = $(addprefix resource_free/, free_resource.c)
 
-EXECUTION_FILES = $(addprefix execution/, game_loop.c)
+EXECUTION_FILES = $(addprefix execution/, game_loop.c event_management.c \
+					game_initialisation.c game_exiting.c)
 
 SRCS_FILES = main.c $(PARSER_FILES) $(ERROR_FILES) $(RESSOURCE_FREE_FILES)\
 			$(EXECUTION_FILES)

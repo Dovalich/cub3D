@@ -3,72 +3,66 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:47 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/25 15:16:38 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/26 20:28:41 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "execution.h"
 
-
-// Longest map width helps us malloc the right size <-->
-// Map height helps us malloc enough blocks map[height][width]
-// I put them here to avoid opening the file again just to count the lines
-
-
-
-static void	cub_file_parser(char **av, t_param **param)
+t_param	*get_param_ptr(void)
 {
-	int	fd;
-	int	longest_map_width;
-	int	map_height;
+	static t_param	*param = NULL;
 
-	if (!is_cub_file(av[1]))
+	if (!param)
 	{
-		exit_clean(FILE_ERROR, 0, NULL, NULL);	
+		param = malloc(sizeof(*param));
+		if (!param)
+			return (NULL);
+		ft_bzero(param, sizeof(*param));
 	}
-	fd = open(av[1], O_RDONLY);
-	if ((fd == ERROR) || !are_parameters_ok(fd))
+	return (param);
+}
+
+t_data	*get_data_ptr(void)
+{
+	static t_data	*data = NULL;
+	
+	if (!data)
 	{
-		exit_clean(PARAM_ERROR, fd, NULL, NULL);
+		data = malloc(sizeof(*data));
+		if (!data)
+			return (NULL);
+		ft_bzero(data, sizeof(*data));
 	}
-	if (!is_map_ok(fd, &longest_map_width, &map_height))
-	{
-		exit_clean(MAP_ERROR, fd, NULL, NULL);
-	}
-	*param = malloc(sizeof(**param));
-	if (!*param)
-		exit_clean(MALLOC_FAIL, fd, NULL, NULL);
-	init_param(av[1], *param, longest_map_width, map_height);
-	(*param)->width = longest_map_width;
-	(*param)->height = map_height;
+	return (data);
 }
 
 int	main(int ac, char **av, char **envp)
 {
 	t_param	*param;
-	t_data	data;
+	t_data	*data;
 
 	if (ac != 2 || !envp || !*envp)
 		return (ERROR);
-	param = NULL;
-	cub_file_parser(av, &param);
-	print_param(param);
-	print_map(param);
-	data.param = param;
-	data.map = param->map;
+	param = get_param_ptr();
+	if (!param)
+		return (MALLOC_FAIL);
+	cub_file_parser(av, param);
+	data = get_data_ptr();
+	if (!data)
+		exit_clean(MALLOC_FAIL, 0, NULL, param);
+	data->param = param;
+	data->map = param->map;
 	printf("map is OK !\n");
-	if (create_window(&data))
+	if (create_window(data))
 	{
 		printf("Error with window creation\n");
 		return (ERROR);
 	}
-	// int fd = open(av[1], O_RDONLY);
-	// printf("this is the value of fd %d and the name of the file |%s|\n", fd, av[1]);
-	// close(fd);
 	free_param(param);
 	return (SUCCESS);
 }

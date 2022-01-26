@@ -6,43 +6,11 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:40:52 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/26 17:58:54 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/26 20:16:28 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "execution.h"
-
-void	get_player_pos(t_data *data)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (data->map[y])
-	{
-		x = 0;
-		while (data->map[y][x])
-		{
-			if (ft_strchr(PLAYER_CHAR, data->map[y][x]) != NULL)
-			{
-				data->pos[X] = x;
-				data->pos[Y] = y;
-				return ;
-			}
-			++x;
-		}
-		++y;
-	}
-}
-
-void	init_vectors(t_data *data)
-{
-	get_player_pos(data);
-	data->plane[X] = 0;
-	data->plane[Y] = 0.66;
-	data->dir[X] = 1;
-	data->dir[Y] = 0;
-}
 
 void	calculate_line_height(t_data *data, t_ray *ray)
 {
@@ -70,41 +38,27 @@ void	draw_line(t_data *data, t_img_data *frame, int x)
 	}
 }
 
-int start = 0;
-
 int	raycaster(t_data *data)
 {
 	int			x;
-	int			width;
 	t_vector	camera;
 	t_ray		ray;
 
-	width = SCREEN_WIDTH;
 	x = 0;
-	if (start != 0)
-		mlx_destroy_image(data->mlx, data->frame.img);
-	start = 1;
-	data->frame.img = mlx_new_image(data->mlx, width, SCREEN_HEIGHT);
-	data->frame.addr = mlx_get_data_addr(data->frame.img, 
-		&data->frame.bpp, &data->frame.line_len, &data->frame.endian);
-	while (x < width)
+	while (x < SCREEN_WIDTH)
 	{
-		camera[X] = (2 * x / (double)width) - 1;
+		camera[X] = (2 * x / (double)SCREEN_WIDTH) - 1;
 		ray.dir[X] = data->dir[X] + data->plane[X] * camera[X];
 		ray.dir[Y] = data->dir[Y] + data->plane[Y] * camera[X];
 		dda(data, &ray);
 		calculate_line_height(data, &ray);
-		//here--------------------
 		if (data->side == 1)
 			data->color = 0x000000AA;
 		else
 			data->color = RGB_BLUE;
-		// if (!(data->frame))
-		// 	exit_clean(MLX_FAIL, 0, NULL, data->param);
 		draw_line(data, &data->frame, x);
 		++x;
 	}
-	mlx_put_image_to_window(data->mlx, data->win, data->frame.img, 0, 0);
 	return (0);
 }
 
@@ -180,12 +134,18 @@ int	dda(t_data *data, t_ray *ray)
 	return (SUCCESS);
 }
 
+int start = 0;
 
 int	game_loop(t_data *data)
 {
-		// dda
-	// put_frame
+	if (start != 0)
+		mlx_destroy_image(data->mlx, data->frame.img);
+	start = 1;
+	data->frame.img = mlx_new_image(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	data->frame.addr = mlx_get_data_addr(data->frame.img, 
+		&data->frame.bpp, &data->frame.line_len, &data->frame.endian);
 	raycaster(data);
+	mlx_put_image_to_window(data->mlx, data->win, data->frame.img, 0, 0);
 	return (SUCCESS);
 }
 
@@ -226,61 +186,8 @@ int	move_player(int keyhook, t_data *data)
 		data->plane[X] = data->plane[X] * cos(rot_speed) - data->plane[Y] * sin(rot_speed);
 		data->plane[Y] = old_plane[X] * sin(rot_speed) + data->plane[Y] * cos(rot_speed);
 	}
+	game_loop(data);
 	return (0);
-}
-
-int	close_win(t_data *data)
-{
-	mlx_destroy_window(data->mlx, data->win);
-	data->win = NULL;
-	exit(0);
-	return (0);
-}
-
-int	get_hook(int keyhook, t_data *data)
-{
-	if (keyhook == 'w' || keyhook == 's' || keyhook == 'a' || keyhook == 'd')
-		return (move_player(keyhook, data));
-	else if (keyhook == 65307)
-		close_win(data);
-	return (1);
-}
-
-void	init_textures(t_data *data)
-{
-	data->no.pixels = mlx_xpm_file_to_image(data->mlx,\
-				data->param->tex_no, &data->no.x, &data->no.y);
-	data->we.pixels = mlx_xpm_file_to_image(data->mlx,\
-				data->param->tex_we, &data->we.x, &data->we.y);
-	data->ea.pixels = mlx_xpm_file_to_image(data->mlx,\
-				data->param->tex_ea, &data->ea.x, &data->ea.y);
-	data->so.pixels = mlx_xpm_file_to_image(data->mlx,\
-				data->param->tex_so, &data->so.x, &data->so.y);
-	if (!data->ea.pixels || !data->no.pixels ||\
-		!data->so.pixels || !data->we.pixels)
-	{
-		//printf will be deleted and replaced with proper error fun
-		printf("Init texture failed\n");
-		exit_clean(MLX_FAIL, 0, NULL, NULL);
-	}
-}
-
-int	create_window(t_data *data)
-{
-	data->mlx = mlx_init();
-	if (!data->mlx)
-		return (ERROR);
-	data->win = mlx_new_window(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Welcome to CUB3D !");
-	if (!data->win)
-		return (ERROR);
-	init_vectors(data);
-	init_textures(data);
-	mlx_loop_hook(data->mlx, game_loop, data);
-	mlx_hook(data->win, 3, 1L << 1, &get_hook, data);
-	mlx_hook(data->win, 17, 1L << 17, &close_win, data);
-	// mlx_hook(data->win, 12, 1L << 15, &resize_func, data);
-	mlx_loop(data->mlx);
-	return (SUCCESS);
 }
 
 void	ft_img_pixel_put(t_img_data *img, int x, int y, int pix)

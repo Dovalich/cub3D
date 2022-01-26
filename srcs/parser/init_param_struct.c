@@ -6,39 +6,11 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 09:50:15 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/24 18:02:27 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/26 20:21:03 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-//test function to be deleted before we push
-
-void	print_map(t_param *param)
-{
-	int	y;
-
-	y = 0;
-	while (param->map[y])
-	{
-		printf("%s\n", param->map[y]);
-		++y;
-	}
-}
-
-void	print_param(t_param *param)
-{
-	printf("This is texture NO |%s|\n", param->tex_no);
-	printf("This is texture SO |%s|\n", param->tex_so);
-	printf("This is texture WE |%s|\n", param->tex_we);
-	printf("This is texture EA |%s|\n", param->tex_ea);
-	printf("This is col_ceiling R |%d|\n", param->col_ceiling & 0xFF);
-	printf("This is col_ceiling G |%d|\n", (param->col_ceiling >> 8) & 0xFF);
-	printf("This is col_celing B|%d|\n", (param->col_ceiling >> 16)& 0xFF);
-	printf("This is col_floor R |%d|\n", param->col_floor & 0xFF);
-	printf("This is col_floor G |%d|\n", (param->col_floor >> 8) & 0xFF);
-	printf("This is col_floor B |%d|\n", (param->col_floor >> 16) & 0xFF);
-}
 
 static void	get_color(t_param *param, char *line, int code, int fd)
 {
@@ -149,7 +121,6 @@ int	init_param(char *file, t_param *param, int width, int height)
 	fd = open(file, O_RDONLY);
 	if (fd == ERROR)
 		return (ERROR);
-	ft_bzero(param, sizeof(*param));
 	get_params(param, fd);
 	param->map = malloc(sizeof(*param->map) * (height + 1));
 	if (!param->map)

@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:12 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/26 16:55:54 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/26 20:30:01 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ bool	is_map_ok(int fd, int *longest_map_width, int *map_height);
 int		map_controller(int fd, int *longest_map_width, int *map_height);
 int		init_param(char *file, t_param *param, int height, int width);
 bool	is_valid_parameter(char *line, char param_counter, char code);
+void	cub_file_parser(char **av, t_param *param);
 /*
 ** Resource Free
 */

@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:43:25 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/26 18:00:40 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/26 20:33:00 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct mlx_data
 	int					draw_start;
 	int					draw_end;
 	int					color;
+	bool				key_was_pressed;
 	t_texture			no;
 	t_texture			ea;
 	t_texture			so;
@@ -78,9 +79,15 @@ typedef struct mlx_data
 	t_img_data			frame;
 }					t_data;
 
-
 void	ft_img_pixel_put(t_img_data *img, int x, int y, int pix);
-
+int	get_hook(int keyhook, t_data *data);
+int	close_win(t_data *data);
+int	move_player(int keyhook, t_data *data);
 // int		dda(t_data *data, t_vector ray_dir);
 int		dda(t_data *data, t_ray *ray);
 int		create_window(t_data *data);
+int	create_window(t_data *data);
+void	init_vectors(t_data *data);
+void	init_textures(t_data *data);
+void	get_player_pos(t_data *data);
+int	game_loop(t_data *data);
