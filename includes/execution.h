@@ -6,15 +6,16 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:43:25 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/26 16:32:02 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/26 18:00:40 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <time.h>
 
-#define X 0
-#define Y 1
+#define X 0 // representing the X coordinate of the t_vector struct
+#define Y 1 // representing the Y coordinate of the t_vector struct
+
 #define BIG_VALUE 100000000000
 
 // Define colors
@@ -29,7 +30,7 @@
 typedef double t_vector[2];
 typedef int		t_coord[2];
 
-typedef struct s_img_data
+typedef struct img_data
 {
 	void	*img;
 	char	*addr;
@@ -45,6 +46,16 @@ typedef	struct texture
 	void	*pixels;
 }				t_texture;
 
+typedef struct ray
+{
+	t_vector	dir;
+	t_vector	side_dist;
+	t_vector	delta_dist;
+	double		perp_wall_dist;
+	int			step_x;
+	int			step_y;
+}				t_ray;
+
 
 typedef struct mlx_data
 {
@@ -53,10 +64,7 @@ typedef struct mlx_data
 	int					key;
 	char				**map;
 	t_param				*param;
-	double				perp_wall_dist;
 	int					side;
-	int					step_x;
-	int					step_y;
 	int					draw_start;
 	int					draw_end;
 	int					color;
@@ -67,13 +75,12 @@ typedef struct mlx_data
 	t_vector			dir;
 	t_vector			plane;
 	t_vector			pos;
-	t_vector			side_dist;
-	t_vector			delta_dist;
 	t_img_data			frame;
 }					t_data;
 
 
 void	ft_img_pixel_put(t_img_data *img, int x, int y, int pix);
 
-int    dda(t_data *data, t_vector ray_dir);
+// int		dda(t_data *data, t_vector ray_dir);
+int		dda(t_data *data, t_ray *ray);
 int		create_window(t_data *data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:12 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/25 15:20:11 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/26 16:55:54 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,6 @@
 
 # define free_gnl_buffer() ft_get_next_line(0, NULL, 1)
 
-
-
-typedef enum e_return_codes
-{
-	OK = 0,
-	NO = 0,
-	YES = 1,
-	KO = 1
-}	t_return_codes;
 
 // Used to count the number of parameters in the parser
 
