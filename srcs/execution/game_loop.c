@@ -6,11 +6,11 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:40:52 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/26 20:16:28 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/26 20:37:30 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "execution.h"
+# include "game.h"
 
 void	calculate_line_height(t_data *data, t_ray *ray)
 {

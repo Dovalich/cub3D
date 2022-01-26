@@ -6,11 +6,11 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:40:52 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/26 17:48:15 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/26 20:37:30 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "execution.h"
+# include "game.h"
 
 void	get_player_pos(t_data *data)
 {

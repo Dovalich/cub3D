@@ -6,12 +6,12 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:47 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/26 20:28:41 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/26 20:35:27 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-#include "execution.h"
+#include "parsing.h"
+#include "game.h"
 
 t_param	*get_param_ptr(void)
 {

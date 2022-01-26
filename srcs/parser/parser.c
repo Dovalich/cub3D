@@ -6,11 +6,11 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:03:50 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/26 20:24:27 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/26 20:36:59 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "parsing.h"
 
 int	line_param_code(char *line)
 {

@@ -6,11 +6,11 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 20:13:31 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/26 20:16:38 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/26 20:37:30 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "execution.h"
+# include "game.h"
 
 int	create_window(t_data *data)
 {

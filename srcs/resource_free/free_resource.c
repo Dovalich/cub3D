@@ -6,11 +6,11 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 14:45:52 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/24 16:38:40 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/26 20:37:16 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "parsing.h"
 
 void	free_two_d_array(char **tab)
 {

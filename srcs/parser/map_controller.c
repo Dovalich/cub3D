@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_controller.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 11:01:31 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/25 09:36:56 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/26 20:37:16 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "parsing.h"
 
 static int	check_around(char *line, int i, char *prev)
 {

@@ -6,11 +6,11 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 09:50:15 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/26 20:21:03 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/26 20:37:16 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "parsing.h"
 
 static void	get_color(t_param *param, char *line, int code, int fd)
 {

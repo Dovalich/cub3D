@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.h                                        :+:      :+:    :+:   */
+/*   game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:43:25 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/26 20:33:00 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/26 20:36:01 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "parsing.h"
 #include <time.h>
 
 #define X 0 // representing the X coordinate of the t_vector struct

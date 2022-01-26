@@ -6,11 +6,11 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 14:27:59 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/24 16:27:28 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/26 20:37:16 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "parsing.h"
 
 // When exiting due to an error we need a way 
 // to close fds and free 2-d arrays if any. 

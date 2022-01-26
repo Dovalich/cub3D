@@ -6,11 +6,11 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:48:01 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/24 14:00:57 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/26 20:37:16 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "parsing.h"
 
 static bool	is_texture_file_valid(char *line)
 {
