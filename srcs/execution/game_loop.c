@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:40:52 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/25 17:06:16 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/26 13:13:33 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	init_vectors(t_data *data)
 	get_player_pos(data);
 	data->plane[X] = 0;
 	data->plane[Y] = 0.66;
-	data->dir[X] = 1;
-	data->dir[Y] = 1;
+	data->dir[X] = -1;
+	data->dir[Y] = 0;
 }
 
 void	calculate_line_height(t_data *data)
