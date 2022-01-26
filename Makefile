@@ -6,7 +6,7 @@
 #    By: noufel <noufel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/01 15:32:48 by twagner           #+#    #+#              #
-#    Updated: 2022/01/26 20:25:48 by noufel           ###   ########.fr        #
+#    Updated: 2022/01/26 20:44:47 by noufel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,21 +44,19 @@ OBJS_DIR = objs/
 PARSER_FILES = $(addprefix parser/, parser.c params_controller.c \
 				init_param_struct.c map_controller.c)
 
-ERROR_FILES = $(addprefix error_handling/, error_messages.c)
-
-RESSOURCE_FREE_FILES = $(addprefix resource_free/, free_resource.c)
+PROGRAM_EXIT_FILES = $(addprefix program_exit/, error_messages.c \
+				free_resource.c game_exiting.c)
 
 EXECUTION_FILES = $(addprefix execution/, game_loop.c event_management.c \
-					game_initialisation.c game_exiting.c)
+					game_initialisation.c )
 
-SRCS_FILES = main.c $(PARSER_FILES) $(ERROR_FILES) $(RESSOURCE_FREE_FILES)\
-			$(EXECUTION_FILES)
+SRCS_FILES = main.c $(PARSER_FILES) $(PROGRAM_EXIT_FILES) $(EXECUTION_FILES)
 
 SRCS = $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 
 OBJS_FILES		= $(SRCS_FILES:.c=.o)
 OBJS			= $(addprefix $(OBJS_DIR), $(OBJS_FILES))
-OBJS_SUB_DIRS = $(addprefix objs/, parser error_handling resource_free execution)
+OBJS_SUB_DIRS = $(addprefix objs/, parser program_exit execution)
 ################################################################################
 #                           EXECUTABLES & LIBRARIES                            #
 ################################################################################

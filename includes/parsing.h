@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:12 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/26 20:30:01 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/26 20:39:47 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef PARSING_H
+# define PARSING_H
 # include "libft.h"
 # include <sys/types.h>
 # include <sys/uio.h>

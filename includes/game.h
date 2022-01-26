@@ -6,9 +6,12 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:43:25 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/26 20:36:01 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/26 20:40:21 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef GAME_H
+#define GAME_H
 
 #include "parsing.h"
 #include <time.h>
@@ -91,3 +94,5 @@ void	init_vectors(t_data *data);
 void	init_textures(t_data *data);
 void	get_player_pos(t_data *data);
 int	game_loop(t_data *data);
+
+#endif
