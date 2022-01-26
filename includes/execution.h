@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:43:25 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/25 16:36:52 by nammari          ###   ########.fr       */
+/*   Updated: 2022/01/26 16:32:02 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,14 @@ typedef struct s_img_data
 	int		endian;
 }	t_img_data;
 
+typedef	struct texture
+{
+	int		x;
+	int		y;
+	void	*pixels;
+}				t_texture;
+
+
 typedef struct mlx_data
 {
 	void				*mlx;
@@ -52,6 +60,10 @@ typedef struct mlx_data
 	int					draw_start;
 	int					draw_end;
 	int					color;
+	t_texture			no;
+	t_texture			ea;
+	t_texture			so;
+	t_texture			we;
 	t_vector			dir;
 	t_vector			plane;
 	t_vector			pos;
