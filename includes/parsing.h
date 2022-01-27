@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:12 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/27 11:48:33 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 12:56:09 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,25 +66,25 @@ typedef	struct texture
 {
 	int		x;
 	int		y;
-	void	*pixels;
+	void	*img;
 }				t_texture;
 
 
 typedef struct s_param
 {
-	char	*tex_no;
-	char	*tex_so;
-	char	*tex_we;
-	char	*tex_ea;
-	t_texture			no;
-	t_texture			ea;
-	t_texture			so;
-	t_texture			we;
-	int		col_floor;
-	int		col_ceiling;
-	char	**map;
-	int		width;
-	int		height;
+	char		*tex_no;
+	char		*tex_so;
+	char		*tex_we;
+	char		*tex_ea;
+	t_texture	no;
+	t_texture	ea;
+	t_texture	so;
+	t_texture	we;
+	int			col_floor;
+	int			col_ceiling;
+	char		**map;
+	int			width;
+	int			height;
 }			t_param;
 
 /*

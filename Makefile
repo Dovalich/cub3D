@@ -6,7 +6,7 @@
 #    By: noufel <noufel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/01 15:32:48 by twagner           #+#    #+#              #
-#    Updated: 2022/01/26 20:44:47 by noufel           ###   ########.fr        #
+#    Updated: 2022/01/27 13:02:54 by noufel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,13 +50,16 @@ PROGRAM_EXIT_FILES = $(addprefix program_exit/, error_messages.c \
 EXECUTION_FILES = $(addprefix execution/, game_loop.c event_management.c \
 					game_initialisation.c )
 
-SRCS_FILES = main.c $(PARSER_FILES) $(PROGRAM_EXIT_FILES) $(EXECUTION_FILES)
+TMP_TEST_FILES = $(addprefix tmp_test_functions/, tmp_test_fun.c)
+
+SRCS_FILES = main.c $(PARSER_FILES) $(PROGRAM_EXIT_FILES) $(EXECUTION_FILES) \
+				$(TMP_TEST_FILES)
 
 SRCS = $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 
 OBJS_FILES		= $(SRCS_FILES:.c=.o)
 OBJS			= $(addprefix $(OBJS_DIR), $(OBJS_FILES))
-OBJS_SUB_DIRS = $(addprefix objs/, parser program_exit execution)
+OBJS_SUB_DIRS = $(addprefix objs/, parser program_exit execution tmp_test_functions)
 ################################################################################
 #                           EXECUTABLES & LIBRARIES                            #
 ################################################################################

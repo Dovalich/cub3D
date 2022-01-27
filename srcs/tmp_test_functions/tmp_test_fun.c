@@ -1,5 +1,5 @@
 # include "game.h"
-
+# include "parsing.h"
 
 void	print_map(t_param *param)
 {

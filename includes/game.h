@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:43:25 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/27 12:05:41 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 13:12:01 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,7 @@ int		get_hook(int keyhook, t_data *data);
 int		close_win(t_data *data);
 int		move_player(int keyhook, t_data *data, t_player *player);
 int		dda(t_data *data, t_ray *ray, t_player *player);
-int		create_window(t_data *data);
-void	init_vectors(t_data *data, t_player *player);
-void	init_textures(t_data *data, t_param *param);
-void	init_player_pos(char **map, t_player *player);
+int	game_init(t_data *data, t_param *param);
 int		game_loop(t_data *data);
 
 #endif

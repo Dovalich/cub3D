@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:40:52 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/27 12:06:09 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 13:09:58 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,3 @@ void	ft_img_pixel_put(t_img_data *img, int x, int y, int pix)
 	dst = img->addr + (y * img->line_len + x * (img->bpp / 8));
 	*(unsigned int *)dst = pix;
 }
-
-	//mlx_hook(data->win, 3, 1L << 1, &get_hook, data);
-	//mlx_hook(data->win, 17, 1L << 17, &close_win, data);
-	//mlx_hook(data->win, 12, 1L << 15, &resize_func, data);
