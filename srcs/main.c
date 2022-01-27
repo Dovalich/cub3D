@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:47 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/27 14:19:49 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 14:31:03 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int	game_launch(t_data *data, t_param *param)
 {
 	(void)param;
-	draw_frame(data);
+	display_frame(data);
 	mlx_hook(data->win, 3, 1L << 1, &capture_keyhook, data);
 	mlx_hook(data->win, 17, 1L << 17, &close_win, data);
 	mlx_loop(data->mlx);
