@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:43:25 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/27 13:12:01 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 13:51:19 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ typedef struct player
 {
 	t_vector	dir;
 	t_vector	pos;
+	double		rotation_speed;
+	double		move_speed;
 }			t_player;
 
 typedef struct mlx_data
@@ -76,11 +78,12 @@ typedef struct mlx_data
 }					t_data;
 
 void	ft_img_pixel_put(t_img_data *img, int x, int y, int pix);
-int		get_hook(int keyhook, t_data *data);
+int		capture_keyhook(int keyhook, t_data *data);
 int		close_win(t_data *data);
-int		move_player(int keyhook, t_data *data, t_player *player);
+void	move_player(int keyhook, t_data *data, t_player *player);
 int		dda(t_data *data, t_ray *ray, t_player *player);
-int	game_init(t_data *data, t_param *param);
-int		game_loop(t_data *data);
+int		game_init(t_data *data, t_param *param);
+int		draw_frame(t_data *data);
+int		raycaster(t_data *data, t_player *player);
 
 #endif

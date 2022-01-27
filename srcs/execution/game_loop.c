@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:40:52 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/27 13:09:58 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 13:35:26 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,60 +134,16 @@ int	dda(t_data *data, t_ray *ray, t_player *player)
 	return (SUCCESS);
 }
 
-int start = 0;
-
-int	game_loop(t_data *data)
+int	draw_frame(t_data *data)
 {
-	if (start != 0)
+	if (data->frame.img)
 		mlx_destroy_image(data->mlx, data->frame.img);
-	start = 1;
 	data->frame.img = mlx_new_image(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	data->frame.addr = mlx_get_data_addr(data->frame.img, 
 		&data->frame.bpp, &data->frame.line_len, &data->frame.endian);
 	raycaster(data, &data->player);
 	mlx_put_image_to_window(data->mlx, data->win, data->frame.img, 0, 0);
 	return (SUCCESS);
-}
-
-int	move_player(int keyhook, t_data *data, t_player *player)
-{
-	double		move_speed;
-	double		rot_speed;
-	t_vector	old_plane;
-	t_vector	old_dir;
-
-	move_speed = 0.15;
-	rot_speed = 0.09;
-	if (keyhook == 'w')
-	{
-		player->pos[X] += player->dir[X] * move_speed;
-		player->pos[Y] += player->dir[Y] * move_speed;
-	}
-	else if (keyhook == 's' && player->pos[Y] > 0)
-	{
-		player->pos[X] -= player->dir[X] * move_speed;
-		player->pos[Y] -= player->dir[Y] * move_speed;
-	}
-	else if (keyhook == 'a')
-	{
-		old_dir[X] = player->dir[X];
-		player->dir[X] = player->dir[X] * cos(-rot_speed) - player->dir[Y] * sin(-rot_speed);	
-		player->dir[Y] = old_dir[X] * sin(-rot_speed) + player->dir[Y] * cos(-rot_speed);
-		old_plane[X] = data->plane[X];
-		data->plane[X] = data->plane[X] * cos(-rot_speed) - data->plane[Y] * sin(-rot_speed);
-		data->plane[Y] = old_plane[X] * sin(-rot_speed) + data->plane[Y] * cos(-rot_speed);
-	}
-	else if (keyhook == 'd')
-	{
-		old_dir[X] = player->dir[X];
-		player->dir[X] = player->dir[X] * cos(rot_speed) - player->dir[Y] * sin(rot_speed);	
-		player->dir[Y] = old_dir[X] * sin(rot_speed) + player->dir[Y] * cos(rot_speed);
-		old_plane[X] = data->plane[X];
-		data->plane[X] = data->plane[X] * cos(rot_speed) - data->plane[Y] * sin(rot_speed);
-		data->plane[Y] = old_plane[X] * sin(rot_speed) + data->plane[Y] * cos(rot_speed);
-	}
-	game_loop(data);
-	return (0);
 }
 
 void	ft_img_pixel_put(t_img_data *img, int x, int y, int pix)
