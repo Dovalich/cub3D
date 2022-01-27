@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 20:13:31 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/26 20:37:30 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 11:50:48 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	create_window(t_data *data)
 	if (!data->win)
 		return (ERROR);
 	init_vectors(data);
-	init_textures(data);
+	init_textures(data, data->param);
 	game_loop(data);
 	mlx_loop_hook(data->mlx, NULL, data);
 	mlx_hook(data->win, 3, 1L << 1, &get_hook, data);
@@ -41,18 +41,18 @@ void	init_vectors(t_data *data)
 	data->dir[Y] = 0;
 }
 
-void	init_textures(t_data *data)
+void	init_textures(t_data *data, t_param *param)
 {
-	data->no.pixels = mlx_xpm_file_to_image(data->mlx,\
-				data->param->tex_no, &data->no.x, &data->no.y);
-	data->we.pixels = mlx_xpm_file_to_image(data->mlx,\
-				data->param->tex_we, &data->we.x, &data->we.y);
-	data->ea.pixels = mlx_xpm_file_to_image(data->mlx,\
-				data->param->tex_ea, &data->ea.x, &data->ea.y);
-	data->so.pixels = mlx_xpm_file_to_image(data->mlx,\
-				data->param->tex_so, &data->so.x, &data->so.y);
-	if (!data->ea.pixels || !data->no.pixels ||\
-		!data->so.pixels || !data->we.pixels)
+	param->no.pixels = mlx_xpm_file_to_image(data->mlx,\
+				param->tex_no, &param->no.x, &(param->no.y));
+	param->we.pixels = mlx_xpm_file_to_image(data->mlx,\
+				param->tex_we, &param->we.x, &param->we.y);
+	param->ea.pixels = mlx_xpm_file_to_image(data->mlx,\
+				param->tex_ea, &param->ea.x, &param->ea.y);
+	param->so.pixels = mlx_xpm_file_to_image(data->mlx,\
+				param->tex_so, &param->so.x, &param->so.y);
+	if (!param->ea.pixels || !param->no.pixels ||\
+		!param->so.pixels || !param->we.pixels)
 	{
 		//printf will be deleted and replaced with proper error fun
 		printf("Init texture failed\n");

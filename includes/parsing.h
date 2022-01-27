@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:12 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/26 20:39:47 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 11:48:33 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,24 @@ red = RGB & 0xFF;
 new_RGB = (blue << 16) | (green << 8) | red;
 */
 
+typedef	struct texture
+{
+	int		x;
+	int		y;
+	void	*pixels;
+}				t_texture;
+
+
 typedef struct s_param
 {
 	char	*tex_no;
 	char	*tex_so;
 	char	*tex_we;
 	char	*tex_ea;
+	t_texture			no;
+	t_texture			ea;
+	t_texture			so;
+	t_texture			we;
 	int		col_floor;
 	int		col_ceiling;
 	char	**map;
