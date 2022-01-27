@@ -6,7 +6,7 @@
 #    By: noufel <noufel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/01 15:32:48 by twagner           #+#    #+#              #
-#    Updated: 2022/01/27 15:17:11 by noufel           ###   ########.fr        #
+#    Updated: 2022/01/27 18:54:07 by noufel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,8 +47,8 @@ PARSER_FILES = $(addprefix parser/, parser.c params_controller.c \
 PROGRAM_EXIT_FILES = $(addprefix program_exit/, exit_functions.c \
 				free_resource.c)
 
-EXECUTION_FILES = $(addprefix execution/, draw_frame.c event_management.c \
-					game_initialisation.c raycaster.c)
+EXECUTION_FILES = $(addprefix execution/, draw_frame.c events.c \
+					game_initialisation.c raycaster.c movement_and_rotation.c)
 
 TMP_TEST_FILES = $(addprefix tmp_test_functions/, tmp_test_fun.c)
 
