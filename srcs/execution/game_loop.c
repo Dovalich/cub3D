@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:40:52 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/27 14:20:01 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 14:22:35 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	calculate_side_dist(t_coord map, t_ray *ray, t_player *player)
 	}
 }
 
-void	hit_detector(t_data *data, t_coord map, int *side, t_ray *ray)
+void	hit_detector(t_data *data, t_coord map, t_ray *ray)
 {
 	int	hit;
 
@@ -79,13 +79,13 @@ void	hit_detector(t_data *data, t_coord map, int *side, t_ray *ray)
 		{
 			ray->side_dist[X] += ray->delta_dist[X];
 			map[X] += ray->step_x;
-			*side = 0;
+			ray->side = 0;
 		}
 		else
 		{
 			ray->side_dist[Y] += ray->delta_dist[Y];
 			map[Y] += ray->step_y;
-			*side = 1;
+			ray->side = 1;
 		}
 		if (data->param->map[map[Y]][map[X]] == '1')
 			hit = 1;
@@ -107,9 +107,9 @@ void	dda(t_data *data, t_ray *ray, t_player *player)
 	else
 		ray->delta_dist[Y] = fabs(1 / ray->dir[Y]);
 	calculate_side_dist(map, ray, player);
-	data->side = 0;
-	hit_detector(data, map, &data->side, ray);
-	if (data->side == 0)
+	ray->side = 0;
+	hit_detector(data, map, ray);
+	if (ray->side == 0)
 		ray->perp_wall_dist = ray->side_dist[X] - ray->delta_dist[X];
 	else
 		ray->perp_wall_dist = ray->side_dist[Y] - ray->delta_dist[Y];
@@ -140,7 +140,7 @@ void	raycaster(t_data *data, t_player *player)
 		ray.dir[Y] = player->dir[Y] + data->plane[Y] * camera[X];
 		dda(data, &ray, player);
 		calculate_line_height(data, &ray);
-		if (data->side == 1)
+		if (ray.side == 1)
 			data->color = 0x000000AA;
 		else
 			data->color = RGB_BLUE;

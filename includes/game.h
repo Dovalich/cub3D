@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:43:25 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/27 14:19:29 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 14:21:14 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct ray
 	double		perp_wall_dist;
 	int			step_x;
 	int			step_y;
+	int					side;
 }				t_ray;
 
 typedef struct player
@@ -64,7 +65,6 @@ typedef struct mlx_data
 	void				*win;
 	t_param				*param;
 	t_player			player;
-	int					side;
 	int					draw_start;
 	int					draw_end;
 	int					color;
