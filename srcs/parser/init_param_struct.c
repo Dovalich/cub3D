@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 09:50:15 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/27 14:55:56 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 17:39:32 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,16 @@ static void	get_color(t_param *param, char *line, int code, int fd)
 	if (code == C_COLOR_CODE)
 	{
 		param->col_ceiling = 0;
-		param->col_ceiling = ft_atoi(color[0]);
+		param->col_ceiling = ft_atoi(color[2]);
 		param->col_ceiling = param->col_ceiling | (ft_atoi(color[1]) << 8);
-		param->col_ceiling = param->col_ceiling | (ft_atoi(color[2]) << 16);
+		param->col_ceiling = param->col_ceiling | (ft_atoi(color[0]) << 16);
 	}
 	else if (code == F_COLOR_CODE)
 	{
 		param->col_floor = 0;
-		param->col_floor = ft_atoi(color[0]);
+		param->col_floor = ft_atoi(color[2]);
 		param->col_floor = param->col_floor | (ft_atoi(color[1]) << 8);
-		param->col_floor = param->col_floor | (ft_atoi(color[2]) << 16);
+		param->col_floor = param->col_floor | (ft_atoi(color[0]) << 16);
 	}
 	free_two_d_array(color);
 }
