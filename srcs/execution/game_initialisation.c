@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 20:13:31 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/27 11:50:48 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 12:05:53 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 
 int	create_window(t_data *data)
 {
-	data->key_was_pressed = true;
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		return (ERROR);
 	data->win = mlx_new_window(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "Welcome to CUB3D !");
 	if (!data->win)
 		return (ERROR);
-	init_vectors(data);
+	init_vectors(data, &data->player);
 	init_textures(data, data->param);
 	game_loop(data);
 	mlx_loop_hook(data->mlx, NULL, data);
@@ -32,13 +31,13 @@ int	create_window(t_data *data)
 	return (SUCCESS);
 }
 
-void	init_vectors(t_data *data)
+void	init_vectors(t_data *data, t_player *player)
 {
-	get_player_pos(data);
+	init_player_pos(data->map, player);
 	data->plane[X] = 0;
 	data->plane[Y] = 0.66;
-	data->dir[X] = 1;
-	data->dir[Y] = 0;
+	player->dir[X] = 1;
+	player->dir[Y] = 0;
 }
 
 void	init_textures(t_data *data, t_param *param)
@@ -60,21 +59,21 @@ void	init_textures(t_data *data, t_param *param)
 	}
 }
 
-void	get_player_pos(t_data *data)
+void	init_player_pos(char **map, t_player *player)
 {
 	int	x;
 	int	y;
 
 	y = 0;
-	while (data->map[y])
+	while (map[y])
 	{
 		x = 0;
-		while (data->map[y][x])
+		while (map[y][x])
 		{
-			if (ft_strchr(PLAYER_CHAR, data->map[y][x]) != NULL)
+			if (ft_strchr(PLAYER_CHAR, map[y][x]) != NULL)
 			{
-				data->pos[X] = x;
-				data->pos[Y] = y;
+				player->pos[X] = x;
+				player->pos[Y] = y;
 				return ;
 			}
 			++x;

@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:43:25 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/27 11:50:03 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 12:05:41 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ typedef struct ray
 	int			step_y;
 }				t_ray;
 
+typedef struct player
+{
+	t_vector	dir;
+	t_vector	pos;
+}			t_player;
 
 typedef struct mlx_data
 {
@@ -60,27 +65,25 @@ typedef struct mlx_data
 	int					key;
 	char				**map;
 	t_param				*param;
+	t_player			player;
 	int					side;
 	int					draw_start;
 	int					draw_end;
 	int					color;
 	bool				key_was_pressed;
 	t_vector			plane;
-	t_vector			dir;
-	t_vector			pos;
 	t_img_data			frame;
 }					t_data;
 
 void	ft_img_pixel_put(t_img_data *img, int x, int y, int pix);
-int	get_hook(int keyhook, t_data *data);
-int	close_win(t_data *data);
-int	move_player(int keyhook, t_data *data);
-int		dda(t_data *data, t_ray *ray);
+int		get_hook(int keyhook, t_data *data);
+int		close_win(t_data *data);
+int		move_player(int keyhook, t_data *data, t_player *player);
+int		dda(t_data *data, t_ray *ray, t_player *player);
 int		create_window(t_data *data);
-int	create_window(t_data *data);
-void	init_vectors(t_data *data);
+void	init_vectors(t_data *data, t_player *player);
 void	init_textures(t_data *data, t_param *param);
-void	get_player_pos(t_data *data);
-int	game_loop(t_data *data);
+void	init_player_pos(char **map, t_player *player);
+int		game_loop(t_data *data);
 
 #endif

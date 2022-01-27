@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:40:52 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/26 20:37:30 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 12:06:09 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	draw_line(t_data *data, t_img_data *frame, int x)
 	}
 }
 
-int	raycaster(t_data *data)
+int	raycaster(t_data *data, t_player *player)
 {
 	int			x;
 	t_vector	camera;
@@ -48,9 +48,9 @@ int	raycaster(t_data *data)
 	while (x < SCREEN_WIDTH)
 	{
 		camera[X] = (2 * x / (double)SCREEN_WIDTH) - 1;
-		ray.dir[X] = data->dir[X] + data->plane[X] * camera[X];
-		ray.dir[Y] = data->dir[Y] + data->plane[Y] * camera[X];
-		dda(data, &ray);
+		ray.dir[X] = player->dir[X] + data->plane[X] * camera[X];
+		ray.dir[Y] = player->dir[Y] + data->plane[Y] * camera[X];
+		dda(data, &ray, player);
 		calculate_line_height(data, &ray);
 		if (data->side == 1)
 			data->color = 0x000000AA;
@@ -62,27 +62,27 @@ int	raycaster(t_data *data)
 	return (0);
 }
 
-void	calculate_side_dist(t_data *data, t_coord map, t_ray *ray)
+void	calculate_side_dist(t_coord map, t_ray *ray, t_player *player)
 {
 	if(ray->dir[X] < 0)
 	{
 		ray->step_x = -1;
-		ray->side_dist[X] = (data->pos[X] - map[X]) * ray->delta_dist[X];
+		ray->side_dist[X] = (player->pos[X] - map[X]) * ray->delta_dist[X];
 	} 
 	else
 	{
 		ray->step_x = 1;
-		ray->side_dist[X] = (map[X] + 1 - data->pos[X]) * ray->delta_dist[X];
+		ray->side_dist[X] = (map[X] + 1 - player->pos[X]) * ray->delta_dist[X];
 	}
 	if (ray->dir[Y] < 0)
 	{
 		ray->step_y = -1;
-		ray->side_dist[Y] = (data->pos[Y] - map[Y]) * ray->delta_dist[Y];
+		ray->side_dist[Y] = (player->pos[Y] - map[Y]) * ray->delta_dist[Y];
 	}
 	else
 	{
 		ray->step_y = 1;
-		ray->side_dist[Y] = (map[Y] + 1 - data->pos[Y]) * ray->delta_dist[Y];
+		ray->side_dist[Y] = (map[Y] + 1 - player->pos[Y]) * ray->delta_dist[Y];
 	}
 }
 
@@ -110,12 +110,12 @@ void	hit_detector(t_data *data, t_coord map, int *side, t_ray *ray)
 	}
 }
 
-int	dda(t_data *data, t_ray *ray)
+int	dda(t_data *data, t_ray *ray, t_player *player)
 {
 	t_coord	map;
 
-	map[X] = (int)(data->pos[X]);
-	map[Y] = (int)(data->pos[Y]);
+	map[X] = (int)(player->pos[X]);
+	map[Y] = (int)(player->pos[Y]);
 	if (ray->dir[X] == 0)
 		ray->delta_dist[X] = BIG_VALUE;
 	else
@@ -124,7 +124,7 @@ int	dda(t_data *data, t_ray *ray)
 		ray->delta_dist[Y] = BIG_VALUE;
 	else
 		ray->delta_dist[Y] = fabs(1 / ray->dir[Y]);
-	calculate_side_dist(data, map, ray);
+	calculate_side_dist(map, ray, player);
 	data->side = 0;
 	hit_detector(data, map, &data->side, ray);
 	if (data->side == 0)
@@ -144,12 +144,12 @@ int	game_loop(t_data *data)
 	data->frame.img = mlx_new_image(data->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	data->frame.addr = mlx_get_data_addr(data->frame.img, 
 		&data->frame.bpp, &data->frame.line_len, &data->frame.endian);
-	raycaster(data);
+	raycaster(data, &data->player);
 	mlx_put_image_to_window(data->mlx, data->win, data->frame.img, 0, 0);
 	return (SUCCESS);
 }
 
-int	move_player(int keyhook, t_data *data)
+int	move_player(int keyhook, t_data *data, t_player *player)
 {
 	double		move_speed;
 	double		rot_speed;
@@ -160,28 +160,28 @@ int	move_player(int keyhook, t_data *data)
 	rot_speed = 0.09;
 	if (keyhook == 'w')
 	{
-		data->pos[X] += data->dir[X] * move_speed;
-		data->pos[Y] += data->dir[Y] * move_speed;
+		player->pos[X] += player->dir[X] * move_speed;
+		player->pos[Y] += player->dir[Y] * move_speed;
 	}
-	else if (keyhook == 's' && data->pos[Y] > 0)
+	else if (keyhook == 's' && player->pos[Y] > 0)
 	{
-		data->pos[X] -= data->dir[X] * move_speed;
-		data->pos[Y] -= data->dir[Y] * move_speed;
+		player->pos[X] -= player->dir[X] * move_speed;
+		player->pos[Y] -= player->dir[Y] * move_speed;
 	}
 	else if (keyhook == 'a')
 	{
-		old_dir[X] = data->dir[X];
-		data->dir[X] = data->dir[X] * cos(-rot_speed) - data->dir[Y] * sin(-rot_speed);	
-		data->dir[Y] = old_dir[X] * sin(-rot_speed) + data->dir[Y] * cos(-rot_speed);
+		old_dir[X] = player->dir[X];
+		player->dir[X] = player->dir[X] * cos(-rot_speed) - player->dir[Y] * sin(-rot_speed);	
+		player->dir[Y] = old_dir[X] * sin(-rot_speed) + player->dir[Y] * cos(-rot_speed);
 		old_plane[X] = data->plane[X];
 		data->plane[X] = data->plane[X] * cos(-rot_speed) - data->plane[Y] * sin(-rot_speed);
 		data->plane[Y] = old_plane[X] * sin(-rot_speed) + data->plane[Y] * cos(-rot_speed);
 	}
 	else if (keyhook == 'd')
 	{
-		old_dir[X] = data->dir[X];
-		data->dir[X] = data->dir[X] * cos(rot_speed) - data->dir[Y] * sin(rot_speed);	
-		data->dir[Y] = old_dir[X] * sin(rot_speed) + data->dir[Y] * cos(rot_speed);
+		old_dir[X] = player->dir[X];
+		player->dir[X] = player->dir[X] * cos(rot_speed) - player->dir[Y] * sin(rot_speed);	
+		player->dir[Y] = old_dir[X] * sin(rot_speed) + player->dir[Y] * cos(rot_speed);
 		old_plane[X] = data->plane[X];
 		data->plane[X] = data->plane[X] * cos(rot_speed) - data->plane[Y] * sin(rot_speed);
 		data->plane[Y] = old_plane[X] * sin(rot_speed) + data->plane[Y] * cos(rot_speed);

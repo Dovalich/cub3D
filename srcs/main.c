@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:47 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/27 11:49:39 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 12:03:08 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int ac, char **av, char **envp)
 	if (ac != 2 || !envp || !*envp)
 		return (ERROR);
 	ft_bzero(&param, sizeof(param));
+	ft_bzero(&data, sizeof(data));
 	cub_file_parser(av, &param);
 	data.param = &param;
 	data.map = param.map;
