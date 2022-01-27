@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 20:14:35 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/27 18:35:57 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 19:04:11 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,18 @@ static bool	is_colision(t_data *data, int move, double new_x, double new_y)
 
 	w = data->param->width;
 	h = data->param->height;
-	update_collision_offset(move, &new_x, &new_y, data);
-	if (new_x < w && new_y < h && new_x >= 0 && new_y >= 0
-		&& data->param->map[(int)(new_y)][(int)(new_x)] != '1')
+	if (!(new_x < w && new_y < h && new_x >= 0 && new_y >= 0
+		&& data->param->map[(int)(new_y)][(int)(new_x)] != '1'))
 	{
-		return (false);
+		return (true);
 	}
-	return (true);
+	update_collision_offset(move, &new_x, &new_y, data);
+	if (!(new_x < w && new_y < h && new_x >= 0 && new_y >= 0
+		&& data->param->map[(int)(new_y)][(int)(new_x)] != '1'))
+	{
+		return (true);
+	}
+	return (false);
 }
 
 bool	move_player(int keyhook, t_data *data, t_player *player)

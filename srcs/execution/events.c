@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 18:29:15 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/27 18:42:31 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 19:15:19 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,12 @@ int	capture_keyhook(int keyhook, t_data *data)
 	{
 		exit_program(data, KILL_PROGRAM);
 	}
+	return (SUCCESS);
+}
+
+int	handle_resize(int keyhook, t_data *data)
+{
+	(void)keyhook;
+	display_frame(data);
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:47 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/27 15:24:48 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 19:15:00 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	game_launch(t_data *data)
 	mlx_hook(data->win, 3, 1L << 1, &capture_keyhook, data);
 	mlx_hook(data->win, 17, 1L << 17, &close_win, data);
 	mlx_loop(data->mlx);
-	//mlx_hook(data->win, 12, 1L << 15, &resize_func, data);	
+	mlx_hook(data->win, 12, 1L << 15, &handle_resize, data);	
 	return (SUCCESS);
 }
 

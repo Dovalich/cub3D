@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:43:25 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/27 18:54:40 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 19:13:57 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,5 @@ void	draw_line(t_data *data, t_img_data *frame, int x);
 void	raycaster(t_data *data, t_player *player);
 void	display_frame(t_data *data);
 void	exit_program(t_data *data, int exit_status);
+int		handle_resize(int keyhook, t_data *data);
 #endif
