@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 14:27:59 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/27 18:43:26 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 19:33:40 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	exit_clean(int error_msg, int fd, char **to_free, t_param *param)
 	if (fd > 1)
 		close(fd);
 	free_two_d_array(to_free);
-	free_gnl_buffer();
+	ft_get_next_line(0, NULL, 1);
 	if (param)
 		free_param(param);
 	exit(error_msg);

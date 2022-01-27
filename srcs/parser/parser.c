@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:03:50 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/27 18:45:12 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 19:33:55 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ bool	is_map_ok(int fd, int *longest_map_width, int *map_height)
 	{
 		return (false);
 	}
-	free_gnl_buffer();
+	ft_get_next_line(0, NULL, 1);
 	close(fd);
 	return (true);
 }

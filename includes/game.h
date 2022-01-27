@@ -6,30 +6,30 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:43:25 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/27 19:13:57 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 19:30:16 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GAME_H
-#define GAME_H
+# define GAME_H
 
-#include "parsing.h"
+# include "parsing.h"
 
-#define X 0 // representing the X coordinate of the t_vector struct
-#define Y 1 // representing the Y coordinate of the t_vector struct
+# define X 0 // representing the X coordinate of the t_vector struct
+# define Y 1 // representing the Y coordinate of the t_vector struct
 
-#define BIG_VALUE 100000000000
+# define BIG_VALUE 100000000000
 
 // Define colors
 
-#define RGB_RED 0x00FF0000
-#define RGB_GREEN 0x0000FF00
-#define RGB_BLUE 0x000000FF
+# define RGB_RED 0x00FF0000
+# define RGB_GREEN 0x0000FF00
+# define RGB_BLUE 0x000000FF
 
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 600
+# define SCREEN_WIDTH 800
+# define SCREEN_HEIGHT 600
 
-typedef double t_vector[2];
+typedef double	t_vector[2];
 
 typedef struct img_data
 {
@@ -48,7 +48,7 @@ typedef struct ray
 	double		perp_wall_dist;
 	int			step_x;
 	int			step_y;
-	int					side;
+	int			side;
 }				t_ray;
 
 typedef struct player
@@ -59,15 +59,15 @@ typedef struct player
 
 typedef struct mlx_data
 {
-	void				*mlx;
-	void				*win;
-	t_param				*param;
-	t_player			player;
-	int					draw_start;
-	int					draw_end;
-	int					color;
-	t_vector			plane;
-	t_img_data			frame;
+	void		*mlx;
+	void		*win;
+	t_param		*param;
+	t_player	player;
+	int			draw_start;
+	int			draw_end;
+	int			color;
+	t_vector	plane;
+	t_img_data	frame;
 }					t_data;
 
 int		capture_keyhook(int keyhook, t_data *data);

@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:12 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/27 14:50:53 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 19:35:33 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,13 @@
 # include <fcntl.h>
 # include "../minilibx-linux/mlx.h" 
 # include <math.h>
-/*
-** PARAMS
-*/
 
 # define PLAYER_CHAR "NSWE"
 # define VALID_CHAR "NSWE 01"
 
-// A call to free_gnl_buffer() frees the buffer of GNL
-
-# define free_gnl_buffer() ft_get_next_line(0, NULL, 1)
-
-
 // Used to count the number of parameters in the parser
 
-enum	e_parameter_bit_codes {
+enum e_parameter_bit_codes {
 	ALL_PARAMS_ARE_SET = 63,
 	NO_TEXTURE_CODE = 32,
 	SO_TEXTURE_CODE = 16,
@@ -53,22 +45,12 @@ enum e_exit_codes {
 	NUMBER_OF_EXIT_CODES,
 };
 
-
-/* for floor and ceiling colors
-blue = (RGB >> 16) & 0xFF;
-green = (RGB >> 8) & 0xFF;
-red = RGB & 0xFF;
-
-new_RGB = (blue << 16) | (green << 8) | red;
-*/
-
-typedef	struct texture
+typedef struct texture
 {
 	int		x;
 	int		y;
 	void	*img;
-}				t_texture;
-
+}			t_texture;
 
 typedef struct s_param
 {
@@ -94,7 +76,7 @@ typedef struct s_param
 /*
 ** Error Handling
 */
-int	exit_clean(int error_msg, int fd, char **to_free, t_param *param);
+int		exit_clean(int error_msg, int fd, char **to_free, t_param *param);
 
 /*
 ** parser
@@ -112,7 +94,7 @@ void	cub_file_parser(char **av, t_param *param);
 ** Resource Free
 */
 void	free_two_d_array(char **tab);
-void    free_param(t_param *param);
+void	free_param(t_param *param);
 
 /*
 ** Test functions
