@@ -6,14 +6,14 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 20:14:35 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/27 13:53:41 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 14:15:15 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 #include "game_controle.h"
 
-void	rotate_player(int rotation, t_data *data, t_player *player)
+static void	rotate_player(int rotation, t_data *data, t_player *player)
 {
 	t_vector	old_plane;
 	t_vector	old_dir;
@@ -40,8 +40,8 @@ void	rotate_player(int rotation, t_data *data, t_player *player)
 	}
 }
 
-void	move_player(int keyhook, t_data *data, t_player *player)
-{
+static void	move_player(int keyhook, t_data *data, t_player *player)
+{	
 	if (keyhook == ROTATE_LEFT || keyhook == ROTATE_RIGHT)
 	{
 		rotate_player(keyhook, data, player);
@@ -69,18 +69,18 @@ void	move_player(int keyhook, t_data *data, t_player *player)
 	}
 }
 
+
 static bool	movement_key_pressed(int keyhook)
 {
 	if (keyhook == MOVE_BACK || keyhook == MOVE_FORWARD\
 		|| keyhook == MOVE_LEFT || keyhook == MOVE_RIGHT\
-		|| keyhook == ROTATE_LEFT || keyhook || ROTATE_RIGHT)
+		|| keyhook == ROTATE_LEFT || keyhook == ROTATE_RIGHT)
 		return (true);
 	return (false);
 }	
 
 int	capture_keyhook(int keyhook, t_data *data)
 {
-	printf("this is keyhook %d\n", keyhook);
 	if (movement_key_pressed(keyhook))
 	{
 		move_player(keyhook, data, &data->player);
@@ -88,7 +88,6 @@ int	capture_keyhook(int keyhook, t_data *data)
 	}
 	else if (keyhook == KILL_PROGRAM)
 	{
-		printf("kill prog\n");
 		close_win(data);
 	}
 	return (SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 20:13:31 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/27 13:41:37 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 13:57:09 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,6 @@ int	game_init(t_data *data, t_param *param)
 	data->plane[Y] = 0.66;
 	data->player.dir[X] = 1;
 	data->player.dir[Y] = 0;
-	data->player.rotation_speed = 0.09;
-	data->player.move_speed = 0.15;
 	init_player_pos(param->map, &data->player);
 	init_textures(data, param);
 	return (SUCCESS);

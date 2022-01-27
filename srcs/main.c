@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:47 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/27 13:24:42 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 14:19:49 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	main(int ac, char **av, char **envp)
 	cub_file_parser(av, &param);
 	print_param(&param);
 	data.param = &param;
-	data.map = param.map;
 	printf("map is OK !\n");
 	game_init(&data, &param);
 	game_launch(&data, &param);
