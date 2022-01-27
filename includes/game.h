@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:43:25 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/27 14:21:14 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 14:28:02 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@
 #define SCREEN_HEIGHT 600
 
 typedef double t_vector[2];
-typedef int		t_coord[2];
 
 typedef struct img_data
 {

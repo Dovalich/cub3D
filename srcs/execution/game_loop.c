@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:40:52 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/27 14:22:35 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 14:27:06 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,31 +44,31 @@ void	draw_line(t_data *data, t_img_data *frame, int x)
 	}
 }
 
-void	calculate_side_dist(t_coord map, t_ray *ray, t_player *player)
+void	calculate_side_dist(int map_x, int map_y, t_ray *ray, t_player *player)
 {
 	if(ray->dir[X] < 0)
 	{
 		ray->step_x = -1;
-		ray->side_dist[X] = (player->pos[X] - map[X]) * ray->delta_dist[X];
+		ray->side_dist[X] = (player->pos[X] - map_x) * ray->delta_dist[X];
 	} 
 	else
 	{
 		ray->step_x = 1;
-		ray->side_dist[X] = (map[X] + 1 - player->pos[X]) * ray->delta_dist[X];
+		ray->side_dist[X] = (map_x + 1 - player->pos[X]) * ray->delta_dist[X];
 	}
 	if (ray->dir[Y] < 0)
 	{
 		ray->step_y = -1;
-		ray->side_dist[Y] = (player->pos[Y] - map[Y]) * ray->delta_dist[Y];
+		ray->side_dist[Y] = (player->pos[Y] - map_y) * ray->delta_dist[Y];
 	}
 	else
 	{
 		ray->step_y = 1;
-		ray->side_dist[Y] = (map[Y] + 1 - player->pos[Y]) * ray->delta_dist[Y];
+		ray->side_dist[Y] = (map_y + 1 - player->pos[Y]) * ray->delta_dist[Y];
 	}
 }
 
-void	hit_detector(t_data *data, t_coord map, t_ray *ray)
+void	hit_detector(char **map, int *map_x, int *map_y, t_ray *ray)
 {
 	int	hit;
 
@@ -78,26 +78,27 @@ void	hit_detector(t_data *data, t_coord map, t_ray *ray)
 		if (ray->side_dist[X] < ray->side_dist[Y])
 		{
 			ray->side_dist[X] += ray->delta_dist[X];
-			map[X] += ray->step_x;
+			*map_x += ray->step_x;
 			ray->side = 0;
 		}
 		else
 		{
 			ray->side_dist[Y] += ray->delta_dist[Y];
-			map[Y] += ray->step_y;
+			*map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (data->param->map[map[Y]][map[X]] == '1')
+		if (map[*map_y][*map_x] == '1')
 			hit = 1;
 	}
 }
 
 void	dda(t_data *data, t_ray *ray, t_player *player)
 {
-	t_coord	map;
+	int	map_x;
+	int	map_y;
 
-	map[X] = (int)(player->pos[X]);
-	map[Y] = (int)(player->pos[Y]);
+	map_x = (int)(player->pos[X]);
+	map_y = (int)(player->pos[Y]);
 	if (ray->dir[X] == 0)
 		ray->delta_dist[X] = BIG_VALUE;
 	else
@@ -106,9 +107,9 @@ void	dda(t_data *data, t_ray *ray, t_player *player)
 		ray->delta_dist[Y] = BIG_VALUE;
 	else
 		ray->delta_dist[Y] = fabs(1 / ray->dir[Y]);
-	calculate_side_dist(map, ray, player);
+	calculate_side_dist(map_x, map_y, ray, player);
 	ray->side = 0;
-	hit_detector(data, map, ray);
+	hit_detector(data->param->map, &map_x, &map_y, ray);
 	if (ray->side == 0)
 		ray->perp_wall_dist = ray->side_dist[X] - ray->delta_dist[X];
 	else
