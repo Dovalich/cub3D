@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 14:32:14 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/27 19:10:57 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 21:59:19 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,17 @@ static void	ft_img_pixel_put(t_img_data *img, int x, int y, int pix)
 	*(unsigned int *)dst = pix;
 }
 
-void	draw_line(t_data *data, t_img_data *frame, int x)
+void	draw_line(t_data *data, t_img_data *frame, int x, t_ray ray)
 {
 	int	y;
 
 	y = data->draw_start;
 	if (y < 0)
 		return ;
+	if (ray.side == 1)
+		data->color = 0x000000AA;
+	else
+		data->color = RGB_BLUE;
 	while (y < data->draw_end && y < SCREEN_WIDTH)
 	{
 		ft_img_pixel_put(frame, x, y, data->color);

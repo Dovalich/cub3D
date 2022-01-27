@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:40:52 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/27 18:37:18 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 21:58:29 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,11 +112,7 @@ void	raycaster(t_data *data, t_player *player)
 		ray.dir[Y] = player->dir[Y] + data->plane[Y] * camera[X];
 		dda(data, &ray, player);
 		calculate_line_height(data, &ray);
-		if (ray.side == 1)
-			data->color = 0x000000AA;
-		else
-			data->color = RGB_BLUE;
-		draw_line(data, &data->frame, x);
+		draw_line(data, &data->frame, x, ray);
 		++x;
 	}
 }
