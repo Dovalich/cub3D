@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_messages.c                                   :+:      :+:    :+:   */
+/*   exit_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 14:27:59 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/26 20:37:16 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 15:16:20 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+#include "game.h"
 
 // When exiting due to an error we need a way 
 // to close fds and free 2-d arrays if any. 
@@ -36,4 +37,38 @@ int exit_clean(int error_msg, int fd, char **to_free, t_param *param)
         free_param(param);
     exit (error_msg);
     return (error_msg);
+}
+
+void    exit_program(t_data *data, int exit_status)
+{
+    if (!data)
+        exit(exit_status);
+    if (data->param)
+    {
+        free_param(data->param);
+        if (data->param->no.img)
+            mlx_destroy_image(data->mlx, data->param->no.img);
+        if (data->param->so.img)
+            mlx_destroy_image(data->mlx, data->param->so.img);
+        if (data->param->we.img)
+            mlx_destroy_image(data->mlx, data->param->we.img);
+        if (data->param->ea.img)
+            mlx_destroy_image(data->mlx, data->param->ea.img);
+        if (data->frame.img)
+            mlx_destroy_image(data->mlx, data->frame.img);
+    }
+    if (data->win)
+        mlx_destroy_window(data->mlx, data->win);
+    if (data->mlx)
+    {
+        mlx_destroy_display(data->mlx);
+        free(data->mlx);
+    }
+    exit (exit_status);
+}
+
+int close_win(t_data *data)
+{
+    exit_program(data, USER_INTERRUPT);
+    return (USER_INTERRUPT);
 }

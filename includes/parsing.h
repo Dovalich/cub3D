@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:12 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/27 12:56:09 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 14:50:53 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,10 @@ typedef	struct texture
 
 typedef struct s_param
 {
-	char		*tex_no;
-	char		*tex_so;
-	char		*tex_we;
-	char		*tex_ea;
+	char		*tex_no_path;
+	char		*tex_so_path;
+	char		*tex_we_path;
+	char		*tex_ea_path;
 	t_texture	no;
 	t_texture	ea;
 	t_texture	so;

@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 14:45:52 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/26 20:37:16 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 15:12:47 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,14 @@ void    free_param(t_param *param)
 {
     if (!param)
         return ;
-    if (param->tex_no)
-        free(param->tex_no);
-    if (param->tex_ea)
-        free(param->tex_ea);
-    if (param->tex_so)
-        free(param->tex_so);
-    if (param->tex_we)
-        free(param->tex_we);
+    if (param->tex_no_path)
+        free(param->tex_no_path);
+    if (param->tex_ea_path)
+        free(param->tex_ea_path);
+    if (param->tex_so_path)
+        free(param->tex_so_path);
+    if (param->tex_we_path)
+        free(param->tex_we_path);
     if (param->map)
         free_two_d_array(param->map);
-    free(param);
 }

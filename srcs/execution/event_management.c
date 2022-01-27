@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 20:14:35 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/27 14:31:18 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 15:02:26 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	capture_keyhook(int keyhook, t_data *data)
 	}
 	else if (keyhook == KILL_PROGRAM)
 	{
-		close_win(data);
+		exit_program(data, KILL_PROGRAM);
 	}
 	return (SUCCESS);
 }

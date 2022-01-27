@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 09:50:15 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/26 20:37:16 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 14:55:56 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,17 @@ static void	get_texture(t_param *param, char *line, int code, int fd)
 	while (*line && ft_is_space(*line))
 		++line;
 	if (code == NO_TEXTURE_CODE)
-		param->tex_no = ft_get_trimed_right(line);
+		param->tex_no_path = ft_get_trimed_right(line);
 	else if (code == SO_TEXTURE_CODE)
-		param->tex_so = ft_get_trimed_right(line);
+		param->tex_so_path = ft_get_trimed_right(line);
 	else if (code == WE_TEXTURE_CODE)
-		param->tex_we = ft_get_trimed_right(line);
+		param->tex_we_path = ft_get_trimed_right(line);
 	else if (code == EA_TEXTURE_CODE)
-		param->tex_ea = ft_get_trimed_right(line);
-	if ((code == NO_TEXTURE_CODE && param->tex_no == NULL) ||
-		(code == SO_TEXTURE_CODE && param->tex_no == NULL) ||
-		(code == EA_TEXTURE_CODE && param->tex_so == NULL) ||
-		(code == WE_TEXTURE_CODE && param->tex_we == NULL))
+		param->tex_ea_path = ft_get_trimed_right(line);
+	if ((code == NO_TEXTURE_CODE && param->tex_no_path == NULL) ||
+		(code == SO_TEXTURE_CODE && param->tex_no_path == NULL) ||
+		(code == EA_TEXTURE_CODE && param->tex_so_path == NULL) ||
+		(code == WE_TEXTURE_CODE && param->tex_we_path == NULL))
 		exit_clean(MALLOC_FAIL, fd, NULL, param);
 }
 

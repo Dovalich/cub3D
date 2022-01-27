@@ -6,7 +6,7 @@
 #    By: noufel <noufel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/01 15:32:48 by twagner           #+#    #+#              #
-#    Updated: 2022/01/27 14:37:21 by noufel           ###   ########.fr        #
+#    Updated: 2022/01/27 15:17:11 by noufel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,8 +44,8 @@ OBJS_DIR = objs/
 PARSER_FILES = $(addprefix parser/, parser.c params_controller.c \
 				init_param_struct.c map_controller.c)
 
-PROGRAM_EXIT_FILES = $(addprefix program_exit/, error_messages.c \
-				free_resource.c game_exiting.c)
+PROGRAM_EXIT_FILES = $(addprefix program_exit/, exit_functions.c \
+				free_resource.c)
 
 EXECUTION_FILES = $(addprefix execution/, draw_frame.c event_management.c \
 					game_initialisation.c raycaster.c)
