@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 09:50:15 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/27 19:33:29 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 19:37:09 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ static void	get_map(t_param *param, int height, int width, int fd)
 		free(line);
 	}
 	close(fd);
-	ft_get_next_line(0, NULL, 1)
+	ft_get_next_line(0, NULL, 1);
 }
 
 int	init_param(char *file, t_param *param, int width, int height)
