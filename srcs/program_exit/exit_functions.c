@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 14:27:59 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/27 15:16:20 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 15:21:45 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // When exiting due to an error we need a way 
 // to close fds and free 2-d arrays if any. 
 
-int exit_clean(int error_msg, int fd, char **to_free, t_param *param)
+int	exit_clean(int error_msg, int fd, char **to_free, t_param *param)
 {
     char	*tab[NUMBER_OF_EXIT_CODES];
 
@@ -39,7 +39,7 @@ int exit_clean(int error_msg, int fd, char **to_free, t_param *param)
     return (error_msg);
 }
 
-void    exit_program(t_data *data, int exit_status)
+void	exit_program(t_data *data, int exit_status)
 {
     if (!data)
         exit(exit_status);
@@ -67,7 +67,7 @@ void    exit_program(t_data *data, int exit_status)
     exit (exit_status);
 }
 
-int close_win(t_data *data)
+int	close_win(t_data *data)
 {
     exit_program(data, USER_INTERRUPT);
     return (USER_INTERRUPT);

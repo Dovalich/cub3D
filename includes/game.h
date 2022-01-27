@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:43:25 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/27 15:16:43 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 15:22:13 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,5 @@ void	game_init(t_data *data, t_param *param);
 void	draw_line(t_data *data, t_img_data *frame, int x);
 void	raycaster(t_data *data, t_player *player);
 void	display_frame(t_data *data);
-void    exit_program(t_data *data, int exit_status);
+void	exit_program(t_data *data, int exit_status);
 #endif

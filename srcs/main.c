@@ -6,16 +6,15 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:47 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/27 14:57:52 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 15:22:45 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
 #include "game.h"
 
-int	game_launch(t_data *data, t_param *param)
+int	game_launch(t_data *data)
 {
-	(void)param;
 	display_frame(data);
 	mlx_hook(data->win, 3, 1L << 1, &capture_keyhook, data);
 	mlx_hook(data->win, 17, 1L << 17, &close_win, data);
@@ -29,10 +28,8 @@ int	main(int ac, char **av, char **envp)
 	t_param	param;
 	t_data	data;
 
-	// if (ac != 2 || !envp || !*envp)
-	// 	return (ERROR);
-	(void)ac;
-	(void)envp;
+	if (ac != 2 || !envp || !*envp)
+		return (ERROR);
 	ft_bzero(&param, sizeof(param));
 	ft_bzero(&data, sizeof(data));
 	cub_file_parser(av, &param);
