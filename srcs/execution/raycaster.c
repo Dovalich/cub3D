@@ -6,11 +6,11 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:40:52 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/27 14:37:58 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 18:37:18 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "game.h"
+#include "game.h"
 
 static void	calculate_line_height(t_data *data, t_ray *ray)
 {
@@ -25,13 +25,14 @@ static void	calculate_line_height(t_data *data, t_ray *ray)
 		data->draw_end = SCREEN_HEIGHT - 1;
 }
 
-static void	calculate_side_dist(int map_x, int map_y, t_ray *ray, t_player *player)
+static void	calculate_side_dist(int map_x, int map_y, t_ray *ray,
+							t_player *player)
 {
-	if(ray->dir[X] < 0)
+	if (ray->dir[X] < 0)
 	{
 		ray->step_x = -1;
 		ray->side_dist[X] = (player->pos[X] - map_x) * ray->delta_dist[X];
-	} 
+	}
 	else
 	{
 		ray->step_x = 1;

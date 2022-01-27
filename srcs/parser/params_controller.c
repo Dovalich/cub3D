@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:48:01 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/26 20:37:16 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 18:45:39 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static bool	are_digits_and_two_colons_only(char *line)
 {
 	int	i;
 	int	nb_colon;
-	
+
 	i = 0;
 	nb_colon = 0;
 	if (!line || !line[i])

@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 10:03:50 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/26 20:36:59 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 18:45:12 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ bool	is_cub_file(char *file)
 			&& (*(file + dot_pos - 1) != '/'))
 			return (true);
 		else
-				
 			return (false);
 	}
 	return (true);
@@ -96,7 +95,7 @@ void	cub_file_parser(char **av, t_param *param)
 
 	if (!is_cub_file(av[1]))
 	{
-		exit_clean(FILE_ERROR, 0, NULL, NULL);	
+		exit_clean(FILE_ERROR, 0, NULL, NULL);
 	}
 	fd = open(av[1], O_RDONLY);
 	if ((fd == ERROR) || !are_parameters_ok(fd))

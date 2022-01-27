@@ -6,7 +6,7 @@
 /*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:43:25 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/27 15:22:13 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/27 18:16:02 by noufel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #define GAME_H
 
 #include "parsing.h"
-#include <time.h>
 
 #define X 0 // representing the X coordinate of the t_vector struct
 #define Y 1 // representing the Y coordinate of the t_vector struct
