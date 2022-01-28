@@ -6,28 +6,47 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 20:13:31 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/28 09:22:10 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/28 12:17:13 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 
-static void	init_textures(t_data *data, t_param *param)
+static void	init_textures_detail(t_data *data, t_param *param)
 {
-	param->no.img = mlx_xpm_file_to_image(data->mlx,
-			param->tex_no_path, &(param->no.x), &(param->no.y));
-	param->we.img = mlx_xpm_file_to_image(data->mlx,
-			param->tex_we_path, &param->we.x, &param->we.y);
-	param->ea.img = mlx_xpm_file_to_image(data->mlx,
-			param->tex_ea_path, &param->ea.x, &param->ea.y);
-	param->so.img = mlx_xpm_file_to_image(data->mlx,
-			param->tex_so_path, &param->so.x, &param->so.y);
-	if (!param->ea.img || !param->no.img
-		|| !param->so.img || !param->we.img)
+	param->no.tex.addr = mlx_get_data_addr(param->no.tex.img, \
+		&param->no.tex.bpp, &param->no.tex.line_len, &param->no.tex.endian);
+	param->we.tex.addr = mlx_get_data_addr(param->we.tex.img, \
+		&param->we.tex.bpp, &param->we.tex.line_len, &param->we.tex.endian);
+	param->ea.tex.addr = mlx_get_data_addr(param->ea.tex.img, \
+		&param->ea.tex.bpp, &param->ea.tex.line_len, &param->ea.tex.endian);
+	param->so.tex.addr = mlx_get_data_addr(param->so.tex.img, \
+		&param->so.tex.bpp, &param->so.tex.line_len, &param->so.tex.endian);
+	if (!param->ea.tex.addr || !param->no.tex.addr
+		|| !param->so.tex.addr || !param->we.tex.addr)
 	{
 		ft_putstr_fd("Init texture failed\n", 2);
 		exit_program(data, MLX_FAIL);
 	}
+}
+
+static void	init_textures(t_data *data, t_param *param)
+{
+	param->no.tex.img = mlx_xpm_file_to_image(data->mlx,
+			param->tex_no_path, &(param->no.x), &(param->no.y));
+	param->we.tex.img = mlx_xpm_file_to_image(data->mlx,
+			param->tex_we_path, &param->we.x, &param->we.y);
+	param->ea.tex.img = mlx_xpm_file_to_image(data->mlx,
+			param->tex_ea_path, &param->ea.x, &param->ea.y);
+	param->so.tex.img = mlx_xpm_file_to_image(data->mlx,
+			param->tex_so_path, &param->so.x, &param->so.y);
+	if (!param->ea.tex.img || !param->no.tex.img
+		|| !param->so.tex.img || !param->we.tex.img)
+	{
+		ft_putstr_fd("Init texture failed\n", 2);
+		exit_program(data, MLX_FAIL);
+	}
+	init_textures_detail(data, param);
 }
 
 static void	init_player_pos(char **map, t_player *player)

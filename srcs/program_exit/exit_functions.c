@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 14:27:59 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/27 19:33:40 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/28 12:18:28 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ void	exit_program(t_data *data, int exit_status)
 	if (data->param)
 	{
 		free_param(data->param);
-		if (data->param->no.img)
-			mlx_destroy_image(data->mlx, data->param->no.img);
-		if (data->param->so.img)
-			mlx_destroy_image(data->mlx, data->param->so.img);
-		if (data->param->we.img)
-			mlx_destroy_image(data->mlx, data->param->we.img);
-		if (data->param->ea.img)
-			mlx_destroy_image(data->mlx, data->param->ea.img);
+		if (data->param->no.tex.img)
+			mlx_destroy_image(data->mlx, data->param->no.tex.img);
+		if (data->param->so.tex.img)
+			mlx_destroy_image(data->mlx, data->param->so.tex.img);
+		if (data->param->we.tex.img)
+			mlx_destroy_image(data->mlx, data->param->we.tex.img);
+		if (data->param->ea.tex.img)
+			mlx_destroy_image(data->mlx, data->param->ea.tex.img);
 		if (data->frame.img)
 			mlx_destroy_image(data->mlx, data->frame.img);
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:12 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/27 19:35:33 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/28 12:24:23 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,20 @@ enum e_exit_codes {
 	NUMBER_OF_EXIT_CODES,
 };
 
+typedef struct img_data
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		line_len;
+	int		endian;
+}	t_img_data;
+
 typedef struct texture
 {
-	int		x;
-	int		y;
-	void	*img;
+	int			x;
+	int			y;
+	t_img_data	tex;
 }			t_texture;
 
 typedef struct s_param

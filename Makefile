@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: noufel <noufel@student.42.fr>              +#+  +:+       +#+         #
+#    By: twagner <twagner@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/01 15:32:48 by twagner           #+#    #+#              #
-#    Updated: 2022/01/27 18:54:07 by noufel           ###   ########.fr        #
+#    Updated: 2022/01/28 12:27:49 by twagner          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,8 @@ PROGRAM_EXIT_FILES = $(addprefix program_exit/, exit_functions.c \
 				free_resource.c)
 
 EXECUTION_FILES = $(addprefix execution/, draw_frame.c events.c \
-					game_initialisation.c raycaster.c movement_and_rotation.c)
+					game_initialisation.c raycaster.c movement_and_rotation.c \
+					texture.c)
 
 TMP_TEST_FILES = $(addprefix tmp_test_functions/, tmp_test_fun.c)
 

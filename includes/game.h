@@ -6,7 +6,7 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:43:25 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/28 10:56:29 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/28 12:24:14 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,6 @@
 # define SCREEN_HEIGHT 600
 
 typedef double	t_vector[2];
-
-typedef struct img_data
-{
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		line_len;
-	int		endian;
-}	t_img_data;
 
 typedef struct ray
 {
@@ -79,5 +70,6 @@ void		raycaster(t_data *data, t_player *player);
 void		display_frame(t_data *data);
 void		exit_program(t_data *data, int exit_status);
 int			handle_resize(int keyhook, t_data *data);
-t_texture	*get_texture(t_ray ray, t_data *data)
+t_texture	*get_texture(t_ray ray, t_data *data);
+
 #endif

@@ -6,9 +6,11 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 10:35:41 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/28 10:56:05 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/28 12:28:08 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "game.h"
 
 t_texture	*get_texture(t_ray ray, t_data *data)
 {
@@ -23,7 +25,8 @@ t_texture	*get_texture(t_ray ray, t_data *data)
 	{
 		if (ray.dir[X] >= 0)
 			return (&data->param->ea);
-		if (ray.dir[X] < 0)
+		else if (ray.dir[X] < 0)
 			return (&data->param->we);
 	}
+	return (NULL);
 }
