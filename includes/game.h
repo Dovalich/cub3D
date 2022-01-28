@@ -6,7 +6,7 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:43:25 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/28 22:13:11 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/28 22:49:09 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@
 
 # define SCREEN_WIDTH 800
 # define SCREEN_HEIGHT 600
+
+// Bonus management
+
+# ifdef BONUS
+#  define BONUS 1
+# else
+#  define BONUS 0
+# endif
 
 typedef double	t_vector[2];
 
@@ -77,8 +85,7 @@ typedef struct mlx_data
 int			capture_keyhook(int keyhook, t_data *data);
 int			capture_mouse_move(t_data *data);
 bool		move_player(int keyhook, t_data *data, t_player *player);
-void		rotate_player(int rotation, t_data *data, t_player *player, \
-				double rot_speed);
+void		rotate_player(int rotation, t_data *data, t_player *player);
 int			close_win(t_data *data);
 void		game_init(t_data *data, t_param *param);
 void		draw_line(t_data *data, t_img_data *frame, int x, t_ray ray);

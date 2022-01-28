@@ -6,7 +6,7 @@
 #    By: twagner <twagner@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/01 15:32:48 by twagner           #+#    #+#              #
-#    Updated: 2022/01/28 12:27:49 by twagner          ###   ########.fr        #
+#    Updated: 2022/01/28 22:47:00 by twagner          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,6 +85,7 @@ LMLXDIR		= minilibx-linux/
 ################################################################################
 CFLAGS		:= -Wall -Wextra -Werror
 LFTFLAGS	:= -L. -lft
+BONUSFLAGS	:=
 DEBUG		:= false
 
 ifeq ($(DEBUG), true)
@@ -108,7 +109,7 @@ endif
 
 
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADERS)
-			@$(CC) -I$(HEADERS) -I$(LFTDIR) -I$(LMLXDIR) -c $(CFLAGS) -o $@ $< 
+			@$(CC) -I$(HEADERS) -I$(LFTDIR) -I$(LMLXDIR) -c $(CFLAGS) $(BONUSFLAGS) -o $@ $< 
 
 $(NAME):	$(OBJS) $(LMLX) $(LFT)
 			@printf  "$(BLUE)Creating $(RESET) $(YELLOW)[$(NAME)]$(RESET)" 
@@ -130,6 +131,9 @@ fclean:		clean
 			@printf "$(BLUE)Cleaning $(RESET) $(YELLOW)[executable(s)]$(RESET)"
 			@$(RM) $(NAME)
 			@echo " : $(GREEN)OK !$(RESET)"
+
+bonus:		BONUSFLAGS += -DBONUS
+bonus:		$(NAME)
 
 re:			fclean all
 

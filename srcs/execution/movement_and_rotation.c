@@ -6,21 +6,20 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 20:14:35 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/28 18:54:58 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/28 22:48:55 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 #include "game_control.h"
 
-void	rotate_player(\
-	int rotation, t_data *data, t_player *player, double rot_speed)
+void	rotate_player(int rotation, t_data *data, t_player *player)
 {
 	t_vector	old_plane;
 	t_vector	old_dir;
 	double		rt;
 
-	rt = ROT_SPEED * rot_speed;
+	rt = ROT_SPEED;
 	if (rotation == ROTATE_LEFT)
 	{
 		old_dir[X] = player->dir[X];
@@ -90,6 +89,11 @@ bool	move_player(int keyhook, t_data *data, t_player *player)
 	double	new_x;
 	double	new_y;
 
+	if (!BONUS && (keyhook == ROTATE_LEFT || keyhook == ROTATE_RIGHT))
+	{
+		rotate_player(keyhook, data, player);
+		return (true);
+	}
 	get_new_position(&new_x, &new_y, keyhook, data);
 	if (is_collision(data, keyhook, new_x, new_y) == false)
 	{

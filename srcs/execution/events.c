@@ -6,7 +6,7 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 18:29:15 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/28 21:55:13 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/28 22:49:16 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	capture_mouse_move(t_data *data)
 	}
 	if (rotate)
 	{
-		rotate_player(rotate, data, &data->player, 1);
+		rotate_player(rotate, data, &data->player);
 		display_frame(data);
 		mlx_mouse_move(\
 			data->mlx, data->win, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
