@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 18:29:15 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/27 19:15:19 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/28 09:29:13 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
-#include "game_controle.h"
+#include "game_control.h"
 
 static bool	movement_key_pressed(int keyhook)
 {

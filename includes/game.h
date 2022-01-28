@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:43:25 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/27 21:59:10 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/28 10:56:29 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,14 @@ typedef struct mlx_data
 	t_img_data	frame;
 }					t_data;
 
-int		capture_keyhook(int keyhook, t_data *data);
-bool	move_player(int keyhook, t_data *data, t_player *player);
-int		close_win(t_data *data);
-void	game_init(t_data *data, t_param *param);
-void	draw_line(t_data *data, t_img_data *frame, int x, t_ray ray);
-void	raycaster(t_data *data, t_player *player);
-void	display_frame(t_data *data);
-void	exit_program(t_data *data, int exit_status);
-int		handle_resize(int keyhook, t_data *data);
+int			capture_keyhook(int keyhook, t_data *data);
+bool		move_player(int keyhook, t_data *data, t_player *player);
+int			close_win(t_data *data);
+void		game_init(t_data *data, t_param *param);
+void		draw_line(t_data *data, t_img_data *frame, int x, t_ray ray);
+void		raycaster(t_data *data, t_player *player);
+void		display_frame(t_data *data);
+void		exit_program(t_data *data, int exit_status);
+int			handle_resize(int keyhook, t_data *data);
+t_texture	*get_texture(t_ray ray, t_data *data)
 #endif

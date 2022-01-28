@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   movement_and_rotation.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 20:14:35 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/27 19:26:40 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/28 09:29:25 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
-#include "game_controle.h"
+#include "game_control.h"
 
 static void	rotate_player(int rotation, t_data *data, t_player *player)
 {
@@ -93,7 +93,7 @@ static void	update_collision_offset(int move, double *new_x,
 	}
 }
 
-static bool	is_colision(t_data *data, int move, double new_x, double new_y)
+static bool	is_collision(t_data *data, int move, double new_x, double new_y)
 {
 	double	w;
 	double	h;
@@ -125,7 +125,7 @@ bool	move_player(int keyhook, t_data *data, t_player *player)
 		return (true);
 	}
 	get_new_position(&new_x, &new_y, keyhook, data);
-	if (is_colision(data, keyhook, new_x, new_y) == false)
+	if (is_collision(data, keyhook, new_x, new_y) == false)
 	{
 		player->pos[X] = new_x;
 		player->pos[Y] = new_y;
