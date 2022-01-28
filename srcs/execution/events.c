@@ -6,7 +6,7 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 18:29:15 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/28 18:55:26 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/28 21:39:17 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,31 +42,29 @@ int	capture_keyhook(int keyhook, t_data *data)
 	return (SUCCESS);
 }
 
-int	capture_mousehook(int mouse_x, int mouse_y, t_data *data)
+int	capture_mouse_move(t_data *data)
 {
-	static int	mouse_old_x = SCREEN_WIDTH / 2;
-	int			direction;
-	int			rot_speed;
-	
-	(void)mouse_y;
-	direction = 0;
-	rot_speed = 1;
-	if (mouse_x - mouse_old_x > 0)
+	int	rotate;
+
+	rotate = 0;
+	mlx_mouse_get_pos(data->mlx, data->win, &data->mouse_x, &data->mouse_y);
+	if (data->mouse_x > SCREEN_WIDTH / 2)
 	{
-		direction = ROTATE_RIGHT;
+		rotate = ROTATE_RIGHT;
 	}
-	else if (mouse_x - mouse_old_x < 0)
+	else if (data->mouse_x < SCREEN_WIDTH / 2)
 	{
-		direction = ROTATE_LEFT;
+		rotate = ROTATE_LEFT;
 	}
-	if (direction)
+	if (rotate)
 	{
-		rotate_player(direction, data, &data->player, rot_speed);
+		rotate_player(rotate, data, &data->player, 1);
 		display_frame(data);
+		mlx_mouse_move(data->mlx, data->win, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 	}
-	mouse_old_x = mouse_x;
 	return (SUCCESS);
 }
+
 
 int	handle_resize(int keyhook, t_data *data)
 {

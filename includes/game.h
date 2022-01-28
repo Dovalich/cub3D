@@ -6,7 +6,7 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:43:25 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/28 18:54:53 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/28 21:28:34 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,14 @@ typedef struct mlx_data
 	int			draw_start;
 	int			draw_end;
 	int			color;
+	int			mouse_x;
+	int			mouse_y;
 	t_vector	plane;
 	t_img_data	frame;
 }					t_data;
 
 int			capture_keyhook(int keyhook, t_data *data);
-int			capture_mousehook(int mouse_x, int mouse_y, t_data *data);
+int			capture_mouse_move(t_data *data);
 bool		move_player(int keyhook, t_data *data, t_player *player);
 void		rotate_player(int rotation, t_data *data, t_player *player, \
 				double rot_speed);
