@@ -6,7 +6,7 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 20:14:35 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/28 16:07:22 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/28 18:03:34 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	rotate_player(int rotation, t_data *data, t_player *player)
 	double		rt;
 
 	rt = ROT_SPEED;
+	printf("rotation : %i, player : %p, dir : %p\n", rotation, player, player->dir);
 	if (rotation == ROTATE_LEFT)
 	{
 		old_dir[X] = player->dir[X];

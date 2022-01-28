@@ -6,7 +6,7 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:43:25 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/28 16:32:36 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/28 17:40:29 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct mlx_data
 }					t_data;
 
 int			capture_keyhook(int keyhook, t_data *data);
+int			capture_mousehook(int mousehook, t_data *data);
 bool		move_player(int keyhook, t_data *data, t_player *player);
 int			close_win(t_data *data);
 void		game_init(t_data *data, t_param *param);

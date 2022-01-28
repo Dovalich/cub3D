@@ -6,7 +6,7 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 18:29:15 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/28 09:29:13 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/28 18:19:57 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,26 @@ int	capture_keyhook(int keyhook, t_data *data)
 	{
 		exit_program(data, KILL_PROGRAM);
 	}
+	return (SUCCESS);
+}
+
+int	capture_mousehook(int mousehook, t_data *data)
+{
+	static int	mouse_pos = SCREEN_WIDTH / 2;
+	int			rotate;
+	
+	rotate = 0;
+	if (mousehook - mouse_pos > 0)
+	{
+		rotate = ROTATE_RIGHT;
+	}
+	else if (mousehook - mouse_pos < 0)
+	{
+		rotate = ROTATE_LEFT;
+	}
+	if (rotate && move_player(rotate, data, &data->player))
+		display_frame(data);
+	mouse_pos = mousehook;
 	return (SUCCESS);
 }
 
