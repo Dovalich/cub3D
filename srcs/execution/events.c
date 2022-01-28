@@ -6,7 +6,7 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 18:29:15 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/28 18:19:57 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/28 18:55:26 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,29 @@ int	capture_keyhook(int keyhook, t_data *data)
 	return (SUCCESS);
 }
 
-int	capture_mousehook(int mousehook, t_data *data)
+int	capture_mousehook(int mouse_x, int mouse_y, t_data *data)
 {
-	static int	mouse_pos = SCREEN_WIDTH / 2;
-	int			rotate;
+	static int	mouse_old_x = SCREEN_WIDTH / 2;
+	int			direction;
+	int			rot_speed;
 	
-	rotate = 0;
-	if (mousehook - mouse_pos > 0)
+	(void)mouse_y;
+	direction = 0;
+	rot_speed = 1;
+	if (mouse_x - mouse_old_x > 0)
 	{
-		rotate = ROTATE_RIGHT;
+		direction = ROTATE_RIGHT;
 	}
-	else if (mousehook - mouse_pos < 0)
+	else if (mouse_x - mouse_old_x < 0)
 	{
-		rotate = ROTATE_LEFT;
+		direction = ROTATE_LEFT;
 	}
-	if (rotate && move_player(rotate, data, &data->player))
+	if (direction)
+	{
+		rotate_player(direction, data, &data->player, rot_speed);
 		display_frame(data);
-	mouse_pos = mousehook;
+	}
+	mouse_old_x = mouse_x;
 	return (SUCCESS);
 }
 
