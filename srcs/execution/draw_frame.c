@@ -6,13 +6,13 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 14:32:14 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/28 13:26:52 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/28 14:58:46 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "game.h"
 
-void	ft_img_pixel_put(t_img_data *img, int x, int y, int pix)
+void	ft_img_pixel_put(t_img_data *img, int x, int y, unsigned int pix)
 {
 	char	*dst;
 
