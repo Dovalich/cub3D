@@ -6,7 +6,7 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 20:14:35 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/28 09:29:25 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/28 16:07:22 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,44 +68,14 @@ static void	get_new_position(double *new_x, double *new_y, int move,
 	}
 }
 
-static void	update_collision_offset(int move, double *new_x,
-								double *new_y, t_data *data)
-{
-	if (move == MOVE_FORWARD)
-	{
-		*new_x += data->player.dir[X];
-		*new_y += data->player.dir[Y];
-	}
-	else if (move == MOVE_RIGHT)
-	{
-		*new_x += data->plane[X];
-		*new_y += data->plane[Y];
-	}
-	else if (move == MOVE_BACK)
-	{
-		*new_x -= data->player.dir[X];
-		*new_y -= data->player.dir[Y];
-	}
-	else if (move == MOVE_LEFT)
-	{
-		*new_x -= data->plane[X];
-		*new_y -= data->plane[Y];
-	}
-}
-
 static bool	is_collision(t_data *data, int move, double new_x, double new_y)
 {
 	double	w;
 	double	h;
 
+	(void)move;
 	w = data->param->width;
 	h = data->param->height;
-	if (!(new_x < w && new_y < h && new_x >= 0 && new_y >= 0
-			&& data->param->map[(int)(new_y)][(int)(new_x)] != '1'))
-	{
-		return (true);
-	}
-	update_collision_offset(move, &new_x, &new_y, data);
 	if (!(new_x < w && new_y < h && new_x >= 0 && new_y >= 0
 			&& data->param->map[(int)(new_y)][(int)(new_x)] != '1'))
 	{

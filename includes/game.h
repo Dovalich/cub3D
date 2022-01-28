@@ -6,7 +6,7 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:43:25 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/28 14:58:58 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/28 16:32:36 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct ray
 	double		perp_wall_dist;
 	int			step_x;
 	int			step_y;
+	int			real_line_h;
 	int			side;
 	double		wall_x;
 }				t_ray;

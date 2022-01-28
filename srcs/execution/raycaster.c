@@ -6,7 +6,7 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:40:52 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/28 13:15:27 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/28 16:35:34 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ static void	calculate_line_height(t_data *data, t_ray *ray)
 
 	line_height = (int)(SCREEN_HEIGHT / ray->perp_wall_dist);
 	data->draw_start = -1 * line_height / 2 + (SCREEN_HEIGHT) / 2;
+	data->draw_end = SCREEN_HEIGHT / 2 + line_height / 2;
+	ray->real_line_h = data->draw_end - data->draw_start;
 	if (data->draw_start < 0)
 		data->draw_start = 0;
-	data->draw_end = SCREEN_HEIGHT / 2 + line_height / 2;
-	if (data->draw_end < 0)
+	if (data->draw_end > SCREEN_HEIGHT)
 		data->draw_end = SCREEN_HEIGHT - 1;
 }
 
