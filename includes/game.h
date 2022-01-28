@@ -6,7 +6,7 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:43:25 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/28 21:28:34 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/28 22:13:11 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct	s_texel
 	t_texture		*texture;
 	int				tex_x;
 	int				tex_y;
-	unsigned int	color;
+	int				color;
 	double			tex_pos;
 }	t_texel;
 
@@ -88,7 +88,7 @@ void		exit_program(t_data *data, int exit_status);
 int			handle_resize(int keyhook, t_data *data);
 t_texture	*get_texture(t_ray ray, t_data *data);
 int			get_texture_column(t_texture *texture, t_ray *ray);
-void		ft_img_pixel_put(t_img_data *img, int x, int y, unsigned int pix);
+void		ft_img_pixel_put(t_img_data *img, int x, int y, int pix);
 void		draw_texel(t_img_data *frame, t_texel *texel, int x, int y);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 13:27:13 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/28 21:39:55 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/28 21:51:08 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define MOVE_BACK 115
 */
 # define KILL_PROGRAM 65307
-# define ROT_SPEED 0.04
+# define ROT_SPEED 0.03
 # define MOVE_SPEED 0.15
 
 # define MOVE_FORWARD 122
