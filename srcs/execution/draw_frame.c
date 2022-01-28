@@ -6,7 +6,7 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 14:32:14 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/28 13:21:46 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/28 13:26:52 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	draw_line(t_data *data, t_img_data *frame, int x, t_ray ray)
 		line_h = (int)BIG_VALUE;
 	else
 		line_h = data->draw_start - data->draw_end;
-	step = texel.texture->y / line_h;
+	step = 1.0 * texel.texture->y / line_h;
 	texel.tex_pos = (data->draw_start - SCREEN_HEIGHT / 2 + line_h / 2) * step;
 	while (y < data->draw_end && y < SCREEN_WIDTH)
 	{	
