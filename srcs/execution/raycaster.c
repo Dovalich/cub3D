@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:40:52 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/27 21:58:29 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/28 13:15:27 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,11 @@ static void	dda(t_data *data, t_ray *ray, t_player *player)
 		ray->perp_wall_dist = ray->side_dist[X] - ray->delta_dist[X];
 	else
 		ray->perp_wall_dist = ray->side_dist[Y] - ray->delta_dist[Y];
+	if (ray->side == 0)
+		ray->wall_x = data->player.pos[Y] + ray->perp_wall_dist * ray->dir[Y];
+	else
+		ray->wall_x = data->player.pos[X] + ray->perp_wall_dist * ray->dir[X];
+	ray->wall_x -= floor(ray->wall_x);
 }
 
 void	raycaster(t_data *data, t_player *player)
