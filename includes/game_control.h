@@ -6,7 +6,7 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 13:27:13 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/28 21:51:08 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/29 09:28:07 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,14 @@
 
 # define ROTATE_LEFT 65361
 # define ROTATE_RIGHT 65363
-/*
+
 # define MOVE_FORWARD 119
 # define MOVE_RIGHT 100
 # define MOVE_LEFT 97
 # define MOVE_BACK 115
-*/
+
 # define KILL_PROGRAM 65307
 # define ROT_SPEED 0.03
 # define MOVE_SPEED 0.15
-
-# define MOVE_FORWARD 122
-# define MOVE_RIGHT 100
-# define MOVE_LEFT 113
-# define MOVE_BACK 115
 
 #endif
