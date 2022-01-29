@@ -6,7 +6,7 @@
 #    By: twagner <twagner@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/01 15:32:48 by twagner           #+#    #+#              #
-#    Updated: 2022/01/29 11:01:55 by twagner          ###   ########.fr        #
+#    Updated: 2022/01/29 11:03:59 by twagner          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -99,10 +99,9 @@ endif
 ifeq ($(OS), Linux)
 	LMLXFLAGS	:= -L. -lmlx_Linux -L/usr/lib -lXext -lX11 -lm
 else
-	LMLXFLAGS	:= -framework OpenGL -framework AppKit
+	LMLXFLAGS	:= -lmlx -framework OpenGL -framework AppKit
 endif
 
-#LMLXFLAGS	:= -lmlx -framework OpenGL -framework AppKit
 ################################################################################
 #                                    RULES                                     #
 ################################################################################
