@@ -6,7 +6,7 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 20:13:31 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/29 09:40:29 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/29 10:18:09 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,29 @@ static void	init_textures(t_data *data, t_param *param)
 	init_textures_detail(data, param);
 }
 
-static void	init_player_pos(char **map, t_player *player)
+static void	init_rotate_player(t_data *data, t_player *player, char direction)
+{
+	t_vector	init_plane;
+	t_vector	init_dir;
+	double		rt;
+
+	if (direction == 'N')
+		rt = (M_PI / 2);
+	if (direction == 'S')
+		rt = (3 * M_PI) / 2;
+	if (direction == 'E')
+		rt = 0;
+	if (direction == 'W')
+		rt = M_PI;
+	init_dir[X] = player->dir[X];
+	player->dir[X] = player->dir[X] * cos(-rt) - player->dir[Y] * sin(-rt);
+	player->dir[Y] = init_dir[X] * sin(-rt) + player->dir[Y] * cos(-rt);
+	init_plane[X] = data->plane[X];
+	data->plane[X] = data->plane[X] * cos(-rt) - data->plane[Y] * sin(-rt);
+	data->plane[Y] = init_plane[X] * sin(-rt) + data->plane[Y] * cos(-rt);
+}
+
+static void	init_player_pos(char **map, t_player *player, char *direction)
 {
 	int	x;
 	int	y;
@@ -64,6 +86,7 @@ static void	init_player_pos(char **map, t_player *player)
 			{
 				player->pos[X] = x + 0.5;
 				player->pos[Y] = y + 0.5;
+				*direction = map[y][x];
 				return ;
 			}
 			++x;
@@ -74,6 +97,8 @@ static void	init_player_pos(char **map, t_player *player)
 
 void	game_init(t_data *data, t_param *param)
 {
+	char	direction;
+
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		exit_clean(MLX_FAIL, 0, NULL, param);
@@ -89,6 +114,7 @@ void	game_init(t_data *data, t_param *param)
 	data->plane[Y] = 0.66;
 	data->player.dir[X] = 1;
 	data->player.dir[Y] = 0;
-	init_player_pos(param->map, &data->player);
+	init_player_pos(param->map, &data->player, &direction);
+	init_rotate_player(data, &data->player, direction);
 	init_textures(data, param);
 }
