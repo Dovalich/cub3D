@@ -6,7 +6,7 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/23 14:27:59 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/28 22:28:00 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/29 09:32:56 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	exit_clean(int error_msg, int fd, char **to_free, t_param *param)
 {
 	char	*tab[NUMBER_OF_EXIT_CODES];
 
+	tab[ARG_ERROR] = "Wrong number of arguments.\n";
+	tab[ENV_ERROR] = "Something's wrong with the environment.\n";
 	tab[MAP_ERROR] = "Something's wrong in the map.\n";
 	tab[PARAM_ERROR] = "Something's wrong with the parameters.\n";
 	tab[FILE_ERROR] = "The file doesn't seem to be working.\n";

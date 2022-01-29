@@ -1,5 +1,17 @@
-# include "game.h"
-# include "parsing.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tmp_test_fun.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/29 09:38:08 by twagner           #+#    #+#             */
+/*   Updated: 2022/01/29 09:38:33 by twagner          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "game.h"
+#include "parsing.h"
 
 void	print_map(t_param *param)
 {
@@ -21,7 +33,7 @@ void	print_param(t_param *param)
 	printf("This is texture EA |%s|\n", param->tex_ea_path);
 	printf("This is col_ceiling R |%d|\n", param->col_ceiling & 0xFF);
 	printf("This is col_ceiling G |%d|\n", (param->col_ceiling >> 8) & 0xFF);
-	printf("This is col_celing B|%d|\n", (param->col_ceiling >> 16)& 0xFF);
+	printf("This is col_celing B|%d|\n", (param->col_ceiling >> 16) & 0xFF);
 	printf("This is col_floor R |%d|\n", param->col_floor & 0xFF);
 	printf("This is col_floor G |%d|\n", (param->col_floor >> 8) & 0xFF);
 	printf("This is col_floor B |%d|\n", (param->col_floor >> 16) & 0xFF);

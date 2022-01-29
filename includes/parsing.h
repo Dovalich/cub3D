@@ -6,7 +6,7 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:12 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/28 12:24:23 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/29 09:31:54 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ enum e_parameter_bit_codes {
 
 enum e_exit_codes {
 	SUCCESS = 0,
+	ARG_ERROR,
+	ENV_ERROR,
 	MAP_ERROR,
 	PARAM_ERROR,
 	FILE_ERROR,

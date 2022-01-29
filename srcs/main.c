@@ -6,7 +6,7 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 09:35:47 by twagner           #+#    #+#             */
-/*   Updated: 2022/01/28 22:44:42 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/29 09:35:24 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ int	main(int ac, char **av, char **envp)
 	t_param	param;
 	t_data	data;
 
-	if (ac != 2 || !envp || !*envp)
-		return (ERROR);
+	if (ac != 2)
+		exit_clean(ARG_ERROR, 0, NULL, NULL);
+	if (!envp || !*envp)
+		exit_clean(ENV_ERROR, 0, NULL, NULL);
 	ft_bzero(&param, sizeof(param));
 	ft_bzero(&data, sizeof(data));
 	cub_file_parser(av, &param);

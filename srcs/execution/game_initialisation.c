@@ -6,7 +6,7 @@
 /*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 20:13:31 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/28 12:17:13 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/29 09:40:29 by twagner          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ static void	init_player_pos(char **map, t_player *player)
 		{
 			if (ft_strchr(PLAYER_CHAR, map[y][x]) != NULL)
 			{
-				player->pos[X] = x;
-				player->pos[Y] = y;
+				player->pos[X] = x + 0.5;
+				player->pos[Y] = y + 0.5;
 				return ;
 			}
 			++x;
