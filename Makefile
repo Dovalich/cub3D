@@ -6,7 +6,7 @@
 #    By: twagner <twagner@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/01 15:32:48 by twagner           #+#    #+#              #
-#    Updated: 2022/01/28 22:47:00 by twagner          ###   ########.fr        #
+#    Updated: 2022/01/29 11:01:55 by twagner          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,6 @@ AR			= ar rcs
 ################################################################################
 #                                 SOURCES                                      #
 ################################################################################
-
 SRCS_DIR = srcs/
 OBJS_DIR = objs/
 
@@ -61,6 +60,7 @@ SRCS = $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 OBJS_FILES		= $(SRCS_FILES:.c=.o)
 OBJS			= $(addprefix $(OBJS_DIR), $(OBJS_FILES))
 OBJS_SUB_DIRS = $(addprefix objs/, parser program_exit execution tmp_test_functions)
+
 ################################################################################
 #                           EXECUTABLES & LIBRARIES                            #
 ################################################################################
@@ -106,21 +106,21 @@ endif
 ################################################################################
 #                                    RULES                                     #
 ################################################################################
-
-
 $(OBJS_DIR)%.o: $(SRCS_DIR)%.c $(HEADERS)
 			@$(CC) -I$(HEADERS) -I$(LFTDIR) -I$(LMLXDIR) -c $(CFLAGS) $(BONUSFLAGS) -o $@ $< 
 
-$(NAME):	$(OBJS) $(LMLX) $(LFT)
+$(NAME):	$(OBJS_DIR) $(OBJS) $(LMLX) $(LFT)
 			@printf  "$(BLUE)Creating $(RESET) $(YELLOW)[$(NAME)]$(RESET)" 
 			@$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -I$(HEADERS) -I$(LMLXDIR) $(LMLXFLAGS) $(LFTFLAGS)
 			@echo " : $(GREEN)OK !$(RESET)"
 
 all:		$(NAME)
 
-OBJ_MK:		
-			mkdir $(OBJS_DIR)
-			mkdir $(OBJS_SUB_DIRS)
+$(OBJS_DIR):
+			@printf "$(BLUE)Creating $(RESET) $(YELLOW)[$(OBJS_DIR)]$(RESET)"	
+			@mkdir $(OBJS_DIR)
+			@mkdir $(OBJS_SUB_DIRS)
+			@echo " : $(GREEN)OK !$(RESET)"
 
 clean:
 			@printf "$(BLUE)Cleaning $(RESET) $(YELLOW)[objects & libraries]$(RESET)"
@@ -130,6 +130,9 @@ clean:
 fclean:		clean
 			@printf "$(BLUE)Cleaning $(RESET) $(YELLOW)[executable(s)]$(RESET)"
 			@$(RM) $(NAME)
+			@echo " : $(GREEN)OK !$(RESET)"
+			@printf "$(BLUE)Removing $(RESET) $(YELLOW)[$(OBJS_DIR)]$(RESET)"
+			@$(RM) $(OBJS_DIR)
 			@echo " : $(GREEN)OK !$(RESET)"
 
 bonus:		BONUSFLAGS += -DBONUS
