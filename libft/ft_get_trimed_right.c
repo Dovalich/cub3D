@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_trimed_right.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noufel <noufel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/24 11:15:11 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/24 11:28:42 by noufel           ###   ########.fr       */
+/*   Updated: 2022/01/31 17:24:19 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "libft.h"
+#include "libft.h"
 
 char	*ft_get_trimed_right(char *str)
 {

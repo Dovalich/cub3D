@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   game_control.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/27 13:27:13 by noufel            #+#    #+#             */
-/*   Updated: 2022/01/29 09:28:07 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/31 17:24:01 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GAME_CONTROL_H
-#define GAME_CONTROL_H
+# define GAME_CONTROL_H
 
 # define ROTATE_LEFT 65361
 # define ROTATE_RIGHT 65363

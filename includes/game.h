@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: twagner <twagner@student.42.fr>            +#+  +:+       +#+        */
+/*   By: nammari <nammari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 09:43:25 by nammari           #+#    #+#             */
-/*   Updated: 2022/01/28 22:49:09 by twagner          ###   ########.fr       */
+/*   Updated: 2022/01/31 17:23:55 by nammari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,9 @@
 # define SCREEN_WIDTH 800
 # define SCREEN_HEIGHT 600
 
-// Bonus management
-
-# ifdef BONUS
-#  define BONUS 1
-# else
-#  define BONUS 0
-# endif
-
 typedef double	t_vector[2];
 
-typedef struct	s_texel
+typedef struct s_texel
 {
 	t_texture		*texture;
 	int				tex_x;
